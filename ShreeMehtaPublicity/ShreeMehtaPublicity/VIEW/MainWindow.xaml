@@ -1,0 +1,46 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:child="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:ShreeMehtaPublicity.VIEW"
+        xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:VIEWMODEL="clr-namespace:ShreeMehtaPublicity.VIEWMODEL" 
+        x:Class="ShreeMehtaPublicity.VIEW.MainWindow"
+        Title="Mehta Publicity : Sites Management" 
+        Height="{DynamicResource {x:Static SystemParameters.PrimaryScreenHeightKey}}" 
+        Width="{DynamicResource {x:Static SystemParameters.PrimaryScreenWidthKey}}" 
+        WindowState="Maximized" ResizeMode="NoResize" Closing="onClosing" WindowStyle="None" Focusable="False"
+        IsTabStop="False" Name="mainWindow" TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
+        TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="{StaticResource WindowTitleColorBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Background="Transparent">
+            <TextBlock Text="Shree Mehta Publicity" Style="{StaticResource MainWindowTitle}"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Click="Close_Click" Style="{StaticResource MainCloseButton}">
+                <material:PackIcon Kind="Power" Height="20" Width="20"/>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom" Margin="10 0 0 0" Background="Transparent">
+            <Button Uid="0" Content="Site" Style="{StaticResource MenuButton}" Click="MenuItemClick" IsTabStop="False"/>
+            <Button Uid="1" Content="Client" Style="{StaticResource MenuButton}" Click="MenuItemClick" IsTabStop="False"/>
+            <Button Uid="2" Content="Order" Style="{StaticResource MenuButton}" Click="MenuItemClick" IsTabStop="False"/>
+        </StackPanel>
+        
+        <Grid Name="MenuUnderline" Grid.Row="1" VerticalAlignment="Bottom" Background="White" Height="5" Width="150" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+
+        <Grid Name="menuItem_grid" Grid.Row="2" Margin="0 10 0 0" Background="White"/>
+    </Grid>
+</Window>

@@ -1,0 +1,213 @@
+﻿<UserControl x:Class="ShreeMehtaPublicity.VIEW.SiteMgmtView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d"
+	         xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
+             Name="SiteMgmtWindow"
+             Focusable="False"
+             IsTabStop="False" d:DesignWidth="1366" d:DesignHeight="768"
+             Background="Transparent"
+             TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal" TextElement.FontSize="13" TextElement.FontWeight="Regular" 
+             FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}" >
+
+    <UserControl.Resources>
+        <utility:NoListVisibilityConvertor x:Key="NoListVisible"/>
+        <utility:AmountValidator x:Key="AmountValidator"/>
+        <utility:StatusConvertor x:Key="StatusConverter"/>
+    </UserControl.Resources>
+
+    <Grid Margin="0 10 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="AUTO"/>
+        </Grid.RowDefinitions>
+
+        <Border Name="ListBorder" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource FilterBorder}">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="AUTO"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="AUTO"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Filter" Style="{StaticResource FilterLabel}" IsTabStop="False"/>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBox Grid.Row="0" Name="SiteName" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Name" material:HintAssist.IsFloating="True" TabIndex="0"/>
+
+                            <TextBox Grid.Row="1" Name="SiteAddress" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Name" material:HintAssist.IsFloating="True" TabIndex="1"/>
+
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox Grid.Column="0" Name="SiteHeight" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Height" material:HintAssist.IsFloating="True" TabIndex="2"/>
+
+                                <TextBox Grid.Column="1" Name="SiteWidth" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Width" material:HintAssist.IsFloating="True" TabIndex="3"/>
+                            </Grid>
+
+                            <TextBox Grid.Row="3" Name="SiteAmount" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Amount (Rs.)" material:HintAssist.IsFloating="True" TabIndex="4"/>
+
+                            <ComboBox Grid.Row="4" x:Name="SiteStatusComboBox" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding ListofStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=fSelectedStatus , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTextSearchEnabled="True"  material:HintAssist.Hint="Status" material:HintAssist.IsFloating="True" TabIndex="5"/>
+
+                            <Label Grid.Row="5" Content="Availability of Sites :" IsTabStop="False"/>
+
+                            <DatePicker Grid.Row="6" Name="StartDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding fStartDate, Mode=TwoWay}" DisplayDate="{Binding DisplayStartDate, Mode=TwoWay}" FirstDayOfWeek="Monday" IsTabStop="True" material:HintAssist.Hint="Start Date" material:HintAssist.IsFloating="True" TabIndex="6">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedDateChanged">
+                                        <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DatePicker>
+
+                            <DatePicker Grid.Row="7" x:Name="EndDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding fEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayDate="{Binding DisplayEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FirstDayOfWeek="Monday" DisplayDateStart="{Binding ElementName=StartDate, Path=SelectedDate}" IsEnabled="{Binding EndDateEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsTabStop="True" material:HintAssist.Hint="End Date" material:HintAssist.IsFloating="True" TabIndex="7"/>
+
+                            <Grid Grid.Row="8" Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="Search" Grid.Column="0" Content="Search" Command="{Binding SearchCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0,10,0" TabIndex="8">
+                                    <Button.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding SearchCommand}"/>
+                                    </Button.InputBindings>
+                                </Button>
+                                <Button x:Name="Reset" Grid.Column="1" Content="Reset" Command="{Binding ResetCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0,10,0" TabIndex="9">
+                                    <Button.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding ResetCommand}"/>
+                                    </Button.InputBindings>
+                                </Button>
+                            </Grid>
+                        </Grid>
+
+                        <Border Grid.Row="2">
+                            <Grid HorizontalAlignment="Stretch" Margin="20 0 20 20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Button x:Name="Add" Grid.Row="0" Content="Add Site" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Add_Site" IsTabStop="False"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <ListView Name="SiteList" Grid.Column="1" ItemsSource="{Binding ListofSites, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Stretch">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                                       ItemWidth="{Binding (ListView.View).ItemWidth, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                       MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
+                                       ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <material:Card UniformCornerRadius="5" material:ShadowAssist.Darken="True" Width="350">
+                                <Grid Margin="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="AUTO"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="AUTO"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" VerticalAlignment="Top" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=SiteSeqNum, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}" VerticalAlignment="Center"/>
+                                        <TextBlock Text=":" Margin="5 0 5 0" Style="{StaticResource ListTextBlockStyle}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Path=SiteName, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </StackPanel>
+                                
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="AUTO"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Stretch="UniformToFill" Height="150" Width="120" Margin="10"/>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                <TextBlock Text="Amount (Rs.) : " Style="{StaticResource ListTextBlockStyle}" />
+                                                <TextBlock Text="{Binding Path=SiteAmount, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                <TextBlock Text="Height : " Style="{StaticResource ListTextBlockStyle}" />
+                                                <TextBlock Text="{Binding Path=SiteHeight, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
+                                                <TextBlock Text="Width : " Margin="15 0 0 0" Style="{StaticResource ListTextBlockStyle}"/>
+                                                <TextBlock Text="{Binding Path=SiteWidth, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="AUTO"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="Address : " Style="{StaticResource ListTextBlockStyle}" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding Path=SiteAddress, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
+                                                </Grid>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="2">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Button x:Name="Mdfy" Click="Mdfy_Site" Style="{StaticResource ListButtonStyle}" ToolTip="Edit" ToolTipService.ShowDuration="1500" IsTabStop="False">
+                                                <material:PackIcon Kind="Pencil" Style="{StaticResource ListButtonIconStle}" IsEnabled="True"/>
+                                            </Button>
+                                            <Button x:Name="View" Click="View_Site" Style="{StaticResource ListButtonStyle}" ToolTip="View" ToolTipService.ShowDuration="1500" IsTabStop="False">
+                                                <material:PackIcon Kind="Eye" Style="{StaticResource ListButtonIconStle}" IsEnabled="True"/>
+                                            </Button>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 5 0">
+                                            <ToggleButton Name="switch" Style="{StaticResource ListStatusToggleStyle}" IsChecked="{Binding SiteStatus, Converter={StaticResource StatusConverter}, Mode=OneWay}" Click="switch_Click" IsTabStop="False"/>
+                                            <TextBlock Text="{Binding SiteStatus, Mode=OneWay}" >
+                                                <TextBlock.Style>
+                                                    <Style BasedOn="{StaticResource ListStatusToggleTextStyle}" TargetType="{x:Type TextBlock}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsChecked, ElementName=switch}" Value="true">
+                                                                <Setter Property="Foreground" Value="{StaticResource WindowTitleColorBrush}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsChecked, ElementName=switch}" Value="false">
+                                                                <Setter Property="Foreground" Value="LightGray"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </material:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Border Grid.Column="1" Visibility="{Binding ListofSites.Count, Converter={StaticResource NoListVisible}, UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBlock Text="No Sites are Present" Style="{StaticResource NoListViewText}"/>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,193 @@
+﻿<UserControl x:Class="ShreeMehtaPublicity.VIEW.ClientMgmtView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+	         xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
+             Name="ClientMgmtWindow" Focusable="False" IsTabStop="False" 
+             d:DesignWidth="1366" d:DesignHeight="768" Background="White"
+             TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal" TextElement.FontSize="13" TextElement.FontWeight="Regular" 
+             FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}" >
+
+    <UserControl.Resources>
+        <utility:StatusConvertor x:Key="StatusConverter"/>
+        <utility:NoListVisibilityConvertor x:Key="NoListVisible"/>
+    </UserControl.Resources>
+
+    <Grid Margin="0 10 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="AUTO"/>
+        </Grid.RowDefinitions>
+
+        <Border Name="ListBorder" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource FilterBorder}">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="AUTO"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="AUTO"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Filter" Style="{StaticResource FilterLabel}" IsTabStop="False"/>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBox Name="Client" Grid.Row="0" Style="{StaticResource FilterTextBox}" Text="{Binding fClientName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Client Name" material:HintAssist.IsFloating="True" TabIndex="0"/>
+
+                            <ComboBox Grid.Row="1" x:Name="StatusComboBox" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding ListofStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=fSelectedStatus , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTextSearchEnabled="True"  material:HintAssist.Hint="Status" material:HintAssist.IsFloating="True" TabIndex="1"/>
+
+                            <Grid Grid.Row="2" Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="Search" Grid.Column="0" Content="Search" Command="{Binding SearchCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0,10,0" TabIndex="2">
+                                    <Button.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding SearchCommand}"/>
+                                    </Button.InputBindings>
+                                </Button>
+                                <Button x:Name="Reset" Grid.Column="1" Content="Reset" Command="{Binding ResetCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0,10,0" TabIndex="3">
+                                    <Button.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding ResetCommand}"/>
+                                    </Button.InputBindings>
+                                </Button>
+                            </Grid>
+                        </Grid>
+
+                        <Border Grid.Row="2">
+                            <Grid HorizontalAlignment="Stretch" Margin="20 0 20 20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Button x:Name="Add" Grid.Row="0" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Add_Client" TabIndex="4" IsTabStop="False"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <ListView x:Name="ClientList" Grid.Column="1" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding ListofClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="Client Id" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ClientSeqNum, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumnHeader Content="Name" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ClientName, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Landline No." Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ClientLandline, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Mobile No." Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ClientMobile, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="E-Mail Id" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ClientMail, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumnHeader Content="Address" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ClientAddress, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumnHeader Content="Branch" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ClientBranch, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="Mdfy" Click="Mdfy_Client" Style="{StaticResource ListButtonStyle}" ToolTip="Edit" ToolTipService.ShowDuration="1500" IsTabStop="False">
+                                            <material:PackIcon Kind="Pencil" Style="{StaticResource ListButtonIconStle}" IsEnabled="True"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="View" Click="View_Client" Style="{StaticResource ListButtonStyle}"  ToolTip="View" ToolTipService.ShowDuration="1500" IsTabStop="False">
+                                            <material:PackIcon Kind="Eye" Style="{StaticResource ListButtonIconStle}" IsEnabled="True"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 5 0">
+                                            <ToggleButton Name="switch" Style="{StaticResource ListStatusToggleStyle}" IsChecked="{Binding ClientStatus, Converter={StaticResource StatusConverter}, Mode=OneWay}" Click="switch_Click" IsTabStop="False"/>
+                                            <TextBlock Text="{Binding ClientStatus, Mode=OneWay}" >
+                                                <TextBlock.Style>
+                                                    <Style BasedOn="{StaticResource ListStatusToggleTextStyle}" TargetType="{x:Type TextBlock}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsChecked, ElementName=switch}" Value="true">
+                                                                <Setter Property="Foreground" Value="{StaticResource WindowTitleColorBrush}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsChecked, ElementName=switch}" Value="false">
+                                                                <Setter Property="Foreground" Value="LightGray"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Border Grid.Column="1" Visibility="{Binding ListofClients.Count, Converter={StaticResource NoListVisible}, UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBlock Text="No Clients are Present" Style="{StaticResource NoListViewText}"/>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

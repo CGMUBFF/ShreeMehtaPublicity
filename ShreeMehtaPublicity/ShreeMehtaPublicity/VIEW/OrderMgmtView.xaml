@@ -1,0 +1,219 @@
+﻿<UserControl x:Class="ShreeMehtaPublicity.VIEW.OrderMgmtView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d"
+	         xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
+             Name="OrderMgmtWindow"
+             Focusable="False"
+             IsTabStop="False" d:DesignWidth="1366" d:DesignHeight="768"
+             Background="Transparent"
+             TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal" TextElement.FontSize="13" TextElement.FontWeight="Regular" 
+             FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}" >
+
+    <UserControl.Resources>
+        <utility:OrdrMdfyEnblConvertor x:Key="MdfyEnableConvertor"/>
+        <utility:OrdrCnclEnblConvertor x:Key="CnclEnableConvertor"/>
+        <utility:NoListVisibilityConvertor x:Key="NoListVisible"/>
+        <utility:AmountValidator x:Key="AmountValidator"/>
+    </UserControl.Resources>
+
+    
+    <Grid Margin="0 10 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="AUTO"/>
+        </Grid.RowDefinitions>
+
+        <Border Name="ListBorder" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource FilterBorder}">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="AUTO"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="AUTO"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Filter" Style="{StaticResource FilterLabel}" IsTabStop="False"/>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="AUTO"/>
+                            </Grid.RowDefinitions>
+
+                            <ComboBox Grid.Row="0" x:Name="SiteList" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding Sites, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedSite , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="SiteName" IsTextSearchEnabled="True"  material:HintAssist.Hint="Site Name" material:HintAssist.IsFloating="True" Margin="7,0,8,2" TabIndex="0"/>
+
+                            <ComboBox Grid.Row="1" x:Name="ClientList" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedClient , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="ClientName" IsTextSearchEnabled="True"  material:HintAssist.Hint="Client Name" material:HintAssist.IsFloating="True" TabIndex="1"/>
+
+                            <TextBox Grid.Row="2" Name="Amount" Style="{StaticResource FilterTextBox}" Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Amount (Rs.)" material:HintAssist.IsFloating="True" TabIndex="2"/>
+
+                            <DatePicker Grid.Row="3" Name="StartDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding StartDate, Mode=TwoWay}" DisplayDate="{Binding DisplayStartDate, Mode=TwoWay}" FirstDayOfWeek="Monday" IsTabStop="True" material:HintAssist.Hint="Start Date" material:HintAssist.IsFloating="True" TabIndex="3">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedDateChanged">
+                                        <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DatePicker>
+
+                            <DatePicker Grid.Row="4" x:Name="EndDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayDate="{Binding DisplayEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FirstDayOfWeek="Monday" DisplayDateStart="{Binding ElementName=StartDate, Path=SelectedDate}" IsEnabled="{Binding EndDateEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsTabStop="True" material:HintAssist.Hint="End Date" material:HintAssist.IsFloating="True" TabIndex="4"/>
+
+                            <ComboBox Grid.Row="5" x:Name="StatusComboBox" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding ListOfStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedStatus , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTextSearchEnabled="True"  material:HintAssist.Hint="Status" material:HintAssist.IsFloating="True" TabIndex="5"/>
+
+                            <Grid Grid.Row="6" Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="Search" Grid.Column="0" Content="Search" Command="{Binding SearchCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0,10,0" TabIndex="6">
+                                    <Button.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding SearchCommand}"/>
+                                    </Button.InputBindings>
+                                </Button>
+                                <Button x:Name="Reset" Grid.Column="1" Content="Reset" Command="{Binding ResetCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0,10,0" TabIndex="7">
+                                    <Button.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding ResetCommand}"/>
+                                    </Button.InputBindings>
+                                </Button>
+                            </Grid>
+                        </Grid>
+
+                        <Border Grid.Row="2">
+                            <Grid HorizontalAlignment="Stretch" Margin="20 0 20 20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Button x:Name="Place" Grid.Row="0" Content="Place Order" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Place_Order" IsTabStop="False"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <ListView x:Name="OrderList" Grid.Column="1" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding ListOfOrders, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="Order Id" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderSeqNum, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumnHeader Content="Site" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderSite.SiteName, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumnHeader Content="Client" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderClient.ClientName, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Amount (Rs.)" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderTotalAmount, Mode=OneWay, StringFormat='0.00'}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Start Date" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderStartDate, Mode=OneWay, StringFormat=dd-MMM-yyyy}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="End Date" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderEndDate, Mode=OneWay, StringFormat=dd-MMM-yyyy}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Status" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderStatus, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Site Height" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderSite.SiteHeight, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Site Width" Foreground="{StaticResource WindowTitleColorBrush}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderSite.SiteWidth, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="Mdfy" Click="Mdfy_Order" Style="{StaticResource ListButtonStyle}" ToolTip="Edit" ToolTipService.ShowDuration="1500" IsTabStop="False" IsEnabled="{Binding OrderStatus, Converter={StaticResource MdfyEnableConvertor}, ConverterParameter=OrderStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            <material:PackIcon Kind="Pencil" Style="{StaticResource ListButtonIconStle}" IsEnabled="{Binding ElementName=Mdfy,Path=IsEnabled}"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="Cncl" Click="Cncl_Order" Style="{StaticResource ListButtonStyle}" ToolTip="Edit" ToolTipService.ShowDuration="1500" IsTabStop="False" IsEnabled="{Binding OrderStatus, Converter={StaticResource CnclEnableConvertor}, ConverterParameter=OrderStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            <material:PackIcon Kind="CloseBox" Style="{StaticResource ListButtonIconStle}" IsEnabled="{Binding ElementName=Cncl,Path=IsEnabled}"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="View" Style="{StaticResource ListButtonStyle}" ToolTip="View" ToolTipService.ShowDuration="1500" IsTabStop="False">
+                                            <material:PackIcon Kind="Eye" Style="{StaticResource ListButtonIconStle}" IsEnabled="True"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Border Grid.Column="1" Visibility="{Binding ListOfOrders.Count, Converter={StaticResource NoListVisible}, UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBlock Text="No Orders are Present" Style="{StaticResource NoListViewText}"/>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+    
+</UserControl>

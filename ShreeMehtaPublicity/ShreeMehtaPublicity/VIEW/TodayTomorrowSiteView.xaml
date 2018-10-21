@@ -1,0 +1,98 @@
+﻿<UserControl
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d" 
+        x:Class="ShreeMehtaPublicity.VIEW.TodayTomorrowSiteView"
+        IsTabStop="False" d:DesignWidth="1366" d:DesignHeight="768" KeyDown="EscapeKey_Clos" Loaded="OnLoad">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{StaticResource HeaderBorder}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="AUTO"/>
+                </Grid.ColumnDefinitions>
+                <Label VerticalAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding ActionLable}" IsTabStop="False" Style="{StaticResource Header}"/>
+                <Button x:Name="OkButton" Grid.Column="1" Content="X" Click="TodayTomorrowSiteWindow_Closing" KeyDown="EnterKey_Ok" Style="{StaticResource CloseButton}"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Style="{StaticResource GridBorder}" Margin="70,20,70,10">
+            <Grid Margin="0,5,0,0" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ListView Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,10,5,0" ItemsSource="{Binding SiteList, Mode=OneWay}" AlternationCount="2">
+                    <ListView.View>
+                        <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Order Id"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderSeqNum, Mode=TwoWay}" Style="{StaticResource ListItem}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumnHeader Content="Site"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderSite.SiteName, Mode=TwoWay}" Style="{StaticResource ListItem}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumnHeader Content="Client"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderClient.ClientName, Mode=TwoWay}" Style="{StaticResource ListItem}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Amount (Rs.)"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderAmount, Mode=TwoWay, StringFormat='0.00'}" Style="{StaticResource ListItem}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Start Date"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderStartDate, Mode=TwoWay, StringFormat=dd-MM-yyyy}" Style="{StaticResource ListItem}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="End Date"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderEndDate, Mode=TwoWay, StringFormat=dd-MM-yyyy}" Style="{StaticResource ListItem}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="Status"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=OrderStatus, Mode=TwoWay}" Style="{StaticResource ListItem}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
