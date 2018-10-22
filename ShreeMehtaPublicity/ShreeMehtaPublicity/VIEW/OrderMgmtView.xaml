@@ -53,7 +53,6 @@
                                 <RowDefinition Height="AUTO"/>
                                 <RowDefinition Height="AUTO"/>
                                 <RowDefinition Height="AUTO"/>
-                                <RowDefinition Height="AUTO"/>
                             </Grid.RowDefinitions>
 
                             <ComboBox Grid.Row="0" x:Name="SiteList" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding Sites, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedSite , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="SiteName" IsTextSearchEnabled="True"  material:HintAssist.Hint="Site Name" material:HintAssist.IsFloating="True" Margin="7,0,8,2" TabIndex="0"/>
@@ -62,19 +61,23 @@
 
                             <TextBox Grid.Row="2" Name="Amount" Style="{StaticResource FilterTextBox}" Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Amount (Rs.)" material:HintAssist.IsFloating="True" TabIndex="2"/>
 
-                            <DatePicker Grid.Row="3" Name="StartDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding StartDate, Mode=TwoWay}" DisplayDate="{Binding DisplayStartDate, Mode=TwoWay}" FirstDayOfWeek="Monday" IsTabStop="True" material:HintAssist.Hint="Start Date" material:HintAssist.IsFloating="True" TabIndex="3">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectedDateChanged">
-                                        <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </DatePicker>
+                            <ComboBox Grid.Row="3" x:Name="StatusComboBox" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding ListOfStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedStatus , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTextSearchEnabled="True"  material:HintAssist.Hint="Status" material:HintAssist.IsFloating="True" TabIndex="5"/>
+                            
+                            <GroupBox Grid.Row="4" Header="Booking Dates :" Margin="5 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{StaticResource FilterAvailSite}">
+                                <StackPanel Orientation="Vertical">
+                                    <DatePicker Name="StartDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding StartDate, Mode=TwoWay}" DisplayDate="{Binding DisplayStartDate, Mode=TwoWay}" FirstDayOfWeek="Monday" IsTabStop="True" material:HintAssist.Hint="Start Date" material:HintAssist.IsFloating="True" TabIndex="3">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectedDateChanged">
+                                                <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </DatePicker>
 
-                            <DatePicker Grid.Row="4" x:Name="EndDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayDate="{Binding DisplayEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FirstDayOfWeek="Monday" DisplayDateStart="{Binding ElementName=StartDate, Path=SelectedDate}" IsEnabled="{Binding EndDateEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsTabStop="True" material:HintAssist.Hint="End Date" material:HintAssist.IsFloating="True" TabIndex="4"/>
+                                    <DatePicker Name="EndDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayDate="{Binding DisplayEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FirstDayOfWeek="Monday" DisplayDateStart="{Binding ElementName=StartDate, Path=SelectedDate}" IsEnabled="{Binding EndDateEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsTabStop="True" material:HintAssist.Hint="End Date" material:HintAssist.IsFloating="True" TabIndex="4"/>
+                                </StackPanel>
+                            </GroupBox>
 
-                            <ComboBox Grid.Row="5" x:Name="StatusComboBox" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding ListOfStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedStatus , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTextSearchEnabled="True"  material:HintAssist.Hint="Status" material:HintAssist.IsFloating="True" TabIndex="5"/>
-
-                            <Grid Grid.Row="6" Margin="0,10,0,0">
+                            <Grid Grid.Row="5" Margin="0,10,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>

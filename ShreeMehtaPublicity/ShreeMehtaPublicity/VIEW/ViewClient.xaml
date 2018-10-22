@@ -19,7 +19,7 @@
         <Border Name="ListBorder">
             <Grid Grid.Row="0" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -36,23 +36,23 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="AUTO"/>
                                 <RowDefinition Height="AUTO"/>
-                                <RowDefinition Height="AUTO"/>
-                                <RowDefinition Height="AUTO"/>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" Content="Order Dates :" IsTabStop="False" Margin="0 10 0 0" Style="{StaticResource FilterLabel}"/>
+                            <GroupBox Grid.Row="0" Header="Booking Dates :" Margin="5 10 5 0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{StaticResource FilterAvailSite}">
+                                <StackPanel Orientation="Vertical">
+                                    <DatePicker Name="StartDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding fStartDate, Mode=TwoWay}" DisplayDate="{Binding DisplayStartDate, Mode=TwoWay}" FirstDayOfWeek="Monday" IsTabStop="True" material:HintAssist.Hint="Start Date" material:HintAssist.IsFloating="True" TabIndex="0">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectedDateChanged">
+                                                <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </DatePicker>
 
-                            <DatePicker Grid.Row="1" Name="StartDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding fStartDate, Mode=TwoWay}" DisplayDate="{Binding DisplayStartDate, Mode=TwoWay}" FirstDayOfWeek="Monday" IsTabStop="True" material:HintAssist.Hint="Start Date" material:HintAssist.IsFloating="True" TabIndex="0">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectedDateChanged">
-                                        <i:InvokeCommandAction Command="{Binding StartDateChangedCommand}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </DatePicker>
+                                    <DatePicker Name="EndDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding fEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayDate="{Binding DisplayEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FirstDayOfWeek="Monday" DisplayDateStart="{Binding ElementName=StartDate, Path=SelectedDate}" IsEnabled="{Binding EndDateEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsTabStop="True" material:HintAssist.Hint="End Date" material:HintAssist.IsFloating="True" TabIndex="1"/>
+                                </StackPanel>
+                            </GroupBox>
 
-                            <DatePicker Grid.Row="2" x:Name="EndDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding fEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayDate="{Binding DisplayEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FirstDayOfWeek="Monday" DisplayDateStart="{Binding ElementName=StartDate, Path=SelectedDate}" IsEnabled="{Binding EndDateEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsTabStop="True" material:HintAssist.Hint="End Date" material:HintAssist.IsFloating="True" TabIndex="1"/>
-
-                            <Grid Grid.Row="3" Margin="0,10,0,0">
+                            <Grid Grid.Row="1" Margin="0,10,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
