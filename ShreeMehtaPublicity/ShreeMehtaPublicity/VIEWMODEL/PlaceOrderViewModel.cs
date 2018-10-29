@@ -440,104 +440,103 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         {
             String ErrorMsg = null;
 
-            while (true)
+            if (_selectedSite == null || CustomValidation.validateString(_selectedSite.SiteName))
             {
-                if (SelectedSite == null)
-                {
-                    ErrorMsg = "Please Select Site";
-                    this.parent.SiteFilter.Focus();
-                    break;
-                }
-
-                if (SelectedClient == null)
-                {
-                    ErrorMsg = "Please Select Client";
-                    this.parent.ClientFilter.Focus();
-                    break;
-                }
-
-                /*if (Double.Parse(Amount) == 0)
-                {
-                    ErrorMsg = "Please Enter Amount";
-                    this.parent.Charges.Focus();
-                    break;
-                }*/
-
-                if (StartDate == null)
-                {
-                    ErrorMsg = "Please Select Start Date";
-                    this.parent.StartDate.Focus();
-                    break;
-                }
-
-                if (EndDate == null)
-                {
-                    ErrorMsg = "Please Select End Date";
-                    this.parent.EndDate.Focus();
-                    break;
-                }
-
-                if (StartDate > EndDate)
-                {
-                    ErrorMsg = "Start Date can not be greater than End Date";
-                    this.parent.EndDate.Focus();
-                    break;
-                }
-
-                switch(action)
-                {
-                    case "ADD" :
-                        {
-                            if (StartDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
-                            {
-                                ErrorMsg = "Start Date Can not be Less than Current Date";
-                                this.parent.StartDate.Focus();
-                                break;
-                            }
-
-                            if (EndDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
-                            {
-                                ErrorMsg = "End Date Can not be Less than Current Date";
-                                this.parent.EndDate.Focus();
-                                break;
-                            }
-
-                            ErrorMsg = db.db_CheckBookingDates(StaticMaster.convertDateToString(StartDate), StaticMaster.convertDateToString(EndDate), SelectedSite.SiteSeqNum, 0);
-                            if(ErrorMsg != null)
-                                this.parent.StartDate.Focus();
-                            break;
-                        }
-                    case "MDFY" :
-                        {
-                            if (orderModel.OrderStatus.Equals(Status.PREE))
-                            {
-                                if (StartDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
-                                {
-                                    ErrorMsg = "Start Date Can not be Less than Current Date";
-                                    this.parent.StartDate.Focus();
-                                    break;
-                                }
-                            }
-
-                            if (EndDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
-                            {
-                                ErrorMsg = "End Date Can not be Less than Current Date";
-                                this.parent.EndDate.Focus();
-                                break;
-                            }
-                            ErrorMsg = db.db_CheckBookingDates(StaticMaster.convertDateToString(StartDate), StaticMaster.convertDateToString(EndDate), SelectedSite.SiteSeqNum, orderModel.OrderSeqNum);
-                            if (ErrorMsg != null)
-                                this.parent.StartDate.Focus();
-                            break;
-                        }
-                }
-                break;
-            }
-            if (ErrorMsg != null)
-            {
-                //WpfMessageBox.Show(ErrorMsg,Status.ERR);
+                this.parent.SiteFilter.Focus();
                 return false;
             }
+
+            if (_selectedClient == null || CustomValidation.validateString(_selectedClient.ClientName))
+            {
+                this.parent.ClientFilter.Focus();
+                return false;
+            }
+
+            if (_startDate == null)
+            {
+                this.parent.StartDate.Focus();
+                return false;
+            }
+
+            if (_endDate == null)
+            {
+                this.parent.EndDate.Focus();
+                return false;
+            }
+
+            if (_startDate > _endDate)
+            {
+                this.parent.EndDate.Focus();
+                return false;
+            }
+
+            switch(action)
+            {
+                case "ADD" :
+                    {
+                        if (_startDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
+                        {
+                            //ErrorMsg = "Start Date Can not be Less than Current Date";
+                            this.parent.StartDate.Focus();
+                            return false;
+                        }
+                        ErrorMsg = db.db_CheckBookingDates(StaticMaster.convertDateToString(_startDate), StaticMaster.convertDateToString(_endDate), _selectedSite.SiteSeqNum, 0);
+                        if (ErrorMsg != null)
+                        {
+                            this.parent.StartDate.Focus();
+                            return false;
+                        }
+                        if (_endDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
+                        {
+                            //ErrorMsg = "End Date Can not be Less than Current Date";
+                            this.parent.EndDate.Focus();
+                            return false;
+                        }
+                        break;
+                    }
+                case "MDFY" :
+                    {
+                        if (orderModel.OrderStatus.Equals(Status.PREE))
+                        {
+                            if (_startDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
+                            {
+                                //ErrorMsg = "Start Date Can not be Less than Current Date";
+                                this.parent.StartDate.Focus();
+                                return false;
+                            }
+                        }
+                        ErrorMsg = db.db_CheckBookingDates(StaticMaster.convertDateToString(_startDate), StaticMaster.convertDateToString(_endDate), _selectedSite.SiteSeqNum, orderModel.OrderSeqNum);
+                        if (ErrorMsg != null)
+                        {
+                            this.parent.StartDate.Focus();
+                            return false;
+                        }
+                        if (_endDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
+                        {
+                            //ErrorMsg = "End Date Can not be Less than Current Date";
+                            this.parent.EndDate.Focus();
+                            return false;
+                        }
+                        break;
+                    }
+            }
+
+            if (CustomValidation.validateString(_charges) || CustomValidation.validationDouble(_charges))
+            {
+                this.parent.Charges.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_printing) || CustomValidation.validationDouble(_printing))
+            {
+                this.parent.Printing.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_mounting) || CustomValidation.validationDouble(_mounting))
+            {
+                this.parent.Mounting.Focus();
+                return false;
+            }
+
             return true;
         }
 
@@ -563,35 +562,35 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             {
                 case "ADD" :
                     {
-                        SelectedSite = Sites.FirstOrDefault();
-                        SelectedClient = Clients.FirstOrDefault();
+                        SelectedSite = _sites.FirstOrDefault();
+                        SelectedClient = _clients.FirstOrDefault();
                         Amount = "0";
-                        Charges = "0";
-                        Printing = "0";
-                        Mounting = "0";
+                        Charges = _selectedSite.SiteAmount;
+                        Printing = null;
+                        Mounting = null;
                         StartDate = null;
                         EndDate = null;
                         SiteEnable = true;
                         ClientEnable = true;
                         AmountEnable = true;
                         StartDateEnable = true;
-                        EndDateEnable = true;
+                        EndDateEnable = false;
                         EndDateReadOnly = true;
-                        if (StartDate == null)
+                        if (_startDate == null)
                             DisplayStartDate = System.DateTime.Today;
                         else
-                            DisplayStartDate = StartDate;
+                            DisplayStartDate = _startDate;
 
-                        if (EndDate == null)
+                        if (_endDate == null)
                             DisplayEndDate = System.DateTime.Today;
                         else
-                            DisplayEndDate = EndDate;
+                            DisplayEndDate = _endDate;
                         break;
                     }
                 case "MDFY" :
                     {
-                        SelectedSite = Sites.FirstOrDefault(i => i.SiteSeqNum == orderModel.OrderSite.SiteSeqNum);
-                        SelectedClient = Clients.FirstOrDefault(i => i.ClientSeqNum == orderModel.OrderClient.ClientSeqNum );
+                        SelectedSite = _sites.FirstOrDefault(i => i.SiteSeqNum == orderModel.OrderSite.SiteSeqNum);
+                        SelectedClient = _clients.FirstOrDefault(i => i.ClientSeqNum == orderModel.OrderClient.ClientSeqNum );
                         Amount = orderModel.OrderTotalAmount.ToString();
                         Printing = orderModel.OrderPrintingAmount.ToString();
                         Charges = orderModel.OrderGeneralAmount.ToString();
@@ -626,23 +625,23 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                                     break;
                                 }
                         }
-                        if (StartDate == null)
+                        if (_startDate == null)
                             DisplayStartDate = System.DateTime.Today;
                         else
-                            DisplayStartDate = StartDate;
+                            DisplayStartDate = _startDate;
 
-                        if (EndDate == null)
+                        if (_endDate == null)
                             DisplayEndDate = System.DateTime.Today;
                         else
-                            DisplayEndDate = EndDate;
-                                break;
+                            DisplayEndDate = _endDate;
+                        break;
                     }
             
                     
                 case "CNCL" :
                     {
-                        SelectedSite = Sites.FirstOrDefault(i => i.SiteSeqNum == orderModel.OrderSite.SiteSeqNum);
-                        SelectedClient = Clients.FirstOrDefault(i => i.ClientSeqNum == orderModel.OrderClient.ClientSeqNum );
+                        SelectedSite = _sites.FirstOrDefault(i => i.SiteSeqNum == orderModel.OrderSite.SiteSeqNum);
+                        SelectedClient = _clients.FirstOrDefault(i => i.ClientSeqNum == orderModel.OrderClient.ClientSeqNum );
                         Amount = orderModel.OrderTotalAmount.ToString();
                         Printing = orderModel.OrderPrintingAmount.ToString();
                         Charges = orderModel.OrderGeneralAmount.ToString();
@@ -656,26 +655,26 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                         EndDateEnable = false;
                         EndDateReadOnly = true;
                 
-                        if (StartDate == null)
+                        if (_startDate == null)
                             DisplayStartDate = System.DateTime.Today;
                         else
-                            DisplayStartDate = StartDate;
+                            DisplayStartDate = _startDate;
 
-                        if (EndDate == null)
+                        if (_endDate == null)
                             DisplayEndDate = System.DateTime.Today;
                         else
-                            DisplayEndDate = EndDate;
+                            DisplayEndDate = _endDate;
                         break;
                     }
 
                 default:
                     {
-                        SelectedSite = Sites.FirstOrDefault();
-                        SelectedClient = Clients.FirstOrDefault();
-                        Amount = "0";
-                        Charges = "0";
-                        Printing = "0";
-                        Mounting = "0";
+                        SelectedSite = _sites.FirstOrDefault();
+                        SelectedClient = _clients.FirstOrDefault();
+                        Amount = null;
+                        Charges = _selectedSite.SiteAmount;
+                        Printing = null;
+                        Mounting = null;
                         StartDate = null;
                         EndDate = null;
                         SiteEnable = true;
@@ -684,19 +683,18 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                         StartDateEnable = true;
                         EndDateEnable = false;
                         EndDateReadOnly = true;
-                        if (StartDate == null)
+                        if (_startDate == null)
                             DisplayStartDate = System.DateTime.Today;
                         else
-                            DisplayStartDate = StartDate;
+                            DisplayStartDate = _startDate;
 
-                        if (EndDate == null)
+                        if (_endDate == null)
                             DisplayEndDate = System.DateTime.Today;
                         else
-                            DisplayEndDate = EndDate;
+                            DisplayEndDate = _endDate;
                         break;
                     }
             }
-            
         }
         #endregion
 
@@ -711,13 +709,29 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         private void StartDateChanged()
         {
-            if (EndDate == null || EndDate < StartDate)
-                EndDate = StartDate;
+            if (_endDate == null || _endDate < _startDate)
+                EndDate = _startDate;
             
-            if (StartDate != null)
+            if (_startDate != null)
             {
+                EndDateEnable = true;
                 EndDateReadOnly = false;
             }
+        }
+        #endregion
+
+        #region SelectedSiteChanged Command
+        private RelayCommand selectedSiteChangedCommand;
+        public ICommand SelectedSiteChangedCommand
+        {
+            get
+            {
+                return selectedSiteChangedCommand ?? (selectedSiteChangedCommand = new RelayCommand(param => this.SelectedSiteChanged()));
+            }
+        }
+        private void SelectedSiteChanged()
+        {
+            Charges = _selectedSite.SiteAmount;
         }
         #endregion
     }

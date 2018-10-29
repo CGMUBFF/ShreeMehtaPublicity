@@ -321,15 +321,15 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             EndDateEnable = false;
             fStartDate = null;
             fEndDate = null;
-            if (fStartDate == null)
+            if (_startDate == null)
                 DisplayStartDate = System.DateTime.Today;
             else
-                DisplayStartDate = fStartDate;
+                DisplayStartDate = _startDate;
 
-            if (fEndDate == null)
+            if (_endDate == null)
                 DisplayEndDate = System.DateTime.Today;
             else
-                DisplayEndDate = fEndDate;
+                DisplayEndDate = _endDate;
             TotalAmount = 0;
 
             DateRange = "Till Date";
@@ -348,14 +348,14 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         public void searchOrders()
         {
             TotalAmount = 0;
-            ListOfOrders = new ObservableCollection<OrderModel>(db.db_GetOrderList(clientModel.ClientSeqNum, 0, 0, StaticMaster.convertDateToString(fStartDate), StaticMaster.convertDateToString(fEndDate), "ALL"));
-            for (int i = 0; i < ListOfOrders.Count; i++)
+            ListOfOrders = new ObservableCollection<OrderModel>(db.db_GetOrderList(clientModel.ClientSeqNum, 0, 0, StaticMaster.convertDateToString(_startDate), StaticMaster.convertDateToString(_endDate), "ALL"));
+            for (int i = 0; i < _listOfOrders.Count; i++)
             {
-                TotalAmount += (ListOfOrders.ToArray())[i].OrderGeneralAmount;
+                TotalAmount += (_listOfOrders.ToArray())[i].OrderTotalAmount;
             }
-            if (fStartDate != null && fEndDate != null)
+            if (_startDate != null && _endDate != null)
             {
-                DateRange = "From : " + StaticMaster.convertDisplayDateToString(fStartDate) + "\nTo : " + StaticMaster.convertDisplayDateToString(fEndDate);
+                DateRange = "From : " + StaticMaster.convertDisplayDateToString(_startDate) + "\nTo : " + StaticMaster.convertDisplayDateToString(_endDate);
                 FontSize = 15;
             }
         }
@@ -388,12 +388,12 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         private void StartDateChanged()
         {
-            if (fEndDate == null || fEndDate < fStartDate)
+            if (_endDate == null || _endDate < _startDate)
             {
-                fEndDate = fStartDate;
+                fEndDate = _startDate;
             }
 
-            if (fStartDate != null)
+            if (_startDate != null)
             {
                 EndDateEnable = true;
             }

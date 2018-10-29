@@ -108,5 +108,19 @@ namespace ShreeMehtaPublicity.MODEL
                 OnPropertyChanged("SiteStatus");
             }
         }
+
+        private string _siteImage;
+        public string SiteImage
+        {
+            get
+            {
+                return _siteImage;
+            }
+            set
+            {
+                _siteImage = value;
+                OnPropertyChanged("SiteImage");
+            }
+        }
     }
 }

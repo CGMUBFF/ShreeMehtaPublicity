@@ -286,7 +286,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         public void searchOrders()
         {
-            ListOfOrders = new ObservableCollection<OrderModel>(db.db_GetOrderList(SelectedClient.ClientSeqNum, SelectedSite.SiteSeqNum, Double.Parse(Amount), StaticMaster.convertDateToString(StartDate), StaticMaster.convertDateToString(EndDate), StaticMaster.convertStringToOrderStatus(SelectedStatus)));
+            ListOfOrders = new ObservableCollection<OrderModel>(db.db_GetOrderList(_selectedClient.ClientSeqNum, _selectedSite.SiteSeqNum, Double.Parse(_amount), StaticMaster.convertDateToString(_startDate), StaticMaster.convertDateToString(_endDate), StaticMaster.convertStringToOrderStatus(_selectedStatus)));
         }
         #endregion
 
@@ -309,22 +309,22 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         #region Reset Fields
         private void resetFields()
         {
-            SelectedSite = Sites.FirstOrDefault();
-            SelectedClient = Clients.FirstOrDefault();
+            SelectedSite = _sites.FirstOrDefault();
+            SelectedClient = _clients.FirstOrDefault();
             Amount = "0";
             StartDate = null;
             EndDate = null;
-            SelectedStatus = ListOfStatus.FirstOrDefault();
-            if (StartDate == null)
+            SelectedStatus = _listOfStatus.FirstOrDefault();
+            if (_startDate == null)
                 DisplayStartDate = System.DateTime.Today;
             else
-                DisplayStartDate = StartDate;
+                DisplayStartDate = _startDate;
 
-            if (EndDate == null)
+            if (_endDate == null)
                 DisplayEndDate = System.DateTime.Today;
             else
-                DisplayEndDate = EndDate;
-            EndDateEnable = true;
+                DisplayEndDate = _endDate;
+            EndDateEnable = false;
             EndDateReadOnly = true;
             MdfyEnable = false;
             CnclEnable = false;
@@ -342,11 +342,14 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         private void StartDateChanged()
         {
-            if (EndDate == null || EndDate < StartDate)
-                EndDate = StartDate;
+            if (_endDate == null || _endDate < _startDate)
+                EndDate = _startDate;
 
-            if (StartDate != null)
+            if (_startDate != null)
+            {
                 EndDateReadOnly = false;
+                EndDateEnable = true;
+            }
         }
         #endregion
 
@@ -361,12 +364,12 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         private void SelectedOrderChanged()
         {
-            if (SelectedOrder != null && (SelectedOrder.OrderStatus.Equals(Status.RUNN) || SelectedOrder.OrderStatus.Equals(Status.PREE)))
+            if (_selectedOrder != null && (_selectedOrder.OrderStatus.Equals(Status.RUNN) || _selectedOrder.OrderStatus.Equals(Status.PREE)))
                 MdfyEnable = true;
             else
                 MdfyEnable = false;
 
-            if (SelectedOrder != null &&  SelectedOrder.OrderStatus.Equals(Status.PREE))
+            if (_selectedOrder != null &&  _selectedOrder.OrderStatus.Equals(Status.PREE))
                 CnclEnable = true;
             else
                 CnclEnable = false;

@@ -44,55 +44,6 @@ namespace ShreeMehtaPublicity.VIEW
             parent.CallBack();
         }
 
-        private void Amount_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (e.Text == ".")
-            {
-                if (!((TextBox)sender).Text.Contains("."))
-                    e.Handled = false;
-                else
-                    e.Handled = true;
-            }
-            else if (!(char.IsDigit(e.Text, e.Text.Length - 1)))
-                e.Handled = true;
-            else
-                e.Handled = false;
-        }
-
-        private void Amount_LostFocus(object sender, RoutedEventArgs e)
-        {
-            /*if (Amount.Text == null || Amount.Text.Trim().Equals(""))
-            {
-                Amount.Text = "0";
-                Amount.Foreground = new SolidColorBrush(Colors.Gray);
-            }
-            else if (Double.Parse(Amount.Text) == 0)
-            {
-                Amount.Text = "0";
-                Amount.Foreground = new SolidColorBrush(Colors.Gray);
-            }
-            else if (Amount.Text.Contains("."))
-            {
-                if (Amount.Text.LastIndexOf(".") == (Amount.Text.Length - 1))
-                    Amount.Text += "00";
-                else if (Amount.Text.LastIndexOf(".") == (Amount.Text.Length - 2))
-                    Amount.Text += "0";
-            }
-            else
-            {
-                Amount.Text += ".00";
-            }*/
-        }
-
-        private void Amount_GotFocus(object sender, RoutedEventArgs e)
-        {
-            /*if (Double.Parse(Amount.Text) == 0)
-            {
-                Amount.Text = "";
-                Amount.Foreground = new SolidColorBrush(Colors.Black);
-            }*/
-        }
-
         private void StartDate_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             DatePicker datepicker = (DatePicker)sender;

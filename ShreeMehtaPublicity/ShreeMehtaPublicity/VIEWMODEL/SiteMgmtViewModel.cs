@@ -109,6 +109,20 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             }
         }
 
+        private Boolean _cautationMode;
+        public Boolean CautationMode
+        {
+            get
+            {
+                return _cautationMode;
+            }
+            set
+            {
+                _cautationMode = value;
+                OnPropertyChanged("CautationMode");
+            }
+        }
+
         #region Filter Variables
         private string _siteName;
         public string fSiteName
@@ -241,6 +255,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             ListofStatus.Add(Status.ACTV);
             ListofStatus.Add(Status.IACT);
 
+            CautationMode = false;
             resetFields();
             searchSites();
         }
@@ -257,7 +272,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         public void searchSites()
         {
-            ListofSites = db.db_GetSiteList(StaticMaster.convertDateToString(fStartDate), StaticMaster.convertDateToString(fEndDate), StaticMaster.convertStringToSiteStatus(fSelectedStatus), fSiteHeight==null?"ALL":fSiteHeight, fSiteWidth==null?"ALL":fSiteWidth, fSiteAmount==null?"ALL":fSiteAmount, fSiteName==null?"ALL":fSiteName, fSiteAddress==null?"ALL":fSiteAddress);
+            ListofSites = db.db_GetSiteList(StaticMaster.convertDateToString(_startDate), StaticMaster.convertDateToString(_endDate), StaticMaster.convertStringToSiteStatus(_selectedStatus), _siteHeight==null?"ALL":_siteHeight, _siteWidth==null?"ALL":_siteWidth, _siteAmount==null?"ALL":_siteAmount, _siteName==null?"ALL":_siteName, _siteAddress==null?"ALL":_siteAddress);
         }
         #endregion
 
@@ -288,12 +303,12 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         private void StartDateChanged()
         {
-            if (fEndDate == null || fEndDate < fStartDate)
+            if (_endDate == null || _endDate < _startDate)
             {
-                fEndDate = fStartDate;
+                fEndDate = _startDate;
             }
 
-            if(fStartDate != null)
+            if(_startDate != null)
             {
                 EndDateEnable = true;
             }
@@ -309,21 +324,39 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             fSiteAmount = null;
             fStartDate = null;
             fEndDate = null;
-            fSelectedStatus = ListofStatus.FirstOrDefault(x => x.Equals(Status.ACTV));
+            fSelectedStatus = _listofStatus.FirstOrDefault(x => x.Equals(Status.ACTV));
 
             SelectedSite = null;
       
             if (fStartDate == null)
                 DisplayStartDate = System.DateTime.Today;
             else
-                DisplayStartDate = fStartDate;
+                DisplayStartDate = _startDate;
 
             if (fEndDate == null)
                 DisplayEndDate = System.DateTime.Today;
             else
-                DisplayEndDate = fEndDate;
+                DisplayEndDate = _endDate;
 
             EndDateEnable = false;
         }
+
+        #region CreateCautation Command
+        private RelayCommand createCautationCommand;
+        public ICommand CreateCautationCommand
+        {
+            get
+            {
+                return createCautationCommand ?? (createCautationCommand = new RelayCommand(param => this.createCautation()));
+            }
+        }
+        public void createCautation()
+        {
+            if (_cautationMode)
+            {
+
+            }
+        }
+        #endregion
     }
 }

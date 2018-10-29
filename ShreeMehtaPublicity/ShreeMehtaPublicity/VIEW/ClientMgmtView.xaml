@@ -3,15 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d"
+             mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-	         xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
-             Name="ClientMgmtWindow" Focusable="False" IsTabStop="False" 
-             d:DesignWidth="1366" d:DesignHeight="768" Background="White"
+	     xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
+             Name="ClientMgmtWindow" Focusable="False" IsTabStop="False" Background="Transparent"
              TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal" TextElement.FontSize="13" TextElement.FontWeight="Regular" 
-             FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}" >
+             FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <UserControl.Resources>
         <utility:StatusConvertor x:Key="StatusConverter"/>
@@ -80,65 +79,16 @@
                     </Grid>
                 </Border>
 
-                <ListView x:Name="ClientList" Grid.Column="1" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding ListofClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListView Name="ClientList" Grid.Column="1" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding ListofClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="100">
-                                <GridViewColumnHeader Content="Client Id" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=ClientSeqNum, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="200">
-                                <GridViewColumnHeader Content="Name" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=ClientName, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="150">
-                                <GridViewColumnHeader Content="Landline No." Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=ClientLandline, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="150">
-                                <GridViewColumnHeader Content="Mobile No." Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=ClientMobile, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="150">
-                                <GridViewColumnHeader Content="E-Mail Id" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=ClientMail, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="200">
-                                <GridViewColumnHeader Content="Address" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=ClientAddress, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="200">
-                                <GridViewColumnHeader Content="Branch" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=ClientBranch, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                            <GridViewColumn Width="100" Header="Client Id" DisplayMemberBinding="{Binding Path=ClientSeqNum, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                            <GridViewColumn Width="200" Header="Name" DisplayMemberBinding="{Binding Path=ClientName, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                            <GridViewColumn Width="150" Header="Landline No." DisplayMemberBinding="{Binding Path=ClientLandline, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                            <GridViewColumn Width="150" Header="Mobile No." DisplayMemberBinding="{Binding Path=ClientMobile, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                            <GridViewColumn Width="150" Header="E-Mail Id" DisplayMemberBinding="{Binding Path=ClientMail, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                            <GridViewColumn Width="200" Header="Address" DisplayMemberBinding="{Binding Path=ClientAddress, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                            <GridViewColumn Width="200" Header="Branch" DisplayMemberBinding="{Binding Path=ClientBranch, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
                             <GridViewColumn Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -161,8 +111,8 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 5 0">
-                                            <ToggleButton Name="switch" Style="{StaticResource ListStatusToggleStyle}" IsChecked="{Binding ClientStatus, Converter={StaticResource StatusConverter}, Mode=OneWay}" Click="switch_Click" IsTabStop="False"/>
-                                            <TextBlock Text="{Binding ClientStatus, Mode=OneWay}" >
+                                            <ToggleButton Name="switch" Style="{StaticResource ListStatusToggleStyle}" IsChecked="{Binding Path=ClientStatus, Converter={StaticResource StatusConverter}, Mode=OneWay}" Click="switch_Click" IsTabStop="False"/>
+                                            <TextBlock Text="{Binding Path=ClientStatus, Mode=OneWay}" >
                                                 <TextBlock.Style>
                                                     <Style BasedOn="{StaticResource ListStatusToggleTextStyle}" TargetType="{x:Type TextBlock}">
                                                         <Style.Triggers>
@@ -184,7 +134,7 @@
                     </ListView.View>
                 </ListView>
 
-                <Border Grid.Column="1" Visibility="{Binding ListofClients.Count, Converter={StaticResource NoListVisible}, UpdateSourceTrigger=PropertyChanged}" >
+                <Border Grid.Column="1" Visibility="{Binding ListofClients.Count, Converter={StaticResource NoListVisible}, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NoListViewBorder}">
                     <TextBlock Text="No Clients are Present" Style="{StaticResource NoListViewText}"/>
                 </Border>
             </Grid>

@@ -57,17 +57,17 @@
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Text="{Binding ClientLandline, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Landline Number" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="1"/>
-                            <TextBox Grid.Column="2" Text="{Binding ClientMobile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Mobile Number" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="2"/>
+                            <TextBox x:Name="ClientLandline" Grid.Column="0" Text="{Binding ClientLandline, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Landline Number" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="1"/>
+                            <TextBox x:Name="ClientMobile" Grid.Column="2" Text="{Binding ClientMobile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Mobile Number" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="2" MaxLength="10"/>
                         </Grid>
 
-                        <TextBox Grid.Row="2" Text="{Binding ClientMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Mail Id" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="3"/>
+                        <TextBox x:Name="ClientMail" Grid.Row="2" Text="{Binding ClientMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Mail Id" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="3"/>
 
-                        <TextBox Grid.Row="3" Text="{Binding ClientAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Head Office Address" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="4"/>
+                        <TextBox x:Name="ClientAddress" Grid.Row="3" Text="{Binding ClientAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Head Office Address" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="4"/>
 
-                        <TextBox Grid.Row="4" Text="{Binding ClientBranch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Branch Address" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="5"/>
+                        <TextBox x:Name="ClientBranch" Grid.Row="4" Text="{Binding ClientBranch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Branch Address" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="5"/>
 
-                        <TextBox Grid.Row="5" Text="{Binding ClientGST, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="GST Number" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="6"/>
+                        <TextBox x:Name="ClientGST" Grid.Row="5" Text="{Binding ClientGST, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="GST Number" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="6"/>
 
                     </Grid>
                 </StackPanel>
@@ -109,11 +109,11 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <TextBox Text="{Binding ContactPersonName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Name" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="9"/>
+                        <TextBox x:Name="ContactName" Text="{Binding ContactPersonName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Name" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="9"/>
 
-                        <TextBox Grid.Row="1" Text="{Binding ContactPersonMobile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Mobile Number" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="10"/>
+                        <TextBox x:Name="ContactMobile" Grid.Row="1" Text="{Binding ContactPersonMobile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Mobile Number" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="10" MaxLength="10"/>
 
-                        <TextBox Grid.Row="2" Text="{Binding ContactPersonMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Mail Id" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="11"/>
+                        <TextBox x:Name="ContactMail" Grid.Row="2" Text="{Binding ContactPersonMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Mail Id" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="11"/>
 
                     </Grid>
                     <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -123,7 +123,7 @@
                 </StackPanel>
 
                 <Grid Grid.Row="2">
-                    <ListView Name="ContactPersonList" Style="{StaticResource ContactPersonListView}" ItemsSource="{Binding ListofContactPersons, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedContactPerson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False" Margin="0 5 0 0">
+                    <ListView Name="ContactPersonList" Style="{StaticResource ContactPersonListView}" ItemsSource="{Binding ListofContactPersons, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedContactPerson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTabStop="False" Margin="0 5 0 0" ItemContainerStyle="{StaticResource ListViewItemStyle}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
@@ -145,9 +145,9 @@
                                         
                                         <TextBlock Text="{Binding Path=ContactPersonName, Mode=OneWay}" Style="{StaticResource ContactPersonListTextBlock}"/>
                                         
-                                        <TextBlock Grid.Row="1" Text="{Binding Path=ContactPersonMobile, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ContactPersonListTextBlock}" />
+                                        <TextBlock Grid.Row="1" Text="{Binding Path=ContactPersonMobile, Mode=OneWay}"  Style="{StaticResource ContactPersonListTextBlock}" />
                                 
-                                        <TextBlock Grid.Row="2" Text="{Binding Path=ContactPersonMail, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ContactPersonListTextBlock}" />
+                                        <TextBlock Grid.Row="2" Text="{Binding Path=ContactPersonMail, Mode=OneWay}"  Style="{StaticResource ContactPersonListTextBlock}" />
                                         
                                         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5 5 0 0">
                                             <Button IsTabStop="False" Content="Modify" Style="{StaticResource ContactPersonButton}" Command="{Binding ElementName=ContactPersonList, Path=DataContext.MdfyContactPersonCommand}"/>

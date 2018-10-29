@@ -116,7 +116,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         public void searchClients()
         {
-            ListofClients = db.db_GetClientList(StaticMaster.convertStringToClientStatus(fSelectedStatus), fClientName==null?"ALL":fClientName);
+            ListofClients = db.db_GetClientList(StaticMaster.convertStringToClientStatus(_fselectedStatus), _fclientName==null?"ALL":_fclientName);
         }
         #endregion
 
@@ -139,7 +139,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         private void resetFields()
         {
             fClientName = null;
-            fSelectedStatus = ListofStatus.FirstOrDefault(x => x.Equals(Status.ACTV));
+            fSelectedStatus = _listofStatus.FirstOrDefault(x => x.Equals(Status.ACTV));
         }
     }
 }

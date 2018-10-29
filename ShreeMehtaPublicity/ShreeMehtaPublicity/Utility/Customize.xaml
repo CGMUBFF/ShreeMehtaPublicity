@@ -80,6 +80,8 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Padding" Value="5,8,0,8"/>
         <Setter Property="FontSize" Value="13"/>
+        <Setter Property="TextTrimming" Value="WordEllipsis"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
     
     <Style TargetType="{x:Type Button}" x:Key="ListButtonStyle">
@@ -129,7 +131,22 @@
         <Setter Property="FontSize" Value="25"/>
         <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
+    
+    <Style TargetType="{x:Type Border}" x:Key="NoListViewBorder">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="LightGray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    
+    <DataTemplate x:Key="ListViewItemData">
+        <TextBlock Text="{Binding}" Style="{StaticResource ListTextBlockStyle}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ListViewColumnHeader">
+        <TextBlock Text="{Binding}" Foreground="{StaticResource WindowTitleColorBrush}"/>
+    </DataTemplate>
     <!--#endregion-->
 
     
@@ -191,6 +208,10 @@
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="BorderBrush" Value="{StaticResource WindowTitleColorBrush}"/>
     </Style>
+
+    <DataTemplate x:Key="FilterGroupBoxHeader">
+        <TextBlock Text="{Binding}" FontWeight="Bold"/>
+    </DataTemplate>
     <!--#endregion-->
     
     <!--#region Add Page Style-->
@@ -201,10 +222,31 @@
     <Style TargetType="{x:Type TextBox}" x:Key="AddFieldTextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0 0 10 0"/>
+        <Setter Property="Margin" Value="0 5 10 0"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
 
+    <Style TargetType="{x:Type ComboBox}" x:Key="AddFieldComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0 5 10 0"/>
+    </Style>
+
+    <Style TargetType="{x:Type DatePicker}" x:Key="AddFieldDatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0 20 10 0"/>
+    </Style>
+
+    <Style TargetType="{x:Type GroupBox}" x:Key="AddFieldGroupBox">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource WindowTitleColorBrush}"/>
+    </Style>
+
+    <DataTemplate x:Key="AddFieldGroupHeader">
+        <TextBlock Text="{Binding}" FontWeight="Bold"/>
+    </DataTemplate>
+    
     <Style TargetType="{x:Type Button}" x:Key="AddCloseButton" BasedOn="{StaticResource CloseButton}"/>
     <!--#endregion-->
 

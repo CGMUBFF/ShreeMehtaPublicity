@@ -19,7 +19,7 @@ namespace ShreeMehtaPublicity.MODEL
             set
             {
                 _clientSeqNum = value;
-                OnPropertyChanged("PartySeqNum");
+                OnPropertyChanged("ClientSeqNum");
             }
         }
 

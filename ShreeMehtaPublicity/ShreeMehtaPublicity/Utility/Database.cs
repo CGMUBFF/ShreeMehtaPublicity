@@ -147,7 +147,8 @@ namespace ShreeMehtaPublicity.Utility
                     SiteAddress = Convert.ToString(dr["SITE_ADDRESS"]),
                     SiteHeight = Convert.ToString(dr["SITE_HEIGHT"]),
                     SiteWidth = Convert.ToString(dr["SITE_WIDTH"]),
-                    SiteAmount = Convert.ToString(dr["SITE_AMOUNT"])
+                    SiteAmount = Convert.ToString(dr["SITE_AMOUNT"]),
+                    SiteImage = Convert.ToString(dr["SITE_IMAGE"])
                 }
             ));
 
@@ -320,14 +321,15 @@ namespace ShreeMehtaPublicity.Utility
                     SiteAddress = Convert.ToString(dr["SITE_ADDRESS"]),
                     SiteAmount = Convert.ToString(dr["SITE_AMOUNT"]),
                     SiteHeight = Convert.ToString(dr["SITE_HEIGHT"]),
-                    SiteWidth = Convert.ToString(dr["SITE_WIDTH"])
+                    SiteWidth = Convert.ToString(dr["SITE_WIDTH"]),
+                    SiteImage = Convert.ToString(dr["SITE_IMAGE"])
                 }
             ));
 
             return allSites;
         }
 
-        public string db_AddNewSite(string SiteName, string SiteAddress, string SiteHeight, string SiteWidth, string SiteAmount)
+        public string db_AddNewSite(string SiteName, string SiteAddress, string SiteHeight, string SiteWidth, string SiteAmount, string SiteImage)
         {
             string output = null;
             int site_seq_no = db_GetSeqNo("SITE");
@@ -338,8 +340,12 @@ namespace ShreeMehtaPublicity.Utility
             else
             {
                 site_seq_no = site_seq_no + 1;
-
-                object[] parameters = { site_seq_no, SiteName, SiteAddress, SiteHeight, SiteWidth, SiteAmount };
+                SiteImage = FileOperations.CopySiteImage(SiteImage, site_seq_no);
+                if (CustomValidation.validateString(SiteImage))
+                {
+                    return "Failure in copying image";
+                }
+                object[] parameters = { site_seq_no, SiteName, SiteAddress, SiteHeight, SiteWidth, SiteAmount, SiteImage };
                 
                 int rowsInserted = dBOpertions.INSERT(queries.addNewSite, parameters);
                 if (rowsInserted == 1)
@@ -363,11 +369,16 @@ namespace ShreeMehtaPublicity.Utility
             return output;
         }
 
-        public string db_MdfySite(SiteModel siteModel, string SiteName, string SiteAddress, string SiteHeight, string SiteWidth, string SiteAmount)
+        public string db_MdfySite(SiteModel siteModel, string SiteName, string SiteAddress, string SiteHeight, string SiteWidth, string SiteAmount, string SiteImage)
         {
             string output = null;
 
-            object[] parameters = { SiteName, SiteAddress, SiteHeight, SiteWidth, SiteAmount, siteModel.SiteSeqNum };
+            SiteImage = FileOperations.CopySiteImage(SiteImage, siteModel.SiteSeqNum);
+            if (CustomValidation.validateString(SiteImage))
+            {
+                return "Failure in copying image";
+            }
+            object[] parameters = { SiteName, SiteAddress, SiteHeight, SiteWidth, SiteAmount, SiteImage, siteModel.SiteSeqNum };
             
             int rowsUpdated = dBOpertions.UPDATE(queries.mdfySite, parameters);
             if (rowsUpdated == 1)

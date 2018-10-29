@@ -116,7 +116,21 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             set
             {
                 _actionButton = value;
-                OnPropertyChanged("Action");
+                OnPropertyChanged("ActionButton");
+            }
+        }
+
+        private string _siteImage;
+        public string SiteImage
+        {
+            get
+            {
+                return _siteImage;
+            }
+            set
+            {
+                _siteImage = value;
+                OnPropertyChanged("SiteImage");
             }
         }
         #endregion
@@ -134,6 +148,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                 SiteHeight = siteModel.SiteHeight;
                 SiteWidth = siteModel.SiteWidth;
                 SiteAmount = siteModel.SiteAmount;
+                SiteImage = siteModel.SiteImage;
             }
             this.action = action;
             switch(action)
@@ -196,9 +211,9 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         private void addSite()
         {
-            if (SiteName != null && !SiteName.Equals(""))
+            if (validation())
             {
-                string output = db.db_AddNewSite(SiteName, SiteAddress, SiteHeight, SiteWidth, SiteAmount);
+                string output = db.db_AddNewSite(_siteName, _siteAddress, _siteHeight, _siteWidth, _siteAmount, _siteImage);
                 if (output.Equals(Status.SUCC))
                 {
                     if (true)
@@ -207,33 +222,56 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                     }
                 }
             }
-            else
-            {
-                this.parent.SiteName.Focus();
-            }
         }
 
         private void mdfySite()
         {
-            if (SiteName != null && !SiteName.Equals("") && siteModel != null)
+            if (validation())
             {
-                string output = db.db_MdfySite(siteModel,SiteName,SiteAddress,SiteHeight,SiteWidth,SiteAmount);
+                string output = db.db_MdfySite(siteModel, _siteName, _siteAddress, _siteHeight, _siteWidth, _siteAmount, _siteImage);
                 if (output.Equals(Status.SUCC))
                 {
-                    if (action.Equals("MDFY"))
+                    if (true)
                     {
-                        if (true)//WpfMessageBox.Show("Site Modified Successfully", Status.SUCC) == MessageBoxResult.OK)
-                        {
-                            parent.Close();
-                        }
+                        parent.Close();
                     }
                 }
             }
-            else
+        }
+
+        private bool validation()
+        {
+            if (CustomValidation.validateString(_siteName))
             {
-                //WpfMessageBox.Show("Site Name Can not be Empty", Status.ERR);
                 this.parent.SiteName.Focus();
+                return false;
             }
+            if (CustomValidation.validateString(_siteHeight))
+            {
+                this.parent.SiteHeight.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_siteWidth))
+            {
+                this.parent.SiteWidth.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_siteAmount))
+            {
+                this.parent.SiteAmount.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_siteAddress))
+            {
+                this.parent.SiteAddress.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_siteImage))
+            {
+                this.parent.SiteImage.Focus();
+                return false;
+            }
+            return true;
         }
         #endregion
 
@@ -249,6 +287,21 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         private void Close()
         {
             parent.Close();
+        }
+        #endregion
+
+        #region Upload Image Command
+        private RelayCommand uploadImageCommand;
+        public ICommand UploadImageCommand
+        {
+            get
+            {
+                return uploadImageCommand ?? (uploadImageCommand = new RelayCommand(param => this.UploadImage()));
+            }
+        }
+        private void UploadImage()
+        {
+            SiteImage = FileOperations.SelectFile();
         }
         #endregion
     }

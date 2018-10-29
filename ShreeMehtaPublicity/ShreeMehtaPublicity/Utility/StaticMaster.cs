@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShreeMehtaPublicity.Utility
 {
-    class StaticMaster
+    public class StaticMaster
     {
         public static DateTime? convertStringToDate(string date)
         {

@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768"
              xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             Background="White" IsTabStop="False" d:DesignWidth="1366" d:DesignHeight="768"
+             x:Name="ViewSiteWindow" Focusable="False" Background="White" IsTabStop="False"
              TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal" TextElement.FontSize="13" TextElement.FontWeight="Regular" 
              FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    
     <UserControl.Resources>
         <utility:NoListVisibilityConvertor x:Key="NoListVisible"/>
     </UserControl.Resources>
@@ -37,7 +38,7 @@
                                 <RowDefinition Height="AUTO"/>
                             </Grid.RowDefinitions>
 
-                            <GroupBox Grid.Row="0" Header="Booking Dates :" Margin="5 10 5 0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{StaticResource FilterAvailSite}">
+                            <GroupBox Grid.Row="0" Header="Booking Dates :" Margin="5 10 5 0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{StaticResource FilterAvailSite}" HeaderTemplate="{StaticResource FilterGroupBoxHeader}">
                                 <StackPanel Orientation="Vertical">
                                     <DatePicker Name="StartDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding fStartDate, Mode=TwoWay}" DisplayDate="{Binding DisplayStartDate, Mode=TwoWay}" FirstDayOfWeek="Monday" IsTabStop="True" material:HintAssist.Hint="Start Date" material:HintAssist.IsFloating="True" TabIndex="0">
                                         <i:Interaction.Triggers>
@@ -93,7 +94,7 @@
                             <ColumnDefinition Width="AUTO"/>
                         </Grid.ColumnDefinitions>
                         
-                        <Image Stretch="UniformToFill" Height="150" Width="120" Source="{Binding Path=Picture, Mode=OneWay}" Margin="10"/>
+                        <Image Stretch="UniformToFill" Height="150" Width="150" Source="{Binding Path=SiteImage, Mode=OneWay}" Margin="10"/>
                         
                         <Grid Margin="5,5,12,0" Grid.Column="1">
                             <Grid.RowDefinitions>
@@ -111,11 +112,11 @@
                             
                             <StackPanel Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal">
                                 <TextBlock Text="Amount (Rs.) : " Style="{StaticResource ListTextBlockStyle}" />
-                                <TextBlock Text="{Binding Path=SiteAmount, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                <TextBlock Text="{Binding Path=SiteAmount, Mode=OneWay, StringFormat='0.00'}" Style="{StaticResource ListTextBlockStyle}"/>
                                 <TextBlock Text="Height : " Margin="30 0 0 0" Style="{StaticResource ListTextBlockStyle}" />
-                                <TextBlock Text="{Binding Path=SiteHeight, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
+                                <TextBlock Text="{Binding Path=SiteHeight, Mode=OneWay}"  Style="{StaticResource ListTextBlockStyle}" />
                                 <TextBlock Text="Width : " Margin="30 0 0 0" Style="{StaticResource ListTextBlockStyle}"/>
-                                <TextBlock Text="{Binding Path=SiteWidth, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
+                                <TextBlock Text="{Binding Path=SiteWidth, Mode=OneWay}"  Style="{StaticResource ListTextBlockStyle}" />
                             </StackPanel>
                          
                             <StackPanel Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal">
@@ -125,13 +126,13 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="Address : " Style="{StaticResource ListTextBlockStyle}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding Path=SiteAddress, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Path=SiteAddress, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
                                 </Grid>
                             </StackPanel>
 
                             <StackPanel Grid.Row="3" VerticalAlignment="Top" Orientation="Horizontal">
                                 <TextBlock Text="Status : " Style="{StaticResource ListTextBlockStyle}" />
-                                <TextBlock Text="{Binding Path=SiteStatus, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
+                                <TextBlock Text="{Binding Path=SiteStatus, Mode=OneWay}"  Style="{StaticResource ListTextBlockStyle}" />
                             </StackPanel>
                         </Grid>
                         
@@ -144,63 +145,21 @@
                         </Grid>
                     </Grid>
 
-                    <ListView Grid.Row="1" ItemsSource="{Binding ListOfOrders, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ListViewStyle}" Margin="0 0 10 0">
+                    <ListView Grid.Row="1" ItemsSource="{Binding ListOfOrders, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ListViewStyle}" Margin="0 0 10 0" ItemContainerStyle="{StaticResource ListViewItemStyle}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="100">
-                                    <GridViewColumnHeader Content="Order Id" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=OrderSeqNum, Mode=TwoWay}" Style="{StaticResource ListTextBlockStyle}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Width="200">
-                                    <GridViewColumnHeader Content="Client" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=OrderClient.ClientName, Mode=TwoWay}" Style="{StaticResource ListTextBlockStyle}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Width="150">
-                                    <GridViewColumnHeader Content="Amount (Rs.)" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=OrderTotalAmount, Mode=TwoWay, StringFormat='0.00'}" Style="{StaticResource ListTextBlockStyle}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Width="150">
-                                    <GridViewColumnHeader Content="Start Date" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=OrderStartDate, Mode=TwoWay, StringFormat=dd - MMM - yyyy}" Style="{StaticResource ListTextBlockStyle}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Width="150">
-                                    <GridViewColumnHeader Content="End Date" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=OrderEndDate, Mode=TwoWay, StringFormat=dd - MMM - yyyy}" Style="{StaticResource ListTextBlockStyle}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Width="150">
-                                    <GridViewColumnHeader Content="Status" Foreground="{StaticResource WindowTitleColorBrush}"/>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=OrderStatus, Mode=TwoWay}" Style="{StaticResource ListTextBlockStyle}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
+                                <GridViewColumn Width="150" Header="Work Order No" DisplayMemberBinding="{Binding Path=OrderSeqNum, Mode=TwoWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                                <GridViewColumn Width="200" Header="Client" DisplayMemberBinding="{Binding Path=OrderClient.ClientName, Mode=TwoWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                                <GridViewColumn Width="150" Header="Amount (Rs.)" DisplayMemberBinding="{Binding Path=OrderTotalAmount, Mode=TwoWay, StringFormat='0.00'}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                                <GridViewColumn Width="150" Header="Start Date" DisplayMemberBinding="{Binding Path=OrderStartDate, Mode=TwoWay, StringFormat=dd - MMM - yyyy}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                                <GridViewColumn Width="150" Header="End Date" DisplayMemberBinding="{Binding Path=OrderEndDate, Mode=TwoWay, StringFormat=dd - MMM - yyyy}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                                <GridViewColumn Width="150" Header="Status" DisplayMemberBinding="{Binding Path=OrderStatus, Mode=TwoWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
 
-                    <Border Grid.Row="2" Background="White" BorderBrush="LightGray" BorderThickness="1" Visibility="{Binding ListOfOrders.Count, Converter={StaticResource NoListVisible}, UpdateSourceTrigger=PropertyChanged}" >
-                        <TextBlock Text="No Orders had been placed for this site." Style="{StaticResource NoListViewText}"/>
+                    <Border Grid.Row="2" Style="{StaticResource NoListViewBorder}" Visibility="{Binding ListOfOrders.Count, Converter={StaticResource NoListVisible}, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBlock Text="No orders had been placed for this site." Style="{StaticResource NoListViewText}"/>
                     </Border>
                     
                 </Grid>

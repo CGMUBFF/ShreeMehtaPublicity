@@ -338,25 +338,80 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         
         private void addClient()
         {
-            string output = db.db_AddNewClient(ClientName, ClientAddress, ClientBranch, ClientLandline, ClientMobile, ClientGST, ClientMail, ListofContactPersons);
-            if (output.Equals(Status.SUCC))
+            if (validation())
             {
-                if (true)//WpfMessageBox.Show("Client Added Successfully", Status.SUCC) == MessageBoxResult.OK)
+                string output = db.db_AddNewClient( _clientName, _clientAddress, _clientBranch, _clientLandline, _clientMobile, _clientGST, _clientMail, _listofContactPersons);
+                if (output.Equals(Status.SUCC))
                 {
-                    parent.Close();
+                    if (true)
+                    {
+                        parent.Close();
+                    }
                 }
             }
         }
         private void mdfyClient()
         {
-            string output = db.db_MdfyClient(clientModel, ClientName, ClientAddress, ClientBranch, ClientGST, ClientLandline, ClientMobile, ClientMail, ListofContactPersons);
-            if (output.Equals(Status.SUCC))
+            if (validation())
             {
-                    if (true)//WpfMessageBox.Show("Client Modified Successfully", Status.SUCC) == MessageBoxResult.OK)
+                string output = db.db_MdfyClient(clientModel, _clientName, _clientAddress, _clientBranch, _clientGST, _clientLandline, _clientMobile, _clientMail, _listofContactPersons);
+                if (output.Equals(Status.SUCC))
+                {
+                    if (true)
                     {
                         parent.Close();
                     }
+                }
             }
+        }
+        private bool validation()
+        {
+            if (CustomValidation.validateString(_clientName))
+            {
+                this.parent.ClientName.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_clientLandline))
+            {
+                this.parent.ClientLandline.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_clientMobile))
+            {
+                this.parent.ClientMobile.Focus();
+                return false;
+            }
+            if (CustomValidation.validateMobile(_clientMobile))
+            {
+                this.parent.ClientMobile.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_clientMail))
+            {
+                this.parent.ClientMail.Focus();
+                return false;
+            }
+            if(CustomValidation.validateMail(_clientMail))
+            {
+                this.parent.ClientMail.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_clientAddress))
+            {
+                this.parent.ClientAddress.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_clientBranch))
+            {
+                this.parent.ClientBranch.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_clientGST))
+            {
+                this.parent.ClientGST.Focus();
+                return false;
+            }
+            return true;
         }
         #endregion
 
@@ -386,16 +441,57 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         public void saveContactPerson()
         {
-            if (this.ContactPersonSeqNum == 0)
-                ListofContactPersons.Add(new ContactPersonModel { ContactPersonName = this.ContactPersonName, ContactPersonMobile = this.ContactPersonMobile, ContactPersonMail = this.ContactPersonMail, ContactPersonSeqNum = ++this.contactPersonCount, ClientSeqNum = this.clientModel.ClientSeqNum});
-            else
+            if (validationContactPerson())
             {
-                ContactPersonModel contactPerson = ListofContactPersons.FirstOrDefault(i => i.ContactPersonSeqNum == this.ContactPersonSeqNum);
-                contactPerson.ContactPersonName = this.ContactPersonName;
-                contactPerson.ContactPersonMobile = this.ContactPersonMobile;
-                contactPerson.ContactPersonMail = this.ContactPersonMail;
+                if (this._contactPersonSeqNum == 0)//Add New Contact Person
+                {
+                    if (clientModel == null)
+                    {
+                        ListofContactPersons.Add(new ContactPersonModel { ContactPersonName = this._contactPersonName, ContactPersonMobile = this._contactPersonMobile, ContactPersonMail = this._contactPersonMail, ContactPersonSeqNum = ++this.contactPersonCount, ClientSeqNum = 0 });
+                    }
+                    else
+                    {
+                        ListofContactPersons.Add(new ContactPersonModel { ContactPersonName = this._contactPersonName, ContactPersonMobile = this._contactPersonMobile, ContactPersonMail = this._contactPersonMail, ContactPersonSeqNum = ++this.contactPersonCount, ClientSeqNum = this.clientModel.ClientSeqNum });
+                    }
+                }
+                else//Modify Contact Person
+                {
+                    ContactPersonModel contactPerson = _listofContactPersons.FirstOrDefault(i => i.ContactPersonSeqNum == this._contactPersonSeqNum);
+                    contactPerson.ContactPersonName = this._contactPersonName;
+                    contactPerson.ContactPersonMobile = this._contactPersonMobile;
+                    contactPerson.ContactPersonMail = this._contactPersonMail;
+                }
+                resetContactPerson();
             }
-            resetContactPerson();
+        }
+        private bool validationContactPerson()
+        {
+            if (CustomValidation.validateString(_contactPersonName))
+            {
+                this.parent.ContactName.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_contactPersonMobile))
+            {
+                this.parent.ContactMobile.Focus();
+                return false;
+            }
+            if (CustomValidation.validateMobile(_contactPersonMobile))
+            {
+                this.parent.ContactMobile.Focus();
+                return false;
+            }
+            if (CustomValidation.validateString(_contactPersonMail))
+            {
+                this.parent.ContactMail.Focus();
+                return false;
+            }
+            if (CustomValidation.validateMail(_contactPersonMail))
+            {
+                this.parent.ContactMail.Focus();
+                return false;
+            }
+            return true;
         }
         #endregion
 
@@ -429,10 +525,10 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         public void mdfyContactPerson()
         {
-            this.ContactPersonName = SelectedContactPerson.ContactPersonName;
-            this.ContactPersonMobile = SelectedContactPerson.ContactPersonMobile;
-            this.ContactPersonMail = SelectedContactPerson.ContactPersonMail;
-            this.ContactPersonSeqNum = SelectedContactPerson.ContactPersonSeqNum;
+            this.ContactPersonName = _selectedContactPerson.ContactPersonName;
+            this.ContactPersonMobile = _selectedContactPerson.ContactPersonMobile;
+            this.ContactPersonMail = _selectedContactPerson.ContactPersonMail;
+            this.ContactPersonSeqNum = _selectedContactPerson.ContactPersonSeqNum;
             this.ContactPersonAction = "Modify";
         }
         #endregion

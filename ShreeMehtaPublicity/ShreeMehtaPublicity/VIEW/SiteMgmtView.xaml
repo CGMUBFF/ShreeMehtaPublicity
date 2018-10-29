@@ -6,12 +6,9 @@
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             mc:Ignorable="d"
+             mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768"
 	         xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
-             Name="SiteMgmtWindow"
-             Focusable="False"
-             IsTabStop="False" d:DesignWidth="1366" d:DesignHeight="768"
-             Background="Transparent"
+             Name="SiteMgmtWindow" Focusable="False" IsTabStop="False" Background="Transparent"
              TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal" TextElement.FontSize="13" TextElement.FontWeight="Regular" 
              FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}" >
 
@@ -19,6 +16,7 @@
         <utility:NoListVisibilityConvertor x:Key="NoListVisible"/>
         <utility:AmountValidator x:Key="AmountValidator"/>
         <utility:StatusConvertor x:Key="StatusConverter"/>
+        <utility:CautationVisibilityConvertor x:Key="CautationVisible"/>
     </UserControl.Resources>
 
     <Grid Margin="0 10 0 0">
@@ -73,7 +71,7 @@
 
                             <ComboBox Grid.Row="4" x:Name="SiteStatusComboBox" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding ListofStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=fSelectedStatus , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTextSearchEnabled="True"  material:HintAssist.Hint="Status" material:HintAssist.IsFloating="True" TabIndex="5"/>
 
-                            <GroupBox Grid.Row="5" Header="Availability of Sites :" Margin="5 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{StaticResource FilterAvailSite}">
+                            <GroupBox Grid.Row="5" Header="Availability of Sites :" Margin="5 10 10 0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{StaticResource FilterAvailSite}" HeaderTemplate="{StaticResource FilterGroupBoxHeader}">
                                 <StackPanel Orientation="Vertical">
                                     <DatePicker Name="StartDate" Style="{StaticResource FilterDatePicker}" SelectedDate="{Binding fStartDate, Mode=TwoWay}" DisplayDate="{Binding DisplayStartDate, Mode=TwoWay}" FirstDayOfWeek="Monday" IsTabStop="True" material:HintAssist.Hint="Start Date" material:HintAssist.IsFloating="True" TabIndex="6">
                                         <i:Interaction.Triggers>
@@ -109,14 +107,17 @@
                             <Grid HorizontalAlignment="Stretch" Margin="20 0 20 20">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <Button x:Name="Add" Grid.Row="0" Content="Add Site" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Add_Site" IsTabStop="False"/>
+                                <CheckBox x:Name="CautationFlag" Content="Cautation Mode" Margin="0 0 0 20" IsChecked="{Binding CautationMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Button x:Name="Add" Grid.Row="1" Content="Add Site" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Add_Site" IsTabStop="False"/>
+                                <Button x:Name="Cautation" Grid.Row="1" Content="Create Cautation" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsTabStop="False" Command="{Binding CreateCautationCommand}" Visibility="{Binding ElementName=CautationFlag, Path=IsChecked, Converter={StaticResource CautationVisible}}"/>
                             </Grid>
                         </Border>
                     </Grid>
                 </Border>
 
-                <ListView Name="SiteList" Grid.Column="1" ItemsSource="{Binding ListofSites, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                <ListView Name="SiteList" Grid.Column="1" ItemsSource="{Binding ListofSites, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ListViewItemStyle}">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
@@ -133,10 +134,11 @@
                                         <RowDefinition Height="AUTO"/>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="AUTO"/>
+                                        <RowDefinition Height="AUTO"/>
                                     </Grid.RowDefinitions>
                                     <StackPanel Grid.Row="0" VerticalAlignment="Top" Orientation="Horizontal">
                                         <TextBlock Text="{Binding Path=SiteSeqNum, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}" VerticalAlignment="Center"/>
-                                        <TextBlock Text=":" Margin="5 0 5 0" Style="{StaticResource ListTextBlockStyle}" VerticalAlignment="Center"/>
+                                        <TextBlock Text=" : " Margin="5 0 5 0" Style="{StaticResource ListTextBlockStyle}" VerticalAlignment="Center"/>
                                         <TextBlock Text="{Binding Path=SiteName, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
                                     </StackPanel>
                                 
@@ -145,31 +147,35 @@
                                             <ColumnDefinition Width="AUTO"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Stretch="UniformToFill" Height="150" Width="120" Margin="10"/>
+                                        <Image Grid.Column="0" Stretch="UniformToFill" Height="150" Width="150" Margin="10 10 10 0" Source="{Binding Path=SiteImage}"/>
                                         <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                                 <TextBlock Text="Amount (Rs.) : " Style="{StaticResource ListTextBlockStyle}" />
-                                                <TextBlock Text="{Binding Path=SiteAmount, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                                <TextBlock Text="{Binding Path=SiteAmount, Mode=OneWay, StringFormat='0.00'}" Style="{StaticResource ListTextBlockStyle}"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                                 <TextBlock Text="Height : " Style="{StaticResource ListTextBlockStyle}" />
-                                                <TextBlock Text="{Binding Path=SiteHeight, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
-                                                <TextBlock Text="Width : " Margin="15 0 0 0" Style="{StaticResource ListTextBlockStyle}"/>
-                                                <TextBlock Text="{Binding Path=SiteWidth, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
+                                                <TextBlock Text="{Binding Path=SiteHeight, Mode=OneWay}"  Style="{StaticResource ListTextBlockStyle}" />
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="AUTO"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock Text="Address : " Style="{StaticResource ListTextBlockStyle}" />
-                                                    <TextBlock Grid.Column="1" Text="{Binding Path=SiteAddress, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource ListTextBlockStyle}" />
-                                                </Grid>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                <TextBlock Text="Width : " Style="{StaticResource ListTextBlockStyle}"/>
+                                                <TextBlock Text="{Binding Path=SiteWidth, Mode=OneWay}"  Style="{StaticResource ListTextBlockStyle}" />
                                             </StackPanel>
                                         </StackPanel>
                                     </Grid>
-                                    <Grid Grid.Row="2">
+
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,8" Name="AddressStackPanel">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="AUTO"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Address : " Style="{StaticResource ListTextBlockStyle}" />
+                                            <TextBlock Grid.Column="1" Text="{Binding Path=SiteAddress, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}" Width="{Binding ElementName=AddressStackPanel, Path=Width}"/>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <Grid Grid.Row="3">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                             <Button x:Name="Mdfy" Click="Mdfy_Site" Style="{StaticResource ListButtonStyle}" ToolTip="Edit" ToolTipService.ShowDuration="1500" IsTabStop="False">
                                                 <material:PackIcon Kind="Pencil" Style="{StaticResource ListButtonIconStle}" IsEnabled="True"/>
@@ -203,7 +209,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Border Grid.Column="1" Visibility="{Binding ListofSites.Count, Converter={StaticResource NoListVisible}, UpdateSourceTrigger=PropertyChanged}" >
+                <Border Grid.Column="1" Visibility="{Binding ListofSites.Count, Converter={StaticResource NoListVisible}, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NoListViewBorder}">
                     <TextBlock Text="No Sites are Present" Style="{StaticResource NoListViewText}"/>
                 </Border>
             </Grid>
