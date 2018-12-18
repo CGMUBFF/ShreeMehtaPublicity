@@ -11,7 +11,7 @@ namespace ShreeMehtaPublicity.Utility
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if ((Boolean)value)
+            if (System.Convert.ToInt32(value) > 0)
                 return System.Windows.Visibility.Visible;
             else
                 return System.Windows.Visibility.Collapsed;
@@ -20,9 +20,9 @@ namespace ShreeMehtaPublicity.Utility
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (System.Windows.Visibility.Visible.Equals(value))
-                return true;
+                return 1;
             else
-                return false;
+                return 0;
         }
     }
 }

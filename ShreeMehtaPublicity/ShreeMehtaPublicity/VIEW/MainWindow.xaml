@@ -37,6 +37,7 @@
             <Button Uid="0" Content="Site" Style="{StaticResource MenuButton}" Click="MenuItemClick" IsTabStop="False"/>
             <Button Uid="1" Content="Client" Style="{StaticResource MenuButton}" Click="MenuItemClick" IsTabStop="False"/>
             <Button Uid="2" Content="Order" Style="{StaticResource MenuButton}" Click="MenuItemClick" IsTabStop="False"/>
+            <Button Uid="3" Content="Cautation" Style="{StaticResource MenuButton}" Click="MenuItemClick" IsTabStop="False"/>
         </StackPanel>
         
         <Grid Name="MenuUnderline" Grid.Row="1" VerticalAlignment="Bottom" Background="White" Height="5" Width="150" HorizontalAlignment="Left" Margin="10 0 0 0"/>

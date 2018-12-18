@@ -33,9 +33,12 @@ namespace ShreeMehtaPublicity.VIEW
             InitializeComponent();
 
             this.Activate();
+            //this.Close();
+            /*SiteMgmtView siteMgmtView = new SiteMgmtView(this);
+            menuItem_grid.Children.Add(siteMgmtView);*/
 
-            SiteMgmtView siteMgmtView = new SiteMgmtView(this);
-            menuItem_grid.Children.Add(siteMgmtView);
+            SiteCautationView siteCautationView = new SiteCautationView(this);
+            menuItem_grid.Children.Add(siteCautationView);
         }
 
         private void onClosing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -74,7 +77,7 @@ namespace ShreeMehtaPublicity.VIEW
             MenuUnderline.Margin = new Thickness(10 + (150 * index), 0, 0, 0);
 
             menuItem_grid.Children.Clear();
-            
+
             switch(index)
             {
                 case 0:
@@ -88,6 +91,10 @@ namespace ShreeMehtaPublicity.VIEW
                 case 2:
                     OrderMgmtView orderMgmtView = new OrderMgmtView(this);
                     menuItem_grid.Children.Add(orderMgmtView);
+                    break;
+                case 3:
+                    SiteCautationView siteCautationView = new SiteCautationView(this);
+                    menuItem_grid.Children.Add(siteCautationView);
                     break;
             }
         }

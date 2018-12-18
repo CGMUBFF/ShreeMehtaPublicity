@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.IO;
+using System.Collections.ObjectModel;
+
+using ShreeMehtaPublicity.MODEL;
 
 namespace ShreeMehtaPublicity.Utility
 {
@@ -12,11 +15,11 @@ namespace ShreeMehtaPublicity.Utility
     {
         private static string DocumentDirectory = "C:\\ShreeMehtaPublicity\\";
         private static string SiteImagePath = DocumentDirectory + "Site Images\\";
+        public static string CautationFilePath = DocumentDirectory + "Cautation\\";
 
         public static string SelectFile()
         {
             OpenFileDialog open = new OpenFileDialog();
-
             try
             {
                 open.Filter = "Image Files(*.jpg;*.jpeg;*.bmp;*.png;)|*.jpg;*.jpeg;*.bmp;*.png;";
@@ -37,27 +40,42 @@ namespace ShreeMehtaPublicity.Utility
             DateTime d = DateTime.Now;
             string ImagePath = String.Concat(SiteImagePath, "Site No - ",siteSeqNo, "\\");
             string ImageFile = String.Concat(ImagePath, "SMP_SN_", siteSeqNo, "_", d.ToString("yyyyMMdd"),"_",d.ToString("HHmmssFFF"), Path.GetExtension(Source));
-            //if (!Source.Contains(SiteImagePath))
-            //{
-                try
-                {
-                    if (!Directory.Exists(ImagePath))
-                    {
-                        Directory.CreateDirectory(ImagePath);
-                    }
-
-                    File.Copy(Source, ImageFile, true);
-                    return ImageFile;
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            /*}
-            else
+            try
             {
-                return Source;
-            }*/
+                if (!Directory.Exists(ImagePath))
+                {
+                    Directory.CreateDirectory(ImagePath);
+                }
+
+                File.Copy(Source, ImageFile, true);
+                return ImageFile;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public static string generateCautationFileName(int cautationSeqNo)
+        {
+            DateTime d = DateTime.Now;
+            try
+            {
+                if (!Directory.Exists(CautationFilePath))
+                {
+                    Directory.CreateDirectory(CautationFilePath);
+                }
+                return String.Concat(CautationFilePath,"SMP_Cautaion_",cautationSeqNo,"_",d.ToString("yyyyMMdd"),"_",d.ToString("HHmmssFFF"), ".pdf");
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public static string createCautationPDFFile(ObservableCollection<SiteCautationModel> ListofSelectedCautation, string FileName)
+        {
+            return null;
         }
     }
 }

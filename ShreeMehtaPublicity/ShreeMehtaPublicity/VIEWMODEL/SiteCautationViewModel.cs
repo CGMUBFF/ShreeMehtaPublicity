@@ -14,36 +14,64 @@ using ShreeMehtaPublicity.MODEL;
 
 namespace ShreeMehtaPublicity.VIEWMODEL
 {
-    public class SiteMgmtViewModel : ViewModelBase
+    public class SiteCautationViewModel : ViewModelBase
     {
         private Database db;
 
         #region Variable Declaration
-        private ObservableCollection<SiteModel> _listofSites;
-        public ObservableCollection<SiteModel> ListofSites
+        private ObservableCollection<SiteCautationModel> _listofCautationSitesFromDb;
+        public ObservableCollection<SiteCautationModel> ListofCautationSitesFromDb
         {
             get
             {
-                return _listofSites;
+                return _listofCautationSitesFromDb;
             }
             set
             {
-                _listofSites = value;
-                OnPropertyChanged("ListofSites");
+                _listofCautationSitesFromDb = value;
+                OnPropertyChanged("ListofCautationSitesFromDb");
+            }
+        }
+        
+        private ObservableCollection<SiteCautationModel> _listofCautationSites;
+        public ObservableCollection<SiteCautationModel> ListofCautationSites
+        {
+            get
+            {
+                return _listofCautationSites;
+            }
+            set
+            {
+                _listofCautationSites = value;
+                OnPropertyChanged("ListofCautationSites");
             }
         }
 
-        private SiteModel _selectedSite;
-        public SiteModel SelectedSite
+        private ObservableCollection<SiteCautationModel> _listofSelectedCautationSites;
+        public ObservableCollection<SiteCautationModel> ListofSelectedCautationSites
         {
             get
             {
-                return _selectedSite;
+                return _listofSelectedCautationSites;
             }
             set
             {
-                _selectedSite = value;
-                OnPropertyChanged("SelectedSite");
+                _listofSelectedCautationSites = value;
+                OnPropertyChanged("ListofSelectedCautationSites");
+            }
+        }
+
+        private SiteCautationModel _selectedCautationSite;
+        public SiteCautationModel SelectedCautationSite
+        {
+            get
+            {
+                return _selectedCautationSite;
+            }
+            set
+            {
+                _selectedCautationSite = value;
+                OnPropertyChanged("SelectedCautationSite");
             }
         }
 
@@ -106,6 +134,34 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             {
                 _endDateEnable = value;
                 OnPropertyChanged("EndDateEnable");
+            }
+        }
+
+        private Boolean _selectAllFlag;
+        public Boolean SelectAllFlag
+        {
+            get
+            {
+                return _selectAllFlag;
+            }
+            set
+            {
+                _selectAllFlag = value;
+                OnPropertyChanged("SelectAllFlag");
+            }
+        }
+
+        private string _selectAllText;
+        public string SelectAllText
+        {
+            get
+            {
+                return _selectAllText;
+            }
+            set
+            {
+                _selectAllText = value;
+                OnPropertyChanged("SelectAllText");
             }
         }
 
@@ -179,7 +235,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                 OnPropertyChanged("fSiteAmount");
             }
         }
-        
+
         private DateTime? _startDate;
         public DateTime? fStartDate
         {
@@ -232,17 +288,19 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         #endregion
 
         #region Constructor
-        public SiteMgmtViewModel()
+        public SiteCautationViewModel()
         {
             db = Database.getInstance();
 
-            ListofSites = new ObservableCollection<SiteModel>();
+            ListofCautationSites = new ObservableCollection<SiteCautationModel>();
+            ListofSelectedCautationSites = new ObservableCollection<SiteCautationModel>();
 
             ListofStatus = new ObservableCollection<string>();
             ListofStatus.Add("ALL");
             ListofStatus.Add(Status.ACTV);
             ListofStatus.Add(Status.IACT);
 
+            SelectAllText = " Select All";
             resetFields();
             searchSites();
         }
@@ -259,7 +317,15 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         public void searchSites()
         {
-            ListofSites = db.db_GetSiteList(StaticMaster.convertDateToString(_startDate), StaticMaster.convertDateToString(_endDate), StaticMaster.convertStringToSiteStatus(_selectedStatus), _siteHeight==null?"ALL":_siteHeight, _siteWidth==null?"ALL":_siteWidth, _siteAmount==null?"ALL":_siteAmount, _siteName==null?"ALL":_siteName, _siteAddress==null?"ALL":_siteAddress);
+            ListofCautationSitesFromDb = db.db_GetCautationSiteList(StaticMaster.convertDateToString(_startDate), StaticMaster.convertDateToString(_endDate), StaticMaster.convertStringToSiteStatus(_selectedStatus), _siteHeight == null ? "ALL" : _siteHeight, _siteWidth == null ? "ALL" : _siteWidth, _siteAmount == null ? "ALL" : _siteAmount, _siteName == null ? "ALL" : _siteName, _siteAddress == null ? "ALL" : _siteAddress);
+            ListofCautationSites = new ObservableCollection<SiteCautationModel>(_listofSelectedCautationSites);
+            foreach (SiteCautationModel cautationSite in _listofCautationSitesFromDb)
+            {
+                if (!_listofCautationSites.Contains(cautationSite, new InlineComparer<SiteCautationModel>((i1, i2) => i1.SiteSeqNum == i2.SiteSeqNum, i => i.SiteSeqNum.GetHashCode())))
+                {
+                    ListofCautationSites.Add(cautationSite);
+                }
+            }
         }
         #endregion
 
@@ -295,7 +361,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                 fEndDate = _startDate;
             }
 
-            if(_startDate != null)
+            if (_startDate != null)
             {
                 EndDateEnable = true;
             }
@@ -313,8 +379,8 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             fEndDate = null;
             fSelectedStatus = _listofStatus.FirstOrDefault(x => x.Equals(Status.ACTV));
 
-            SelectedSite = null;
-            
+            SelectedCautationSite = null;
+
             if (fStartDate == null)
                 DisplayStartDate = System.DateTime.Today;
             else
@@ -327,5 +393,67 @@ namespace ShreeMehtaPublicity.VIEWMODEL
 
             EndDateEnable = false;
         }
+
+        #region CautationSiteChecked Command
+        public void cautationSiteChecked(bool IsChecked)
+        {
+            if (IsChecked)
+                ListofSelectedCautationSites.Add(_selectedCautationSite);
+            else
+                ListofSelectedCautationSites.Remove(_selectedCautationSite);
+        }
+        #endregion
+
+        #region AllCautationSiteChecked Command
+        public void allCautationSiteChecked(bool IsChecked)
+        {
+            ListofSelectedCautationSites.Clear();
+            foreach (SiteCautationModel siteCautation in ListofCautationSites)
+            {
+                siteCautation.SiteCautationFlag = IsChecked;
+            }
+            if (IsChecked)
+            {
+                ListofSelectedCautationSites = new ObservableCollection<SiteCautationModel>(_listofCautationSites);
+            }
+        }
+        #endregion
+
+        #region CreateCautation Command
+        private RelayCommand createCautationCommand;
+        public ICommand CreateCautationCommand
+        {
+            get
+            {
+                return createCautationCommand ?? (createCautationCommand = new RelayCommand(param => this.createCautation()));
+            }
+        }
+        public void createCautation()
+        {
+            
+        }
+        #endregion
+
+        #region ResetCautation Command
+        private RelayCommand resetCautationCommand;
+        public ICommand ResetCautationCommand
+        {
+            get
+            {
+                return resetCautationCommand ?? (resetCautationCommand = new RelayCommand(param => this.resetCautation()));
+            }
+        }
+        public void resetCautation()
+        {
+            ListofSelectedCautationSites.Clear();
+            ListofCautationSites.Clear();
+            /*foreach (SiteModel site in _listofSites)
+            {
+                SiteCautationModel siteCautationModel = bundleSiteCautationModel(site);
+
+                ListofCautationSites.Add(siteCautationModel);
+            }*/
+        }
+        #endregion
     }
 }

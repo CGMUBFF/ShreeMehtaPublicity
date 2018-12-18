@@ -148,7 +148,7 @@ namespace ShreeMehtaPublicity.Utility
                     SiteHeight = Convert.ToString(dr["SITE_HEIGHT"]),
                     SiteWidth = Convert.ToString(dr["SITE_WIDTH"]),
                     SiteAmount = Convert.ToString(dr["SITE_AMOUNT"]),
-                    SiteImage = Convert.ToString(dr["SITE_IMAGE"])
+                    SiteImage = Convert.ToString(dr["SITE_IMAGE"])                    
                 }
             ));
 
@@ -200,7 +200,8 @@ namespace ShreeMehtaPublicity.Utility
                                                 SiteAmount = Convert.ToString(dr["SITE_AMOUNT"]),
                                                 SiteHeight = Convert.ToString(dr["SITE_HEIGHT"]),
                                                 SiteWidth = Convert.ToString(dr["SITE_WIDTH"]),
-                                                SiteStatus = Convert.ToString(dr["SITE_STATUS"])},
+                                                SiteStatus = Convert.ToString(dr["SITE_STATUS"]),
+                                                SiteImage = Convert.ToString(dr["SITE_IMAGE"])},
                     OrderClient = new ClientModel { ClientSeqNum = Convert.ToInt32(dr["CLIENT_SEQ_NO"]), 
                                                     ClientName = Convert.ToString(dr["CLIENT_NAME"]),
                                                     ClientAddress = Convert.ToString(dr["CLIENT_ADDRESS"]),
@@ -410,6 +411,163 @@ namespace ShreeMehtaPublicity.Utility
             }
 
             return output;
+        }
+        #endregion
+
+        #region Site Cautation Management
+        public ObservableCollection<SiteCautationModel> db_GetCautationSiteList(string StartDate, string EndDate, string SelectedStatus, string Height, string Width, string Amount, string Name, string Address)
+        {
+            ObservableCollection<SiteModel> ListofSites = db.db_GetSiteList(StartDate, EndDate, SelectedStatus, Height, Width, Amount, Name, Address);
+  
+            ObservableCollection<SiteCautationModel> allCautationSites = new ObservableCollection<SiteCautationModel>();
+
+            foreach (SiteModel site in ListofSites)
+            {
+                SiteCautationModel siteCautationModel = bundleSiteCautationModel(site);
+
+                allCautationSites.Add(siteCautationModel);
+            }
+            return allCautationSites;
+        }
+
+        private SiteCautationModel bundleSiteCautationModel(SiteModel site)
+        {
+            SiteCautationModel siteCautationModel = new SiteCautationModel();
+            siteCautationModel.SiteAddress = site.SiteAddress;
+            siteCautationModel.SiteAmount = site.SiteAmount;
+            siteCautationModel.SiteCautationFlag = false;
+            siteCautationModel.SiteHeight = site.SiteHeight;
+            siteCautationModel.SiteImage = site.SiteImage;
+            siteCautationModel.SiteName = site.SiteName;
+            siteCautationModel.SiteSeqNum = site.SiteSeqNum;
+            siteCautationModel.SiteStatus = site.SiteStatus;
+            siteCautationModel.SiteWidth = site.SiteWidth;
+
+            return siteCautationModel;
+        }
+
+        public string db_addNewCautation(ObservableCollection<SiteCautationModel> ListofSites)
+        {
+            string FilePath = null;
+            string output = null;
+            int cautation_seq_no = db_GetSeqNo("CAUTATION");
+            if (cautation_seq_no == 0)
+            {
+                output = "Technical Error";
+            }
+            else
+            {
+                cautation_seq_no = cautation_seq_no + 1;
+                FilePath = FileOperations.generateCautationFileName(cautation_seq_no);
+                
+                object[] parameters = { cautation_seq_no, "", "", FilePath, "0" };
+
+                int rowsInserted = dBOpertions.INSERT(queries.addNewCautation, parameters);
+                if (rowsInserted == 1)
+                {
+                    foreach (SiteCautationModel site in ListofSites)
+                    {
+                        object[] parameters1 = { cautation_seq_no, site.SiteSeqNum, site.SiteAmount };
+
+                        int rowsInserted1 = dBOpertions.INSERT(queries.addNewCautationSite, parameters1);
+                    }
+                    string updateOutput = db_updateSeqNo("CAUTATION", cautation_seq_no);
+                    if (updateOutput.Equals(Status.SUCC))
+                    {
+                        output = cautation_seq_no + "";
+                    }
+                    else
+                    {
+                        output = updateOutput;
+                    }
+                }
+                else
+                {
+                    output = "Technical Error";
+                }
+
+            }
+            return output;
+        }
+
+        public string db_updateNewCautation(ObservableCollection<ClientModel> ListofClients, string Subject, string Body, string FilePath, string SendFlag, int cautation_seq_no)
+        {
+            string output = null;
+
+            object[] parameters = { Subject, Body, FilePath, SendFlag, cautation_seq_no };
+
+            int rowsInserted = dBOpertions.UPDATE(queries.updateNewCautation, parameters);
+            if (rowsInserted == 1)
+            {
+                /*foreach (ClientModel client in ListofClients)
+                {
+                    object[] parameters1 = { cautation_seq_no, client.ClientSeqNum };
+
+                    int rowsInserted1 = dBOpertions.INSERT(queries.addNewCautationClient, parameters1);
+                }*/
+                output = Status.SUCC;
+            }
+            else
+            {
+                output = "Technical Error";
+            }
+
+            return output;
+        }
+
+        public CautationModel db_getCautationDetail(int _cautationSeqNo)
+        {
+            CautationModel cautationModel = null;
+
+            object[] parameter = { _cautationSeqNo };
+            
+            DataTable dt = dBOpertions.SELECT(queries.getCautationDetails, parameter);
+            DataTable dtSite = dBOpertions.SELECT(queries.getCautationSiteDetails, parameter);
+            DataTable dtClient = dBOpertions.SELECT(queries.getCautationClientDetails, parameter);
+
+            ObservableCollection<CautationModel> allCautations = new ObservableCollection<CautationModel>(
+                dt.AsEnumerable().Select(dr => new CautationModel
+                {
+                    CautationSeqNo = Convert.ToInt32(dr["CAUTATION_SEQ_NO"]),
+                    Subject = Convert.ToString(dr["SUBJECT"]),
+                    Body = Convert.ToString(dr["BODY"]),
+                    CautationFileName = Convert.ToString(dr["CAUTATION_FILE"]),
+                    SendFlag = Convert.ToString(dr["CAUTATION_SEND_FLAG"])
+                }
+            ));
+
+            cautationModel = allCautations.First<CautationModel>();
+            
+            cautationModel.SiteList = new ObservableCollection<SiteModel>(
+                dtSite.AsEnumerable().Select(dr => new SiteModel
+                {
+                    SiteSeqNum = Convert.ToInt32(dr["SITE_SEQ"]),
+                    SiteName = Convert.ToString(dr["SITE_NAME"]),
+                    SiteStatus = StaticMaster.convertSiteStatusToString(Convert.ToString(dr["SITE_STATUS"])),
+                    SiteAddress = Convert.ToString(dr["SITE_ADDRESS"]),
+                    SiteAmount = Convert.ToString(dr["CAUTATION_SITE_AMOUNT"]),
+                    SiteHeight = Convert.ToString(dr["SITE_HEIGHT"]),
+                    SiteWidth = Convert.ToString(dr["SITE_WIDTH"]),
+                    SiteImage = Convert.ToString(dr["SITE_IMAGE"])
+                }
+            ));
+
+            cautationModel.ClientList = new ObservableCollection<ClientModel>(
+                dtClient.AsEnumerable().Select(dr => new ClientModel
+                {
+                    ClientSeqNum = Convert.ToInt32(dr["CLIENT_SEQ"]),
+                    ClientName = Convert.ToString(dr["CLIENT_NAME"]),
+                    ClientStatus = StaticMaster.convertClientStatusToString(Convert.ToString(dr["CLIENT_STATUS"])),
+                    ClientAddress = Convert.ToString(dr["CLIENT_ADDRESS"]),
+                    ClientBranch = Convert.ToString(dr["CLIENT_BRANCH"]),
+                    ClientLandline = Convert.ToString(dr["CLIENT_LANDLINE"]),
+                    ClientMobile = Convert.ToString(dr["CLIENT_MOBILE"]),
+                    ClientGST = Convert.ToString(dr["CLIENT_GST"]),
+                    ClientMail = Convert.ToString(dr["CLIENT_MAIL"])
+                }
+            ));
+
+            return cautationModel;
         }
         #endregion
 

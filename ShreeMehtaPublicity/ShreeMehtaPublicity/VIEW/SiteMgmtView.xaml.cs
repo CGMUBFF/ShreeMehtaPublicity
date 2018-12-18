@@ -49,10 +49,10 @@ namespace ShreeMehtaPublicity.VIEW
             mdfy();
         }
 
-        private void SiteMgmtWindow_Closing(object sender, RoutedEventArgs e)
+        /*private void SiteMgmtWindow_Closing(object sender, RoutedEventArgs e)
         {
             close();
-        }
+        }*/
 
         private void View_Site(object sender, RoutedEventArgs e)
         {

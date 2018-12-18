@@ -14,6 +14,7 @@
 
     <UserControl.Resources>
         <utility:NoListVisibilityConvertor x:Key="NoListVisible"/>
+        <utility:NoListEnableConvertor x:Key="NoListEnable"/>
         <utility:AmountValidator x:Key="AmountValidator"/>
         <utility:StatusConvertor x:Key="StatusConverter"/>
         <utility:CautationVisibilityConvertor x:Key="CautationVisible"/>
@@ -54,7 +55,7 @@
 
                             <TextBox Grid.Row="0" Name="SiteName" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Name" material:HintAssist.IsFloating="True" TabIndex="0"/>
 
-                            <TextBox Grid.Row="1" Name="SiteAddress" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Name" material:HintAssist.IsFloating="True" TabIndex="1"/>
+                            <TextBox Grid.Row="1" Name="SiteAddress" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Address" material:HintAssist.IsFloating="True" TabIndex="1"/>
 
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
@@ -62,9 +63,9 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" Name="SiteHeight" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Height" material:HintAssist.IsFloating="True" TabIndex="2"/>
+                                <TextBox Grid.Column="0" Name="SiteHeight" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Height" material:HintAssist.IsFloating="True" TabIndex="2"/>
 
-                                <TextBox Grid.Column="1" Name="SiteWidth" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Width" material:HintAssist.IsFloating="True" TabIndex="3"/>
+                                <TextBox Grid.Column="1" Name="SiteWidth" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Width" material:HintAssist.IsFloating="True" TabIndex="3"/>
                             </Grid>
 
                             <TextBox Grid.Row="3" Name="SiteAmount" Style="{StaticResource FilterTextBox}" Text="{Binding fSiteAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Amount (Rs.)" material:HintAssist.IsFloating="True" TabIndex="4"/>
@@ -107,11 +108,8 @@
                             <Grid HorizontalAlignment="Stretch" Margin="20 0 20 20">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <CheckBox x:Name="CautationFlag" Content="Cautation Mode" Margin="0 0 0 20" IsChecked="{Binding CautationMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 <Button x:Name="Add" Grid.Row="1" Content="Add Site" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="Add_Site" IsTabStop="False"/>
-                                <Button x:Name="Cautation" Grid.Row="1" Content="Create Cautation" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsTabStop="False" Command="{Binding CreateCautationCommand}" Visibility="{Binding ElementName=CautationFlag, Path=IsChecked, Converter={StaticResource CautationVisible}}"/>
                             </Grid>
                         </Border>
                     </Grid>
