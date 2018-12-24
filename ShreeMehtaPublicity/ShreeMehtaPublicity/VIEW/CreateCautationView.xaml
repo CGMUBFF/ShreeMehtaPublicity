@@ -21,6 +21,7 @@
     <Window.Resources>
         <utility:CautationConfirmVisibilityConvertor x:Key="CautationConfirmVisibility"/>
         <utility:MailToListVisibilityConvertor x:Key="MailToListVisibility"/>
+        <utility:CautationClientListVisibilityConvertor x:Key="CautationClientListVisibility"/>
     </Window.Resources>
 
     <Grid MinHeight="200" MaxHeight="500">
@@ -39,8 +40,8 @@
                 <material:PackIcon Kind="CloseBoxOutline" Height="20" Width="20"/>
             </Button>
         </StackPanel>
+       
 
-        
         <ListView Name="CautationList" Grid.Row="1" Background="White" Margin="0 5 0 0" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding ListofSelectedCautation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCautationSite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
                 <ListView.View>
                     <GridView>
@@ -63,29 +64,54 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="1" Background="White" Margin="10 15 10 0" HorizontalAlignment="Stretch" Visibility="{Binding CautationConfirmed, Mode=OneWay, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <TextBlock Text="To" Margin="0 5 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
+                <TextBlock Text="To" Height="30" Margin="0 5 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
                 <DockPanel>
-                    <TextBox DockPanel.Dock="Top" Name="toText" Text="{Binding To}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="40 0 0 0" TextChanged="txtFilter_TextChanged"/>
-                    <ListView Name="ClientList" ItemsSource="{Binding ListofClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="40 0 0 0" Height="Auto" MaxHeight="100" Visibility="{Binding ElementName=toText, Path=IsFocused, Converter={StaticResource MailToListVisibility}}" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{Binding ClientName}"/>
-                                    <TextBlock Text="{Binding ClientMail}" FontSize="10" Foreground="Gray"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        
-                    </ListView>
+                    <StackPanel Orientation="Vertical" MinWidth="200" MaxWidth="80" Margin="40 0 0 0">
+                        <TextBox Name="toText" Height="30" Text="{Binding To}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" TextChanged="txtFilter_TextChanged" TextWrapping="Wrap" MinLines="1"/>
+                        <ListView Name="ClientList" ItemsSource="{Binding ListofClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Height="Auto" MaxHeight="100" Visibility="{Binding ElementName=toText, Path=Text, Converter={StaticResource MailToListVisibility}}" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding NewClientSelectedCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding ClientName}"/>
+                                        <TextBlock Text="{Binding ClientMail}" FontSize="10" Foreground="Gray"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>   
+                        </ListView>
+                    </StackPanel>
                 </DockPanel>
+                <ListView Name="SelectedClientList" Margin="0 5 0 0" ItemsSource="{Binding ListofSelectedClients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCautationClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ListofSelectedClients.Count, Converter={StaticResource CautationClientListVisibility}}" ItemContainerStyle="{StaticResource ListViewItemStyle}" MinWidth="550" MaxWidth="720" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <material:Card UniformCornerRadius="10" Height="30" Margin="-1">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding ClientName}" MaxWidth="200" Margin="5 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <Button x:Name="delete" VerticalContentAlignment="Center" Margin="8 0 5 0" Style="{StaticResource ListButtonStyle}" IsTabStop="False" Width="20" Height="20" Command="{Binding Path=DataContext.DeleteCautationClientCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}">
+                                        <material:PackIcon Kind="DeleteCircle" Foreground="LightGray" Style="{StaticResource ListButtonIconStle}" IsEnabled="True" Width="20" Height="20"/>
+                                    </Button>
+                                </StackPanel>
+                            </material:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <material:PackIcon Kind="Attachment" Style="{StaticResource ListButtonIconStle}" IsEnabled="True" Margin="-5 10 0 0"/>
-                <TextBlock Text="{Binding CautationCreated.CautationFileName}" Margin="22 15 0 0"  HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
+                <material:PackIcon Kind="Attachment" Height="30" Style="{StaticResource ListButtonIconStle}" IsEnabled="True" Margin="-5 10 0 0"/>
+                <TextBlock Text="{Binding CautationCreated.CautationFileName}" Height="30" Margin="22 15 0 0"  HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <TextBlock Text="Subject" Margin="0 16 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
-                <TextBox Text="{Binding Subject}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="9 0 0 0"/>
+                <TextBlock Text="Subject" Margin="0 16 0 0" Height="30" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
+                <TextBox Text="{Binding Subject}" Height="30" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="9 0 0 0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 10 0 0">
                 <TextBlock Text="Body" Margin="0 68 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>

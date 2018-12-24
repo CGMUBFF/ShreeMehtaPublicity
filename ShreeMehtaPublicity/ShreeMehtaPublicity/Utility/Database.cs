@@ -499,12 +499,16 @@ namespace ShreeMehtaPublicity.Utility
             int rowsInserted = dBOpertions.UPDATE(queries.updateNewCautation, parameters);
             if (rowsInserted == 1)
             {
-                /*foreach (ClientModel client in ListofClients)
-                {
-                    object[] parameters1 = { cautation_seq_no, client.ClientSeqNum };
+                object[] parameters1 = { cautation_seq_no };
 
-                    int rowsInserted1 = dBOpertions.INSERT(queries.addNewCautationClient, parameters1);
-                }*/
+                int rowsDeleted1 = dBOpertions.DELETE(queries.deleteOldCautationClient, parameters1);
+
+                foreach (ClientModel client in ListofClients)
+                {
+                    object[] parameters2 = { cautation_seq_no, client.ClientSeqNum };
+
+                    int rowsInserted1 = dBOpertions.INSERT(queries.addNewCautationClient, parameters2);
+                }
                 output = Status.SUCC;
             }
             else

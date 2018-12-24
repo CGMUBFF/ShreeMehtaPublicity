@@ -47,6 +47,13 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             set { _listofSelectedClients = value; OnPropertyChanged("ListofSelectedClients"); }
         }
 
+        private ClientModel _selectedCautationClient;
+        public ClientModel SelectedCautationClient
+        {
+            get { return _selectedCautationClient; }
+            set { _selectedCautationClient = value; OnPropertyChanged("SelectedCautationClient"); }
+        }
+
         private ClientModel _selectedClient;
         public ClientModel SelectedClient
         {
@@ -104,6 +111,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             this.ListofSelectedCautation = new ObservableCollection<SiteCautationModel>(listofSelectedCautation);
             this.parent = parent;
             this.ListofClients = db.db_GetAllClients();
+            ListofSelectedClients = new ObservableCollection<ClientModel>();
 
             CautationConfirmed = false;
             ActionLabel = "Create Cautation";
@@ -166,12 +174,12 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         {
             get
             {
-                return saveCommand ?? (saveCommand = new RelayCommand(param => this.Save()));
+                return saveCommand ?? (saveCommand = new RelayCommand(param => this.Save("0")));
             }
         }
-        private void Save()
+        private void Save(string sendFlag)
         {
-            string output = db.db_updateNewCautation(_listofSelectedClients, _subject, _body, _cautationCreated.CautationFileName, "0", _cautationCreated.CautationSeqNo);
+            string output = db.db_updateNewCautation(_listofSelectedClients, _subject, _body, _cautationCreated.CautationFileName, sendFlag, _cautationCreated.CautationSeqNo);
             
             CautationCreated = db.db_getCautationDetail(_cautationSeqNo);
         }
@@ -188,9 +196,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         private void Send()
         {
-            string output = db.db_updateNewCautation(_listofSelectedClients, _subject, _body, _cautationCreated.CautationFileName, "1", _cautationCreated.CautationSeqNo);
-
-            CautationCreated = db.db_getCautationDetail(_cautationSeqNo);
+            Save("1");
         }
         #endregion
 
@@ -238,6 +244,42 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         private void Close()
         {
             parent.Close();
+        }
+        #endregion
+
+        #region NewClientSelected Command
+        private RelayCommand newClientSelectedCommand;
+        public ICommand NewClientSelectedCommand
+        {
+            get
+            {
+                return newClientSelectedCommand ?? (newClientSelectedCommand = new RelayCommand(param => this.newClientSelected()));
+            }
+        }
+        private void newClientSelected()
+        {
+            if (ListofSelectedClients.IndexOf(SelectedClient) <= -1)
+                if(SelectedClient != null)
+                    ListofSelectedClients.Add(SelectedClient);
+
+            To = "";
+        }
+        #endregion
+
+        #region DeleteCautationClient Command
+        private RelayCommand deleteCautationClientCommand;
+        public ICommand DeleteCautationClientCommand
+        {
+            get
+            {
+                return deleteCautationClientCommand ?? (deleteCautationClientCommand = new RelayCommand(param => this.deleteCautationClient()));
+            }
+        }
+        private void deleteCautationClient()
+        {
+            if(SelectedCautationClient != null)
+                if (ListofSelectedClients.IndexOf(SelectedCautationClient) > -1)
+                    ListofSelectedClients.Remove(SelectedCautationClient);
         }
         #endregion
     }
