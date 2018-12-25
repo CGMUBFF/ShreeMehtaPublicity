@@ -1,34 +1,50 @@
-﻿using System.Net.Mail;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Net.Mail;
+using ShreeMehtaPublicity.MODEL;
 
 namespace ShreeMehtaPublicity.Utility
 {
     public class Mail
     {
-        public Mail()
+        private bool SendMail(MailMessage message)
         {
-            MailMessage message = new MailMessage();
-            message.To.Add("sanghavimohit17@gmail.com");
-            message.From = new MailAddress("sanghavimohit17@gmail.com");
-            message.Subject = "Testing";
-            message.Body = "sent successfully";
-            message.IsBodyHtml = true;
-            message.Attachments.Add(new Attachment("C:\\ShreeMehtaPublicity\\Cautation\\First iText PDF Document.pdf"));
-            SmtpClient client = new SmtpClient("smtp.gmail.com",587);
+            String FromMailUserName = "sanghavimohit17@gmail.com";
+            String FromMailPassword = "Mms@3250";
+            message.From = new MailAddress(FromMailUserName);
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
 
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
-            
-            client.Credentials = new System.Net.NetworkCredential("sanghavimohit17@gmail.com", "Mms@3250");
-            string token = "Test token";
-            //client.Timeout = 1000;
+
+            client.Credentials = new System.Net.NetworkCredential(FromMailUserName, FromMailPassword);
             try
             {
                 client.Send(message);
+                return true;
             }
             catch (System.Exception e)
             {
                 System.Console.WriteLine(e);
+                return false;
             }
+        }
+
+        public void SendCautation(ObservableCollection<ClientModel> clientList, string body, string subject, string cautationFileName)
+        {
+            MailMessage message = new MailMessage();
+
+            foreach (ClientModel client in clientList)
+            {
+                message.To.Add(client.ClientMail);
+            }
+            message.Subject = subject;
+            body = body.Replace("\r\n", "<br/>");
+            message.Body = body;
+            message.IsBodyHtml = true;
+            message.Attachments.Add(new Attachment(cautationFileName));
+
+            bool isMailSend = SendMail(message);
         }
     }
 }

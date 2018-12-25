@@ -39,9 +39,6 @@ namespace ShreeMehtaPublicity.VIEW
 
             SiteCautationView siteCautationView = new SiteCautationView(this);
             menuItem_grid.Children.Add(siteCautationView);
-
-            new Mail();
-            this.Close();
         }
 
         private void onClosing(object sender, System.ComponentModel.CancelEventArgs e)

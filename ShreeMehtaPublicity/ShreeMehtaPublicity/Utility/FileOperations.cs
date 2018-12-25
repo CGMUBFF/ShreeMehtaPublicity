@@ -73,9 +73,9 @@ namespace ShreeMehtaPublicity.Utility
             }
         }
 
-        public static string createCautationPDFFile(ObservableCollection<SiteCautationModel> ListofSelectedCautation, string FileName)
+        public static void createCautationPDFFile(ObservableCollection<SiteCautationModel> ListofSelectedCautation, string FileName)
         {
-            return null;
+            new PDFUtil().createCautationPDFFile(ListofSelectedCautation, FileName);
         }
     }
 }

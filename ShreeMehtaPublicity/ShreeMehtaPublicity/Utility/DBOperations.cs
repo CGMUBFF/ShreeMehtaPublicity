@@ -25,7 +25,8 @@ namespace ShreeMehtaPublicity.Utility
 
         private DBOperations()
         {
-            con = new SQLiteConnection("Data Source=C:\\Users\\Mohit Sanghavi\\Documents\\Visual Studio 2013\\Projects\\ShreeMehtaPublicity\\ShreeMehtaPublicity\\ShreeMehtaPublicityDatabase.db;Version=3;New=True;Compress=True;");
+            //con = new SQLiteConnection("Data Source=C:\\Users\\Mohit Sanghavi\\Documents\\Visual Studio 2013\\Projects\\ShreeMehtaPublicity\\ShreeMehtaPublicity\\ShreeMehtaPublicityDatabase.db;Version=3;New=True;Compress=True;");
+            con = new SQLiteConnection("Data Source=D:\\Mohit\\Projects\\Git\\ShreeMehtaPublicity\\ShreeMehtaPublicity\\ShreeMehtaPublicity\\ShreeMehtaPublicityDatabase.db;Version=3;New=True;Compress=True;");
 
             cmd = con.CreateCommand();
         }

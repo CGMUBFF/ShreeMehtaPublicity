@@ -20,7 +20,7 @@ namespace ShreeMehtaPublicity.Utility
 
         public void createCautationPDFFile(ObservableCollection<SiteCautationModel> ListofSelectedCautation, string FileName)
         {
-            using (FileStream msReport = new FileStream(FileOperations.CautationFilePath + "\\" + "FileName" + ".pdf", FileMode.Create))
+            using (FileStream msReport = new FileStream(FileName, FileMode.Create))
             {
                 using (Document pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30))
                 {

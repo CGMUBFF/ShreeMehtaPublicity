@@ -197,40 +197,11 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         private void Send()
         {
             Save("1");
+            Mail mail = new Mail();
+
+            mail.SendCautation(_cautationCreated.ClientList, _cautationCreated.Body, _cautationCreated.Subject, _cautationCreated.CautationFileName);
         }
         #endregion
-
-        private string convertCollectionToString(ObservableCollection<SiteCautationModel> CautationSites)
-        {
-            string output = "";
-            if (CautationSites != null)
-            {
-                foreach (SiteCautationModel site in CautationSites)
-                {
-                    output = String.Concat(output, site.SiteSeqNum, ",");
-                }
-            }
-            if (!String.IsNullOrEmpty(output))
-                return output.Remove(output.Length - 1);
-            else
-                return output;
-        }
-
-        private string convertCollectionToString(ObservableCollection<ClientModel> Clients)
-        {
-            string output = "";
-            if (Clients != null)
-            {
-                foreach (ClientModel client in Clients)
-                {
-                    output = String.Concat(output, client.ClientSeqNum, ",");
-                }
-            }
-            if (!String.IsNullOrEmpty(output))
-                return output.Remove(output.Length - 1);
-            else
-                return output;
-        }
 
         #region Close Command
         private RelayCommand closeCommand;

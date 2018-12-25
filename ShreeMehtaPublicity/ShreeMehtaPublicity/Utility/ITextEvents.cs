@@ -16,13 +16,6 @@ namespace ShreeMehtaPublicity.Utility
         DateTime PrintTime = DateTime.Now;
         BaseFont bf = null;
 
-        /*private string _header;
-        public string Header
-        {
-            get { return _header; }
-            set { _header = value; }
-        }*/
-
         public override void OnOpenDocument(PdfWriter writer, Document document)
         {
             try

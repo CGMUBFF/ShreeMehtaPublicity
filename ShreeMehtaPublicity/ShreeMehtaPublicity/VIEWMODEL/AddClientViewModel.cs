@@ -365,7 +365,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         }
         private bool validation()
         {
-            if (CustomValidation.validateString(_clientName))
+            /*if (CustomValidation.validateString(_clientName))
             {
                 this.parent.ClientName.Focus();
                 return false;
@@ -409,7 +409,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             {
                 this.parent.ClientGST.Focus();
                 return false;
-            }
+            }*/
             return true;
         }
         #endregion
@@ -464,7 +464,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             }
         }
         private bool validationContactPerson()
-        {
+        {/*
             if (CustomValidation.validateString(_contactPersonName))
             {
                 this.parent.ContactName.Focus();
@@ -489,7 +489,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             {
                 this.parent.ContactMail.Focus();
                 return false;
-            }
+            }*/
             return true;
         }
         #endregion
