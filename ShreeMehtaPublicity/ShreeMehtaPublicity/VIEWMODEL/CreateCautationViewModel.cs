@@ -115,6 +115,8 @@ namespace ShreeMehtaPublicity.VIEWMODEL
 
             CautationConfirmed = false;
             ActionLabel = "Create Cautation";
+
+            Confirm();
         }
         #endregion
 
