@@ -1,15 +1,11 @@
 ﻿<Window x:Class="ShreeMehtaPublicity.VIEW.CreateCautationView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:VIEWMODEL="clr-namespace:ShreeMehtaPublicity.VIEWMODEL" 
-             xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             SizeToContent="WidthAndHeight" WindowStyle="None"
-             xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
-             Name="CreateCautationWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Closing="CreateCautationView_Closing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        SizeToContent="WidthAndHeight" WindowStyle="None"
+        Name="CreateCautationWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Closing="CreateCautationView_Closing"
              FocusManager.FocusedElement="{Binding ElementName=CloseButton}" TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
              TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="White" BorderBrush="{StaticResource WindowTitleColorBrush}" BorderThickness="3">
@@ -24,7 +20,7 @@
         <utility:CautationClientListVisibilityConvertor x:Key="CautationClientListVisibility"/>
     </Window.Resources>
 
-    <Grid MinHeight="200" MaxHeight="500">
+    <Grid MinHeight="200" MaxHeight="500" MinWidth="750" MaxWidth="800">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
@@ -64,7 +60,7 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="1" Background="White" Margin="10 15 10 0" HorizontalAlignment="Stretch" Visibility="{Binding CautationConfirmed, Mode=OneWay, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <TextBlock Text="To" Height="30" Margin="0 5 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
+                <TextBlock Name="To" Text="To" Height="30" Margin="0 5 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
                 <DockPanel>
                     <StackPanel Orientation="Vertical" MinWidth="200" MaxWidth="80" Margin="40 0 0 0">
                         <TextBox Name="toText" Height="30" Text="{Binding To}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" TextChanged="txtFilter_TextChanged" TextWrapping="Wrap" MinLines="1"/>
@@ -111,39 +107,57 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <TextBlock Text="Subject" Margin="0 16 0 0" Height="30" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
-                <TextBox Text="{Binding Subject}" Height="30" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="9 0 0 0"/>
+                <TextBox Name="Subject" Text="{Binding Subject}" Height="30" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="9 0 0 0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 10 0 0">
                 <TextBlock Text="Body" Margin="0 68 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
-                <TextBox Text="{Binding Body}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="22 0 0 0" MinLines="10" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" VerticalContentAlignment="Top"/>
+                <TextBox Name="Body" Text="{Binding Body}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="22 0 0 0" MinLines="10" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" VerticalContentAlignment="Top"/>
             </StackPanel>
         </StackPanel>
 
-        
-        <StackPanel Margin="0,0,0,0" Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
-            <Button x:Name="EditButton" Width="100" Content="Edit" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding EditCommand}" TabIndex="1">
-                <Button.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding EditCommand}" />
-                </Button.InputBindings>
-            </Button>
-            <Button x:Name="NextButton" Width="100" Content="Confirm" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding ConfirmCommand}" TabIndex="0">
-                <Button.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
-                </Button.InputBindings>
-            </Button>
-        </StackPanel>
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Margin="0,0,0,0" Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding CautationConfirmed, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
-            <Button x:Name="SaveButton" Width="100" Content="Save" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding SaveCommand}" TabIndex="1">
-                <Button.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />
-                </Button.InputBindings>
-            </Button>
-            <Button x:Name="SendButton" Width="100" Content="Send" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding SendCommand}" TabIndex="0">
-                <Button.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding SendCommand}" />
-                </Button.InputBindings>
-            </Button>
-        </StackPanel>
+            <TextBlock Grid.Column="0" Text="{Binding StatusString}" Margin="20 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="{Binding ForegroundColor}" Background="White"/>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="EditButton" Width="100" Content="Edit" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding EditCommand}" TabIndex="1">
+                        <Button.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding EditCommand}" />
+                        </Button.InputBindings>
+                    </Button>
+                    <Button x:Name="NextButton" Width="100" Content="Confirm" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding ConfirmCommand}" TabIndex="0">
+                        <Button.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
+                        </Button.InputBindings>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding CautationConfirmed, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
+                    <Button x:Name="SaveButton" Width="100" Content="Save" HorizontalAlignment="Right" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding SaveCommand}" TabIndex="1">
+                        <Button.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />
+                        </Button.InputBindings>
+                    </Button>
+                    <Button x:Name="SendButton" Width="100" Content="Send" HorizontalAlignment="Right" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding SendCommand}" TabIndex="0">
+                        <Button.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding SendCommand}" />
+                        </Button.InputBindings>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Visibility="{Binding StatusStringFlag}">
+                <Button x:Name="OKButton" Grid.Column="1"  Content="OK" Command="{Binding OkCommand}" TabIndex="1" Style="{StaticResource MessageOk}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding OkCommand}" />
+                    </Button.InputBindings>
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

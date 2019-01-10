@@ -1,16 +1,12 @@
 ﻿<Window x:Class="ShreeMehtaPublicity.VIEW.PlaceOrderView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:VIEWMODEL="clr-namespace:ShreeMehtaPublicity.VIEWMODEL" 
-             xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             SizeToContent="WidthAndHeight"
-             xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
-             Name="PlaceOrderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" ShowInTaskbar="False"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        SizeToContent="WidthAndHeight"
+        Name="PlaceOrderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" ShowInTaskbar="False"
              FocusManager.FocusedElement="{Binding ElementName=CloseButton}"
              TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
              TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
@@ -112,7 +108,14 @@
                 </StackPanel>
 
                 <Grid Grid.Row="2">
-                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="{Binding StatusString}" Margin="20 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="{Binding ForegroundColor}" Background="White"/>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button x:Name="Save" Content="{Binding ActionButton}" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding SaveCommand}" TabIndex="7">
                             <Button.InputBindings>
                                 <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />

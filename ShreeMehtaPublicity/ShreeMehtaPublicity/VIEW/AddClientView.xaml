@@ -73,7 +73,14 @@
                 </StackPanel>
 
                 <Grid Grid.Row="2">
-                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="{Binding StatusString}" Margin="20 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="{Binding ForegroundColor}" Background="White"/>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button x:Name="Save" Content="{Binding ActionButton}" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding SaveClientCommand}" TabIndex="7">
                             <Button.InputBindings>
                                 <KeyBinding Key="Enter" Command="{Binding SaveClientCommand}" />

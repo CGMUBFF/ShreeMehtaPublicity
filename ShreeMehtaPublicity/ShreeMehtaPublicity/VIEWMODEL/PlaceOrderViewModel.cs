@@ -297,6 +297,26 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                 OnPropertyChanged("Action");
             }
         }
+        private string _statusString;
+        public string StatusString
+        {
+            get { return _statusString; }
+            set { _statusString = value; OnPropertyChanged("StatusString"); }
+        }
+
+        private System.Windows.Media.Brush _foregroundColor;
+        public System.Windows.Media.Brush ForegroundColor
+        {
+            get { return _foregroundColor; }
+            set { _foregroundColor = value; OnPropertyChanged("ForegroundColor"); }
+        }
+
+        private Visibility _statusStringFlag;
+        public Visibility StatusStringFlag
+        {
+            get { return _statusStringFlag; }
+            set { _statusStringFlag = value; OnPropertyChanged("StatusStringFlag"); }
+        }
         #endregion
 
         #region Constructor
@@ -341,6 +361,8 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                     }
             }
             resetFields();
+            StatusString = "";
+            StatusStringFlag = Visibility.Collapsed;
         }
         #endregion
 
@@ -365,11 +387,20 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                             string output = db.db_PlaceOrder(SelectedSite.SiteSeqNum, SelectedClient.ClientSeqNum, Double.Parse(Charges), Double.Parse(Printing), Double.Parse(Mounting), StaticMaster.convertDateToString(StartDate), StaticMaster.convertDateToString(EndDate), StaticMaster.convertStringToOrderStatus(orderStatus));
                             if (output.Equals(Status.SUCC))
                             {
-                                if (true)//WpfMessageBox.Show("Order Placed Successfully", Status.SUCC) == MessageBoxResult.OK)
-                                {
-                                    parent.Close();
-                                }
+                                StatusString = "Order Placed Successfully";
+                                ForegroundColor = System.Windows.Media.Brushes.Green;
                             }
+                            else if (output.Equals(Status.ERR))
+                            {
+                                StatusString = "Failed to Place Order";
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            else
+                            {
+                                StatusString = output;
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            StatusStringFlag = Visibility.Visible;
                             break;
                         }
                     case "MDFY" :
@@ -377,11 +408,20 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                             string output = db.db_MdfyOrder(orderModel.OrderSeqNum, Double.Parse(Charges), Double.Parse(Printing), Double.Parse(Mounting), StaticMaster.convertDateToString(StartDate), StaticMaster.convertDateToString(EndDate), StaticMaster.convertStringToOrderStatus(orderStatus));
                             if (output.Equals(Status.SUCC))
                             {
-                                if (true)//WpfMessageBox.Show("Order Modified Successfully", Status.SUCC) == MessageBoxResult.OK)
-                                {
-                                    parent.Close();
-                                }
+                                StatusString = "Order Modified Successfully";
+                                ForegroundColor = System.Windows.Media.Brushes.Green;
                             }
+                            else if (output.Equals(Status.ERR))
+                            {
+                                StatusString = "Failed to Modify Order";
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            else
+                            {
+                                StatusString = output;
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            StatusStringFlag = Visibility.Visible;
                             break;
                         }
                     case "CNCL" :
@@ -389,16 +429,27 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                             string output = db.db_CnclOrder(orderModel.OrderSeqNum);
                             if (output.Equals(Status.SUCC))
                             {
-                                if (true)//WpfMessageBox.Show("Order Cancelled Successfully", Status.SUCC) == MessageBoxResult.OK)
-                                {
-                                    parent.Close();
-                                }
+                                StatusString = "Order Cancelled Successfully";
+                                ForegroundColor = System.Windows.Media.Brushes.Green;
                             }
+                            else if (output.Equals(Status.ERR))
+                            {
+                                StatusString = "Failed to Cancel Order";
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            else
+                            {
+                                StatusString = output;
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            StatusStringFlag = Visibility.Visible;
                             break;
                         }
                     default :
                         {
-                            //WpfMessageBox.Show("Invalid Operation",Status.ERR);
+                            StatusString = "Invalid Operation";
+                            ForegroundColor = System.Windows.Media.Brushes.Red;
+                            StatusStringFlag = Visibility.Visible;
                             break;
                         }
                 }

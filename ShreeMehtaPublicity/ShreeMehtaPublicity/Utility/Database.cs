@@ -55,7 +55,7 @@ namespace ShreeMehtaPublicity.Utility
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             return output;
@@ -84,7 +84,7 @@ namespace ShreeMehtaPublicity.Utility
                     }
                     else
                     {
-                        output = "Technical Error";
+                        output = Status.ERR;
                     }
 
                     commitTransaction();
@@ -95,7 +95,7 @@ namespace ShreeMehtaPublicity.Utility
                 }
                 else
                 {
-                    output = "Technical Error";
+                    output = Status.ERR;
                 }
             }
             else if(dt.Rows.Count == 0)
@@ -104,7 +104,7 @@ namespace ShreeMehtaPublicity.Utility
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             */
@@ -125,7 +125,7 @@ namespace ShreeMehtaPublicity.Utility
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             commitTransaction();
@@ -237,7 +237,7 @@ namespace ShreeMehtaPublicity.Utility
             int order_seq_no = db_GetSeqNo("ORDER");
             if (order_seq_no == 0)
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
             else
             {
@@ -260,7 +260,7 @@ namespace ShreeMehtaPublicity.Utility
                 }
                 else
                 {
-                    output = "Technical Error";
+                    output = Status.ERR;
                 }
             }
             
@@ -280,7 +280,7 @@ namespace ShreeMehtaPublicity.Utility
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             return output;
@@ -299,7 +299,7 @@ namespace ShreeMehtaPublicity.Utility
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             return output;
@@ -336,7 +336,7 @@ namespace ShreeMehtaPublicity.Utility
             int site_seq_no = db_GetSeqNo("SITE");
             if (site_seq_no == 0)
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
             else
             {
@@ -363,7 +363,7 @@ namespace ShreeMehtaPublicity.Utility
                 }
                 else
                 {
-                    output = "Technical Error";
+                    output = Status.ERR;
                 }
             }
                         
@@ -388,7 +388,7 @@ namespace ShreeMehtaPublicity.Utility
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             return output;
@@ -407,7 +407,7 @@ namespace ShreeMehtaPublicity.Utility
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             return output;
@@ -453,7 +453,7 @@ namespace ShreeMehtaPublicity.Utility
             int cautation_seq_no = db_GetSeqNo("CAUTATION");
             if (cautation_seq_no == 0)
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
             else
             {
@@ -483,7 +483,7 @@ namespace ShreeMehtaPublicity.Utility
                 }
                 else
                 {
-                    output = "Technical Error";
+                    output = Status.ERR;
                 }
 
             }
@@ -513,7 +513,7 @@ namespace ShreeMehtaPublicity.Utility
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             return output;
@@ -606,7 +606,7 @@ namespace ShreeMehtaPublicity.Utility
             int client_seq_no = db_GetSeqNo("CLIENT");
             if (client_seq_no == 0)
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
             else
             {
@@ -633,7 +633,7 @@ namespace ShreeMehtaPublicity.Utility
                 }
                 else
                 {
-                    output = "Technical Error";
+                    output = Status.ERR;
                 }
             }
             
@@ -652,11 +652,11 @@ namespace ShreeMehtaPublicity.Utility
                 if (db_AddContactPerson(contactPersonModel, clientModel.ClientSeqNum).Equals(Status.SUCC))
                     output = Status.SUCC;
                 else
-                    output = "Technical Error";
+                    output = Status.ERR;
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             return output;
@@ -676,7 +676,7 @@ namespace ShreeMehtaPublicity.Utility
                     int contact_seq_no = db_GetSeqNo("CONTACT_PERSON");
                     if (contact_seq_no == 0)
                     {
-                        output = "Technical Error";
+                        output = Status.ERR;
                     }
                     else
                     {
@@ -692,7 +692,7 @@ namespace ShreeMehtaPublicity.Utility
                             }
                             else
                             {
-                                output = "Technical Error";
+                                output = Status.ERR;
                             }
                         }
                         string updateOutput = db_updateSeqNo("CONTACT_PERSON", contact_seq_no);
@@ -708,7 +708,7 @@ namespace ShreeMehtaPublicity.Utility
                 }
                 else
                 {
-                    output = "Technical Error";
+                    output = Status.ERR;
                 }
                 return output;
             }
@@ -732,7 +732,6 @@ namespace ShreeMehtaPublicity.Utility
                 }
             ));
 
-            
             return contactPersonList;
         }
         
@@ -749,7 +748,7 @@ namespace ShreeMehtaPublicity.Utility
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             return output;
@@ -824,12 +823,12 @@ namespace ShreeMehtaPublicity.Utility
                 }
                 else
                 {
-                    output = "Technical Error";
+                    output = Status.ERR;
                 }
             }
             else
             {
-                output = "Technical Error";
+                output = Status.ERR;
             }
 
             return output;            

@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using ShreeMehtaPublicity.MODEL;
+using System;
 using System.Collections.ObjectModel;
-
-using ShreeMehtaPublicity.MODEL;
+using System.Windows;
+using System.Windows.Data;
 
 namespace ShreeMehtaPublicity.VIEW
 {
@@ -23,11 +12,13 @@ namespace ShreeMehtaPublicity.VIEW
     public partial class CreateCautationView : Window
     {
         private SiteCautationView parent;
+        VIEWMODEL.CreateCautationViewModel createCautationViewModel;
         public CreateCautationView(SiteCautationView parent, ObservableCollection<SiteCautationModel> listofSelectedCautation)
         {
             this.parent = parent;
 
-            this.DataContext = new VIEWMODEL.CreateCautationViewModel(this, listofSelectedCautation);           
+            createCautationViewModel = new VIEWMODEL.CreateCautationViewModel(this, listofSelectedCautation);
+            this.DataContext = createCautationViewModel;
             InitializeComponent();
             
             this.Activate();
@@ -56,7 +47,7 @@ namespace ShreeMehtaPublicity.VIEW
 
         public void close()
         {
-            parent.CallBack();
+            parent.CallBack(createCautationViewModel.CautationConfirmed);
         }
 
         public void editSite()

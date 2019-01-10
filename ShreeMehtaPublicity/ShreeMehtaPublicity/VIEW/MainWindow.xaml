@@ -11,7 +11,7 @@
         Title="Mehta Publicity : Sites Management" 
         Height="{DynamicResource {x:Static SystemParameters.PrimaryScreenHeightKey}}" 
         Width="{DynamicResource {x:Static SystemParameters.PrimaryScreenWidthKey}}" 
-        WindowState="Maximized" ResizeMode="NoResize" Closing="onClosing" WindowStyle="None" Focusable="False"
+        WindowState="Maximized" ResizeMode="NoResize" Closing="OnClosing" WindowStyle="None" Focusable="False"
         IsTabStop="False" Name="mainWindow" TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
         TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="{StaticResource WindowTitleColorBrush}">

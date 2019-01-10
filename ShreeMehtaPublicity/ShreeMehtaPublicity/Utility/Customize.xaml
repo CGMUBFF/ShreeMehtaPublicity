@@ -251,7 +251,6 @@
     <!--#endregion-->
 
     <!--#region Add Client Contact Person Style-->
-    
     <Style TargetType="{x:Type TextBlock}" x:Key="ContactPersonListTextBlock" BasedOn="{StaticResource ListTextBlockStyle}">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontSize" Value="11"/>
@@ -280,4 +279,33 @@
     </Style>
     <!--#endregion-->
     
+    <!--#region Custom Message Box Style-->
+    <Style TargetType="{x:Type Button}" x:Key="MessageBoxButton">
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="10,10,10,0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="30"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="MessageOk" BasedOn="{StaticResource MessageBoxButton}">
+        <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="MessageCancel" BasedOn="{StaticResource MessageBoxButton}">
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="Message">
+        <Setter Property="Margin" Value="20,0,0,0"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+    <!--#endregion-->
 </ResourceDictionary>
