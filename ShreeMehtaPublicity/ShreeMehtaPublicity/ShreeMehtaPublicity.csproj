@@ -222,6 +222,9 @@
     <Compile Include="VIEW\CreateCautationView.xaml.cs">
       <DependentUpon>CreateCautationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VIEW\CustomMessageBox.xaml.cs">
+      <DependentUpon>CustomMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VIEW\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -303,6 +306,10 @@
     <Page Include="VIEW\CreateCautationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VIEW\CustomMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VIEW\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>

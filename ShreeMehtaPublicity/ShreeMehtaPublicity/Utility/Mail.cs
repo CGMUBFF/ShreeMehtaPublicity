@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ShreeMehtaPublicity.MODEL;
+using System;
 using System.Collections.ObjectModel;
 using System.Net.Mail;
-using ShreeMehtaPublicity.MODEL;
 
 namespace ShreeMehtaPublicity.Utility
 {
@@ -12,12 +12,13 @@ namespace ShreeMehtaPublicity.Utility
             String FromMailUserName = "sanghavimohit17@gmail.com";
             String FromMailPassword = "Mms@3250";
             message.From = new MailAddress(FromMailUserName);
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                EnableSsl = true,
+                UseDefaultCredentials = false,
 
-            client.EnableSsl = true;
-            client.UseDefaultCredentials = false;
-
-            client.Credentials = new System.Net.NetworkCredential(FromMailUserName, FromMailPassword);
+                Credentials = new System.Net.NetworkCredential(FromMailUserName, FromMailPassword)
+            };
             try
             {
                 client.Send(message);
@@ -30,7 +31,7 @@ namespace ShreeMehtaPublicity.Utility
             }
         }
 
-        public void SendCautation(ObservableCollection<ClientModel> clientList, string body, string subject, string cautationFileName)
+        public String SendCautation(ObservableCollection<ClientModel> clientList, string body, string subject, string cautationFileName)
         {
             MailMessage message = new MailMessage();
 
@@ -45,6 +46,15 @@ namespace ShreeMehtaPublicity.Utility
             message.Attachments.Add(new Attachment(cautationFileName));
 
             bool isMailSend = SendMail(message);
+
+            if (isMailSend)
+            {
+                return Status.SUCC;
+            }
+            else
+            {
+                return Status.ERR;
+            }
         }
     }
 }

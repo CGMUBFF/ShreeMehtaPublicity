@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
-
+﻿using ShreeMehtaPublicity.MODEL;
 using ShreeMehtaPublicity.Utility;
 using ShreeMehtaPublicity.VIEW;
-using ShreeMehtaPublicity.MODEL;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ShreeMehtaPublicity.VIEWMODEL
 {
@@ -246,7 +241,26 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                 OnPropertyChanged("ContactPersonAction");
             }
         }
-        
+        private string _statusString;
+        public string StatusString
+        {
+            get { return _statusString; }
+            set { _statusString = value; OnPropertyChanged("StatusString"); }
+        }
+
+        private System.Windows.Media.Brush _foregroundColor;
+        public System.Windows.Media.Brush ForegroundColor
+        {
+            get { return _foregroundColor; }
+            set { _foregroundColor = value; OnPropertyChanged("ForegroundColor"); }
+        }
+
+        private Visibility _statusStringFlag;
+        public Visibility StatusStringFlag
+        {
+            get { return _statusStringFlag; }
+            set { _statusStringFlag = value; OnPropertyChanged("StatusStringFlag"); }
+        }
         #endregion
 
         #region Constructor
@@ -312,7 +326,8 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                         break;
                     }
             }
-
+            StatusString = "";
+            StatusStringFlag = Visibility.Collapsed;
         }
         #endregion
 
@@ -342,11 +357,20 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                 string output = db.db_AddNewClient( _clientName, _clientAddress, _clientBranch, _clientLandline, _clientMobile, _clientGST, _clientMail, _listofContactPersons);
                 if (output.Equals(Status.SUCC))
                 {
-                    if (true)
-                    {
-                        parent.Close();
-                    }
+                    StatusString = "Client Added Successfully";
+                    ForegroundColor = System.Windows.Media.Brushes.Green;
                 }
+                else if (output.Equals(Status.ERR))
+                {
+                    StatusString = "Failed to Add Client";
+                    ForegroundColor = System.Windows.Media.Brushes.Red;
+                }
+                else
+                {
+                    StatusString = output;
+                    ForegroundColor = System.Windows.Media.Brushes.Red;
+                }
+                StatusStringFlag = Visibility.Visible;
             }
         }
         private void mdfyClient()
@@ -356,60 +380,87 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                 string output = db.db_MdfyClient(clientModel, _clientName, _clientAddress, _clientBranch, _clientGST, _clientLandline, _clientMobile, _clientMail, _listofContactPersons);
                 if (output.Equals(Status.SUCC))
                 {
-                    if (true)
-                    {
-                        parent.Close();
-                    }
+                    StatusString = "Client Modified Successfully";
+                    ForegroundColor = System.Windows.Media.Brushes.Green;
                 }
+                else if (output.Equals(Status.ERR))
+                {
+                    StatusString = "Failed to Modify Client";
+                    ForegroundColor = System.Windows.Media.Brushes.Red;
+                }
+                else
+                {
+                    StatusString = output;
+                    ForegroundColor = System.Windows.Media.Brushes.Red;
+                }
+                StatusStringFlag = Visibility.Visible;
             }
         }
         private bool validation()
         {
-            /*if (CustomValidation.validateString(_clientName))
+            if (CustomValidation.validateString(_clientName))
             {
+                StatusString = "Please Enter Name of Client";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientName.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_clientLandline))
             {
+                StatusString = "Please Enter Landline Number";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientLandline.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_clientMobile))
             {
+                StatusString = "Please Enter Valid Mobile Number";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientMobile.Focus();
                 return false;
             }
             if (CustomValidation.validateMobile(_clientMobile))
             {
+                StatusString = "Please Enter Valid Mobile Number";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientMobile.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_clientMail))
             {
+                StatusString = "Please Enter Valid Email-Id";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientMail.Focus();
                 return false;
             }
             if(CustomValidation.validateMail(_clientMail))
             {
+                StatusString = "Please Enter Valid Email-Id";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientMail.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_clientAddress))
             {
+                StatusString = "Please Enter Head Office Address";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientAddress.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_clientBranch))
             {
+                StatusString = "Please Enter Branch Address";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientBranch.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_clientGST))
             {
+                StatusString = "Please Enter Client's GST Number";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientGST.Focus();
                 return false;
-            }*/
+            }
             return true;
         }
         #endregion
@@ -464,32 +515,42 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             }
         }
         private bool validationContactPerson()
-        {/*
+        {
             if (CustomValidation.validateString(_contactPersonName))
             {
+                StatusString = "Please Enter Contact Person's Name";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ContactName.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_contactPersonMobile))
             {
+                StatusString = "Please Enter Valid Contact Person's Number";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ContactMobile.Focus();
                 return false;
             }
             if (CustomValidation.validateMobile(_contactPersonMobile))
             {
+                StatusString = "Please Enter Valid Contact Person's Number";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ContactMobile.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_contactPersonMail))
             {
+                StatusString = "Please Enter Valid Contact Person's Mail";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ContactMail.Focus();
                 return false;
             }
             if (CustomValidation.validateMail(_contactPersonMail))
             {
+                StatusString = "Please Enter Valid Contact Person's Mail";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ContactMail.Focus();
                 return false;
-            }*/
+            }
             return true;
         }
         #endregion
@@ -545,6 +606,25 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         {
             ListofContactPersons.Remove(SelectedContactPerson);
             resetContactPerson();
+        }
+        #endregion
+
+        #region Ok Command
+        private RelayCommand okCommand;
+        public ICommand OkCommand
+        {
+            get
+            {
+                return okCommand ?? (okCommand = new RelayCommand(param => this.Ok()));
+            }
+        }
+        private void Ok()
+        {
+            if (StatusString.Equals("Client Added Successfully") || StatusString.Equals("Client Modified Successfully"))
+                parent.Close();
+
+            StatusStringFlag = Visibility.Collapsed;
+            StatusString = "";
         }
         #endregion
     }

@@ -1,19 +1,14 @@
 ﻿<Window x:Class="ShreeMehtaPublicity.VIEW.AddSiteView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:VIEWMODEL="clr-namespace:ShreeMehtaPublicity.VIEWMODEL" 
-             xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             SizeToContent="WidthAndHeight" WindowStyle="None"
-             xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
-             Name="AddSiteWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Closing="AddSiteWindow_Closing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
+        SizeToContent="WidthAndHeight" WindowStyle="None"
+        Name="AddSiteWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Closing="AddSiteWindow_Closing"
              FocusManager.FocusedElement="{Binding ElementName=CloseButton}" TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
              TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="White" BorderBrush="{StaticResource WindowTitleColorBrush}" BorderThickness="3">
-    
+
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
     </Window.InputBindings>
@@ -21,23 +16,24 @@
     <Window.Resources>
         <utility:AmountValidator x:Key="AmountValidator"/>
     </Window.Resources>
-    
-    <Grid Width="500">
+
+    <Grid MinHeight="200" MaxHeight="500" MinWidth="750" MaxWidth="800">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="{StaticResource WindowTitleColorBrush}">
             <TextBlock Text="{Binding ActionLable}" Style="{StaticResource AddWindowTitle}"/>
         </StackPanel>
-            
+
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Command="{Binding CloseCommand}" Style="{StaticResource AddCloseButton}">
                 <material:PackIcon Kind="CloseBoxOutline" Height="20" Width="20"/>
             </Button>
         </StackPanel>
-            
+
         <StackPanel Grid.Row="1">
             <Grid Background="Transparent" HorizontalAlignment="Stretch" Margin="10 10 10 0">
                 <Grid.ColumnDefinitions>
@@ -49,9 +45,9 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    
-                        <Image Stretch="UniformToFill" Height="150" Width="150" Source="{Binding Path=SiteImage}"/>
-                    
+
+                    <Image Stretch="UniformToFill" Height="150" Width="150" Source="{Binding Path=SiteImage}"/>
+
                     <Button x:Name="SiteImage" Grid.Row="1" Content="Select Image" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Top" Command="{Binding UploadImageCommand}" IsTabStop="False"/>
                 </Grid>
                 <Grid Margin="10,0,0,0" Grid.Column="1" HorizontalAlignment="Stretch">
@@ -60,7 +56,6 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
 
                     <TextBox Name="SiteName" Text="{Binding SiteName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Name" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="0"/>
@@ -77,26 +72,41 @@
 
                     <TextBox x:Name="SiteAmount" Grid.Row="2" Text="{Binding SiteAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Site Amount(Rs)" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="3"/>
 
-                    <TextBox x:Name="SiteAddress" Grid.Row="3" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Address" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="4"/>
-
-                    <Grid Grid.Row="4">
-                        <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="Save" Content="{Binding ActionButton}" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding SaveSiteCommand}" TabIndex="5">
-                                <Button.InputBindings>
-                                    <KeyBinding Key="Enter" Command="{Binding SaveSiteCommand}" />
-                                </Button.InputBindings>
-                            </Button>
-                            <Button x:Name="CloseButton" Content="Close" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding CloseCommand}" TabIndex="6">
-                                <Button.InputBindings>
-                                    <KeyBinding Key="Enter" Command="{Binding CloseCommand}" />
-                                </Button.InputBindings>
-                            </Button>
-                        </StackPanel>
-                    </Grid>
+                    <TextBox x:Name="SiteAddress" Grid.Row="3" VerticalAlignment="Top" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Address" material:HintAssist.IsFloating="True"  MinLines="2" MaxLines="2" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource AddFieldTextBox}" TabIndex="4"/>
                 </Grid>
             </Grid>
         </StackPanel>
 
-        
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="{Binding StatusString}" Foreground="{Binding ForegroundColor}"  Style="{StaticResource Message}"/>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="Save" Content="{Binding ActionButton}" Command="{Binding SaveSiteCommand}" TabIndex="5" Style="{StaticResource ActionButton}">
+                        <Button.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding SaveSiteCommand}" />
+                        </Button.InputBindings>
+                    </Button>
+                    <Button x:Name="CloseButton" Content="Close" Command="{Binding CloseCommand}" TabIndex="6" Style="{StaticResource ActionButton}">
+                        <Button.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding CloseCommand}" />
+                        </Button.InputBindings>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Visibility="{Binding StatusStringFlag}">
+                <Button x:Name="OKButton" Grid.Column="1"  Content="OK" Command="{Binding OkCommand}" TabIndex="1" Style="{StaticResource MessageOk}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding OkCommand}" />
+                    </Button.InputBindings>
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

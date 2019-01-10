@@ -34,14 +34,14 @@ namespace ShreeMehtaPublicity.VIEW
 
             this.Activate();
             //this.Close();
-            /*SiteMgmtView siteMgmtView = new SiteMgmtView(this);
-            menuItem_grid.Children.Add(siteMgmtView);*/
+            SiteMgmtView siteMgmtView = new SiteMgmtView(this);
+            menuItem_grid.Children.Add(siteMgmtView);
 
-            SiteCautationView siteCautationView = new SiteCautationView(this);
-            menuItem_grid.Children.Add(siteCautationView);
+            /*SiteCautationView siteCautationView = new SiteCautationView(this);
+            menuItem_grid.Children.Add(siteCautationView);*/
         }
 
-        private void onClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Put Command instead of this inn VM
             //mainWindow.Update();

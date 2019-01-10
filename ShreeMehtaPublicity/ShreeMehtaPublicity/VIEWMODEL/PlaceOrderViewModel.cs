@@ -297,6 +297,26 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                 OnPropertyChanged("Action");
             }
         }
+        private string _statusString;
+        public string StatusString
+        {
+            get { return _statusString; }
+            set { _statusString = value; OnPropertyChanged("StatusString"); }
+        }
+
+        private System.Windows.Media.Brush _foregroundColor;
+        public System.Windows.Media.Brush ForegroundColor
+        {
+            get { return _foregroundColor; }
+            set { _foregroundColor = value; OnPropertyChanged("ForegroundColor"); }
+        }
+
+        private Visibility _statusStringFlag;
+        public Visibility StatusStringFlag
+        {
+            get { return _statusStringFlag; }
+            set { _statusStringFlag = value; OnPropertyChanged("StatusStringFlag"); }
+        }
         #endregion
 
         #region Constructor
@@ -341,6 +361,8 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                     }
             }
             resetFields();
+            StatusString = "";
+            StatusStringFlag = Visibility.Collapsed;
         }
         #endregion
 
@@ -365,11 +387,20 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                             string output = db.db_PlaceOrder(SelectedSite.SiteSeqNum, SelectedClient.ClientSeqNum, Double.Parse(Charges), Double.Parse(Printing), Double.Parse(Mounting), StaticMaster.convertDateToString(StartDate), StaticMaster.convertDateToString(EndDate), StaticMaster.convertStringToOrderStatus(orderStatus));
                             if (output.Equals(Status.SUCC))
                             {
-                                if (true)//WpfMessageBox.Show("Order Placed Successfully", Status.SUCC) == MessageBoxResult.OK)
-                                {
-                                    parent.Close();
-                                }
+                                StatusString = "Order Placed Successfully";
+                                ForegroundColor = System.Windows.Media.Brushes.Green;
                             }
+                            else if (output.Equals(Status.ERR))
+                            {
+                                StatusString = "Failed to Place Order";
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            else
+                            {
+                                StatusString = output;
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            StatusStringFlag = Visibility.Visible;
                             break;
                         }
                     case "MDFY" :
@@ -377,11 +408,20 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                             string output = db.db_MdfyOrder(orderModel.OrderSeqNum, Double.Parse(Charges), Double.Parse(Printing), Double.Parse(Mounting), StaticMaster.convertDateToString(StartDate), StaticMaster.convertDateToString(EndDate), StaticMaster.convertStringToOrderStatus(orderStatus));
                             if (output.Equals(Status.SUCC))
                             {
-                                if (true)//WpfMessageBox.Show("Order Modified Successfully", Status.SUCC) == MessageBoxResult.OK)
-                                {
-                                    parent.Close();
-                                }
+                                StatusString = "Order Modified Successfully";
+                                ForegroundColor = System.Windows.Media.Brushes.Green;
                             }
+                            else if (output.Equals(Status.ERR))
+                            {
+                                StatusString = "Failed to Modify Order";
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            else
+                            {
+                                StatusString = output;
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            StatusStringFlag = Visibility.Visible;
                             break;
                         }
                     case "CNCL" :
@@ -389,16 +429,27 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                             string output = db.db_CnclOrder(orderModel.OrderSeqNum);
                             if (output.Equals(Status.SUCC))
                             {
-                                if (true)//WpfMessageBox.Show("Order Cancelled Successfully", Status.SUCC) == MessageBoxResult.OK)
-                                {
-                                    parent.Close();
-                                }
+                                StatusString = "Order Cancelled Successfully";
+                                ForegroundColor = System.Windows.Media.Brushes.Green;
                             }
+                            else if (output.Equals(Status.ERR))
+                            {
+                                StatusString = "Failed to Cancel Order";
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            else
+                            {
+                                StatusString = output;
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
+                            }
+                            StatusStringFlag = Visibility.Visible;
                             break;
                         }
                     default :
                         {
-                            //WpfMessageBox.Show("Invalid Operation",Status.ERR);
+                            StatusString = "Invalid Operation";
+                            ForegroundColor = System.Windows.Media.Brushes.Red;
+                            StatusStringFlag = Visibility.Visible;
                             break;
                         }
                 }
@@ -442,30 +493,40 @@ namespace ShreeMehtaPublicity.VIEWMODEL
 
             if (_selectedSite == null || CustomValidation.validateString(_selectedSite.SiteName))
             {
+                StatusString = "Please Select Site";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.SiteFilter.Focus();
                 return false;
             }
 
             if (_selectedClient == null || CustomValidation.validateString(_selectedClient.ClientName))
             {
+                StatusString = "Please Select Client";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.ClientFilter.Focus();
                 return false;
             }
 
             if (_startDate == null)
             {
+                StatusString = "Please Select Order Start Date";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.StartDate.Focus();
                 return false;
             }
 
             if (_endDate == null)
             {
+                StatusString = "Please Select Order End Date";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.EndDate.Focus();
                 return false;
             }
 
             if (_startDate > _endDate)
             {
+                StatusString = "End Date can not be greater than Start Date";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.EndDate.Focus();
                 return false;
             }
@@ -476,19 +537,23 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                     {
                         if (_startDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
                         {
-                            //ErrorMsg = "Start Date Can not be Less than Current Date";
+                            StatusString = "Start Date Can not be Less than Current Date";
+                            ForegroundColor = System.Windows.Media.Brushes.Red;
                             this.parent.StartDate.Focus();
                             return false;
                         }
                         ErrorMsg = db.db_CheckBookingDates(StaticMaster.convertDateToString(_startDate), StaticMaster.convertDateToString(_endDate), _selectedSite.SiteSeqNum, 0);
                         if (ErrorMsg != null)
                         {
+                            StatusString = ErrorMsg;
+                            ForegroundColor = System.Windows.Media.Brushes.Red;
                             this.parent.StartDate.Focus();
                             return false;
                         }
                         if (_endDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
                         {
-                            //ErrorMsg = "End Date Can not be Less than Current Date";
+                            StatusString = "End Date Can not be Less than Current Date";
+                            ForegroundColor = System.Windows.Media.Brushes.Red;
                             this.parent.EndDate.Focus();
                             return false;
                         }
@@ -500,7 +565,8 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                         {
                             if (_startDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
                             {
-                                //ErrorMsg = "Start Date Can not be Less than Current Date";
+                                StatusString = "Start Date Can not be Less than Current Date";
+                                ForegroundColor = System.Windows.Media.Brushes.Red;
                                 this.parent.StartDate.Focus();
                                 return false;
                             }
@@ -508,12 +574,15 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                         ErrorMsg = db.db_CheckBookingDates(StaticMaster.convertDateToString(_startDate), StaticMaster.convertDateToString(_endDate), _selectedSite.SiteSeqNum, orderModel.OrderSeqNum);
                         if (ErrorMsg != null)
                         {
+                            StatusString = ErrorMsg;
+                            ForegroundColor = System.Windows.Media.Brushes.Red;
                             this.parent.StartDate.Focus();
                             return false;
                         }
                         if (_endDate < StaticMaster.convertStringToDate(StaticMaster.convertDateToString(DateTime.Today)))
                         {
-                            //ErrorMsg = "End Date Can not be Less than Current Date";
+                            StatusString = "End Date Can not be Less than Current Date";
+                            ForegroundColor = System.Windows.Media.Brushes.Red;
                             this.parent.EndDate.Focus();
                             return false;
                         }
@@ -523,16 +592,22 @@ namespace ShreeMehtaPublicity.VIEWMODEL
 
             if (CustomValidation.validateString(_charges) || CustomValidation.validationDouble(_charges))
             {
+                StatusString = "Please Enter Charges";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.Charges.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_printing) || CustomValidation.validationDouble(_printing))
             {
+                StatusString = "Please Enter Printing Amount";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.Printing.Focus();
                 return false;
             }
             if (CustomValidation.validateString(_mounting) || CustomValidation.validationDouble(_mounting))
             {
+                StatusString = "Please Enter Mounting Amount";
+                ForegroundColor = System.Windows.Media.Brushes.Red;
                 this.parent.Mounting.Focus();
                 return false;
             }
@@ -732,6 +807,25 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         private void SelectedSiteChanged()
         {
             Charges = _selectedSite.SiteAmount;
+        }
+        #endregion
+
+        #region Ok Command
+        private RelayCommand okCommand;
+        public ICommand OkCommand
+        {
+            get
+            {
+                return okCommand ?? (okCommand = new RelayCommand(param => this.Ok()));
+            }
+        }
+        private void Ok()
+        {
+            if (StatusString.Equals("Order Cancelled Successfully") || StatusString.Equals("Order Modified Successfully") || StatusString.Equals("Order Placed Successfully"))
+                parent.Close();
+
+            StatusStringFlag = Visibility.Collapsed;
+            StatusString = "";
         }
         #endregion
     }

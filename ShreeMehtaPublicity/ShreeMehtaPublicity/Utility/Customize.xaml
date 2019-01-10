@@ -248,10 +248,24 @@
     </DataTemplate>
     
     <Style TargetType="{x:Type Button}" x:Key="AddCloseButton" BasedOn="{StaticResource CloseButton}"/>
+
+    <Style TargetType="{x:Type Button}" x:Key="ActionButton" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="Margin" Value="10,0,10,0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Background" Value="#FF009688"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="Height" Value="32"/>
+    </Style>
     <!--#endregion-->
 
     <!--#region Add Client Contact Person Style-->
-    
     <Style TargetType="{x:Type TextBlock}" x:Key="ContactPersonListTextBlock" BasedOn="{StaticResource ListTextBlockStyle}">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontSize" Value="11"/>
@@ -280,4 +294,36 @@
     </Style>
     <!--#endregion-->
     
+    <!--#region Custom Message Box Style-->
+    <Style TargetType="{x:Type Button}" x:Key="MessageBoxButton" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="Margin" Value="10,0,10,0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="Height" Value="32"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="MessageOk" BasedOn="{StaticResource MessageBoxButton}" >
+        <Setter Property="Background" Value="#FF009688"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="MessageCancel" BasedOn="{StaticResource MessageBoxButton}">
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="Message">
+        <Setter Property="Margin" Value="20,0,0,0"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+    <!--#endregion-->
 </ResourceDictionary>

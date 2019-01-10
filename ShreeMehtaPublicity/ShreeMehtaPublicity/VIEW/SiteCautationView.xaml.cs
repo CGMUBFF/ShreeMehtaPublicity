@@ -43,12 +43,16 @@ namespace ShreeMehtaPublicity.VIEW
             parent.CallBack();
         }
 
-        public void CallBack()
+        public void CallBack(bool resetCautation)
         {
             parent.Focus();
             parent.Activate();
             if (this.IsVisible)
             {
+                if (resetCautation)
+                {
+                    siteCautationViewModel.ListofSelectedCautationSites.Clear();
+                }
                 siteCautationViewModel.searchSites();
                 this.Focus();
             }

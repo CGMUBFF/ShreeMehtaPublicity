@@ -18,9 +18,9 @@
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
     </Window.InputBindings>
 
-    <StackPanel Orientation="Horizontal" Background="Transparent">
+    <StackPanel Orientation="Horizontal" Background="Transparent" MinHeight="200" MaxHeight="500">
         <Border BorderBrush="{StaticResource WindowTitleColorBrush}" BorderThickness="3" Name="AddClientForm">
-            <Grid Width="500" Background="White">
+            <Grid MinWidth="550" MaxWidth="600">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
@@ -73,24 +73,41 @@
                 </StackPanel>
 
                 <Grid Grid.Row="2">
-                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button x:Name="Save" Content="{Binding ActionButton}" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding SaveClientCommand}" TabIndex="7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="{Binding StatusString}"  Foreground="{Binding ForegroundColor}" Style="{StaticResource Message}"/>
+
+                    <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <StackPanel Grid.Column="1" VerticalAlignment="Stretch" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="Save" Content="{Binding ActionButton}" Command="{Binding SaveClientCommand}" TabIndex="7" Style="{StaticResource ActionButton}">
+                                <Button.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding SaveClientCommand}" />
+                                </Button.InputBindings>
+                            </Button>
+                            <Button x:Name="CloseButton" Content="Close" Command="{Binding CloseCommand}" TabIndex="8" Style="{StaticResource ActionButton}">
+                                <Button.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding CloseCommand}" />
+                                </Button.InputBindings>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Visibility="{Binding StatusStringFlag}">
+                        <Button x:Name="OKButton" Grid.Column="1"  Content="OK" Command="{Binding OkCommand}" TabIndex="1" Style="{StaticResource MessageOk}">
                             <Button.InputBindings>
-                                <KeyBinding Key="Enter" Command="{Binding SaveClientCommand}" />
+                                <KeyBinding Key="Enter" Command="{Binding OkCommand}" />
                             </Button.InputBindings>
                         </Button>
-                        <Button x:Name="CloseButton" Content="Close" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Center" Command="{Binding CloseCommand}" TabIndex="8">
-                            <Button.InputBindings>
-                                <KeyBinding Key="Enter" Command="{Binding CloseCommand}" />
-                            </Button.InputBindings>
-                        </Button>
-                    </StackPanel>
+                    </Grid>
                 </Grid>
             </Grid >
         </Border>
 
         <Border BorderBrush="{StaticResource WindowTitleColorBrush}" BorderThickness="3" Margin="10 0 0 0" MaxHeight="{Binding ElementName=AddClientForm, Path=ActualHeight}">
-            <Grid Width="300" Background="White">
+            <Grid MinWidth="400" MaxWidth="400">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="AUTO"/>
@@ -116,9 +133,9 @@
                         <TextBox x:Name="ContactMail" Grid.Row="2" Text="{Binding ContactPersonMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Mail Id" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="11"/>
 
                     </Grid>
-                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="{Binding ContactPersonAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="10,5,10,0" VerticalAlignment="Center" Command="{Binding SaveContactPersonCommand}" TabIndex="12"/>
-                        <Button Content="Reset" HorizontalAlignment="Stretch" Margin="10,5,10,0" VerticalAlignment="Center" Command="{Binding ResetContactPersonCommand}" TabIndex="13"/>
+                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 0">
+                        <Button Content="{Binding ContactPersonAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding SaveContactPersonCommand}" TabIndex="12" Style="{StaticResource ActionButton}"/>
+                        <Button Content="Reset" Command="{Binding ResetContactPersonCommand}" TabIndex="13" Style="{StaticResource ActionButton}"/>
                     </StackPanel>
                 </StackPanel>
 
