@@ -125,26 +125,26 @@
 
             <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button x:Name="EditButton" Content="Edit" Command="{Binding EditCommand}" TabIndex="1" Style="{StaticResource ActionButton}">
-                        <Button.InputBindings>
-                            <KeyBinding Key="Enter" Command="{Binding EditCommand}" />
-                        </Button.InputBindings>
-                    </Button>
-                    <Button x:Name="NextButton" Content="Confirm" Command="{Binding ConfirmCommand}" TabIndex="0" Style="{StaticResource ActionButton}">
-                        <Button.InputBindings>
+                        <Button x:Name="EditButton" Content="Edit" Command="{Binding EditCommand}" TabIndex="1" Style="{StaticResource ActionButton}">
+                            <Button.InputBindings>
+                                <KeyBinding Key="Enter" Command="{Binding EditCommand}" />
+                            </Button.InputBindings>
+                        </Button>
+                        <Button x:Name="NextButton" Content="Confirm" Command="{Binding ConfirmCommand}" TabIndex="0" Style="{StaticResource ActionButton}">
+                            <Button.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
                         </Button.InputBindings>
                     </Button>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding CautationConfirmed, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
-                    <Button x:Name="SaveButton" Content="Save" Command="{Binding SaveCommand}" TabIndex="1" Style="{StaticResource ActionButton}">
-                        <Button.InputBindings>
-                            <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />
-                        </Button.InputBindings>
-                    </Button>
-                    <Button x:Name="SendButton" Content="Send" Command="{Binding SendCommand}" TabIndex="0" Style="{StaticResource ActionButton}">
-                        <Button.InputBindings>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding CautationConfirmed, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
+                        <Button x:Name="SaveButton" Content="Save" Command="{Binding SaveCommand}" TabIndex="1" Style="{StaticResource ActionButton}">
+                            <Button.InputBindings>
+                                <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />
+                            </Button.InputBindings>
+                        </Button>
+                        <Button x:Name="SendButton" Content="Send" Command="{Binding SendCommand}" TabIndex="0" Style="{StaticResource ActionButton}">
+                            <Button.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding SendCommand}" />
                         </Button.InputBindings>
                     </Button>

@@ -45,9 +45,8 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-
                     <Image Stretch="UniformToFill" Height="150" Width="150" Source="{Binding Path=SiteImage}"/>
-
+                    
                     <Button x:Name="SiteImage" Grid.Row="1" Content="Select Image" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Top" Command="{Binding UploadImageCommand}" IsTabStop="False"/>
                 </Grid>
                 <Grid Margin="10,0,0,0" Grid.Column="1" HorizontalAlignment="Stretch">

@@ -55,10 +55,13 @@ C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicit
 C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\System.Data.SQLite.Linq.dll
 C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.xml
 C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.SqlServer.xml
+<<<<<<< HEAD
+=======
+D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.dll
+>>>>>>> 4300a53f3ce6ced95d10588f29718019661d7465
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.exe.config
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.exe
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.pdb
-D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.dll
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.SqlServer.dll
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\itextsharp.dll
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\MaterialDesignColors.dll
@@ -177,3 +180,4 @@ D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicit
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.csproj.CopyComplete
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.exe
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.pdb
+D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.csprojAssemblyReference.cache
