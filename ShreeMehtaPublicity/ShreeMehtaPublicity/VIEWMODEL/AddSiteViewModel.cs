@@ -125,19 +125,27 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                     }
                 case "ACTV":
                     {
-                        string output = db.db_IactvSite(siteModel, "ACTV");
-                        if (output.Equals(Status.SUCC))
+                        var messageBoxResult = CustomMessageBox.Show("Confirmation", "Do you want to Active Site " + siteModel.SiteSeqNum + " ?", MessageBoxButton.YesNo);
+                        if (messageBoxResult == MessageBoxResult.Yes)
                         {
-                            parent.close();
+                            string output = db.db_IactvSite(siteModel, "ACTV");
+                            if (output.Equals(Status.SUCC))
+                            {
+                                parent.close();
+                            }
                         }
                         break;
                     }
                 case "IACT":
                     {
-                        string output = db.db_IactvSite(siteModel, "IACT");
-                        if (output.Equals(Status.SUCC))
+                        var messageBoxResult = CustomMessageBox.Show("Confirmation", "Do you want to Inactive Site " + siteModel.SiteSeqNum + " ?", MessageBoxButton.YesNo);
+                        if (messageBoxResult == MessageBoxResult.Yes)
                         {
-                            parent.close();
+                            string output = db.db_IactvSite(siteModel, "IACT");
+                            if (output.Equals(Status.SUCC))
+                            {
+                                parent.close();
+                            }
                         }
                         break;
                     }

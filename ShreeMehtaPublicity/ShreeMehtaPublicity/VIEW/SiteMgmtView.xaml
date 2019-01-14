@@ -162,16 +162,16 @@
                                         </StackPanel>
                                     </Grid>
 
-                                    <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,8" Name="AddressStackPanel">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="AUTO"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Address : " Style="{StaticResource ListTextBlockStyle}" />
-                                            <TextBlock Grid.Column="1" Text="{Binding Path=SiteAddress, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}" Width="{Binding ElementName=AddressStackPanel, Path=Width}"/>
-                                        </Grid>
-                                    </StackPanel>
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="AUTO"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Address : " Style="{StaticResource ListTextBlockStyle}" VerticalAlignment="Top"/>
+                                        <StackPanel Grid.Column="1" Orientation="Vertical" Width="250" HorizontalAlignment="Left" Height="42">
+                                            <TextBlock Text="{Binding Path=SiteAddress, Mode=OneWay}" HorizontalAlignment="Left" Style="{StaticResource ListTextBlockStyle}" TextWrapping="WrapWithOverflow"/>
+                                        </StackPanel>
+                                    </Grid>
 
                                     <Grid Grid.Row="3">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">

@@ -426,23 +426,27 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                         }
                     case "CNCL" :
                         {
-                            string output = db.db_CnclOrder(orderModel.OrderSeqNum);
-                            if (output.Equals(Status.SUCC))
+                            var messageBoxResult = CustomMessageBox.Show("Confirmation", "Do you want to Cancel Order " + orderModel.OrderSeqNum + " ?", MessageBoxButton.YesNo);
+                            if (messageBoxResult == MessageBoxResult.Yes)
                             {
-                                StatusString = "Order Cancelled Successfully";
-                                ForegroundColor = System.Windows.Media.Brushes.Green;
+                                string output = db.db_CnclOrder(orderModel.OrderSeqNum);
+                                if (output.Equals(Status.SUCC))
+                                {
+                                    StatusString = "Order Cancelled Successfully";
+                                    ForegroundColor = System.Windows.Media.Brushes.Green;
+                                }
+                                else if (output.Equals(Status.ERR))
+                                {
+                                    StatusString = "Failed to Cancel Order";
+                                    ForegroundColor = System.Windows.Media.Brushes.Red;
+                                }
+                                else
+                                {
+                                    StatusString = output;
+                                    ForegroundColor = System.Windows.Media.Brushes.Red;
+                                }
+                                StatusStringFlag = Visibility.Visible;
                             }
-                            else if (output.Equals(Status.ERR))
-                            {
-                                StatusString = "Failed to Cancel Order";
-                                ForegroundColor = System.Windows.Media.Brushes.Red;
-                            }
-                            else
-                            {
-                                StatusString = output;
-                                ForegroundColor = System.Windows.Media.Brushes.Red;
-                            }
-                            StatusStringFlag = Visibility.Visible;
                             break;
                         }
                     default :

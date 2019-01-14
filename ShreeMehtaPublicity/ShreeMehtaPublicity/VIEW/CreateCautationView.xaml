@@ -39,81 +39,84 @@
        
 
         <ListView Name="CautationList" Grid.Row="1" Background="White" Margin="0 5 0 0" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding ListofSelectedCautation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCautationSite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Stretch="UniformToFill" Height="50" Width="50" Margin="10 10 10 0" Source="{Binding Path=SiteImage}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="100" Header="Site Id" DisplayMemberBinding="{Binding Path=SiteSeqNum, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
-                        <GridViewColumn Width="200" Header="Name" DisplayMemberBinding="{Binding Path=SiteName, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
-                        <GridViewColumn Width="200" Header="Address" DisplayMemberBinding="{Binding Path=SiteAddress, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
-                        <GridViewColumn Width="150" Header="Height" DisplayMemberBinding="{Binding Path=SiteHeight, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
-                        <GridViewColumn Width="150" Header="Width" DisplayMemberBinding="{Binding Path=SiteWidth, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
-                        <GridViewColumn Header="Amount (Rs.)" DisplayMemberBinding="{Binding Path=SiteAmount, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Stretch="UniformToFill" Height="50" Width="50" Margin="10 10 10 0" Source="{Binding Path=SiteImage}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Site Id" DisplayMemberBinding="{Binding Path=SiteSeqNum, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                    <GridViewColumn Width="200" Header="Name" DisplayMemberBinding="{Binding Path=SiteName, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                    <GridViewColumn Width="200" Header="Address" DisplayMemberBinding="{Binding Path=SiteAddress, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                    <GridViewColumn Width="150" Header="Height" DisplayMemberBinding="{Binding Path=SiteHeight, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                    <GridViewColumn Width="150" Header="Width" DisplayMemberBinding="{Binding Path=SiteWidth, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                    <GridViewColumn Header="Amount (Rs.)" DisplayMemberBinding="{Binding Path=SiteAmount, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" Background="White" Margin="10 15 10 0" HorizontalAlignment="Stretch" Visibility="{Binding CautationConfirmed, Mode=OneWay, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <TextBlock Name="To" Text="To" Height="30" Margin="0 5 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
-                <DockPanel>
-                    <StackPanel Orientation="Vertical" MinWidth="200" MaxWidth="80" Margin="40 0 0 0">
-                        <TextBox Name="toText" Height="30" Text="{Binding To}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" TextChanged="txtFilter_TextChanged" TextWrapping="Wrap" MinLines="1"/>
-                        <ListView Name="ClientList" ItemsSource="{Binding ListofClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Height="Auto" MaxHeight="100" Visibility="{Binding ElementName=toText, Path=Text, Converter={StaticResource MailToListVisibility}}" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding NewClientSelectedCommand}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding ClientName}"/>
-                                        <TextBlock Text="{Binding ClientMail}" FontSize="10" Foreground="Gray"/>
+        <Grid Grid.Row="1" Margin="0 5 0 0" Background="White" Visibility="{Binding CautationConfirmed, Mode=OneWay, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
+            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10 15 10 0" HorizontalAlignment="Stretch" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <TextBlock Name="To" Text="To" Height="30" Margin="0 5 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
+                    <DockPanel>
+                        <StackPanel Orientation="Vertical" MinWidth="200" MaxWidth="80" Margin="40 0 0 0">
+                            <TextBox Name="toText" Height="30" Text="{Binding To}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" TextChanged="txtFilter_TextChanged" TextWrapping="Wrap" MinLines="1"/>
+                            <ListView Name="ClientList" ItemsSource="{Binding ListofClients, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Height="Auto" MaxHeight="100" Visibility="{Binding ElementName=toText, Path=Text, Converter={StaticResource MailToListVisibility}}" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding NewClientSelectedCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding ClientName}"/>
+                                            <TextBlock Text="{Binding ClientMail}" FontSize="10" Foreground="Gray"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </DockPanel>
+                    <ListView Name="SelectedClientList" Margin="0 5 0 0" ItemsSource="{Binding ListofSelectedClients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCautationClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ListofSelectedClients.Count, Converter={StaticResource CautationClientListVisibility}}" ItemContainerStyle="{StaticResource ListViewItemStyle}" MinWidth="550" MaxWidth="720" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <material:Card UniformCornerRadius="10" Height="30" Margin="-1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding ClientName}" MaxWidth="200" Margin="5 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        <Button x:Name="delete" VerticalContentAlignment="Center" Margin="8 0 5 0" Style="{StaticResource ListButtonStyle}" IsTabStop="False" Width="20" Height="20" Command="{Binding Path=DataContext.DeleteCautationClientCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}">
+                                            <material:PackIcon Kind="DeleteCircle" Foreground="LightGray" Style="{StaticResource ListButtonIconStle}" IsEnabled="True" Width="20" Height="20"/>
+                                        </Button>
                                     </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>   
-                        </ListView>
-                    </StackPanel>
-                </DockPanel>
-                <ListView Name="SelectedClientList" Margin="0 5 0 0" ItemsSource="{Binding ListofSelectedClients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCautationClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ListofSelectedClients.Count, Converter={StaticResource CautationClientListVisibility}}" ItemContainerStyle="{StaticResource ListViewItemStyle}" MinWidth="550" MaxWidth="720" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <material:Card UniformCornerRadius="10" Height="30" Margin="-1">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding ClientName}" MaxWidth="200" Margin="5 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                    <Button x:Name="delete" VerticalContentAlignment="Center" Margin="8 0 5 0" Style="{StaticResource ListButtonStyle}" IsTabStop="False" Width="20" Height="20" Command="{Binding Path=DataContext.DeleteCautationClientCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}">
-                                        <material:PackIcon Kind="DeleteCircle" Foreground="LightGray" Style="{StaticResource ListButtonIconStle}" IsEnabled="True" Width="20" Height="20"/>
-                                    </Button>
-                                </StackPanel>
-                            </material:Card>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                </material:Card>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <material:PackIcon Kind="Attachment" Height="30" Style="{StaticResource ListButtonIconStle}" IsEnabled="True" Margin="-5 10 0 0"/>
+                    <TextBlock Text="{Binding CautationCreated.CautationFileName}" Height="30" Margin="22 15 0 0"  HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <TextBlock Text="Subject" Margin="0 16 0 0" Height="30" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
+                    <TextBox Name="Subject" Text="{Binding Subject}" Height="30" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="9 0 0 0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 10 0 0">
+                    <TextBlock Text="Body" Margin="0 68 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
+                    <TextBox Name="Body" Text="{Binding Body}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="22 0 0 0" MinLines="10" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" VerticalContentAlignment="Top"/>
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <material:PackIcon Kind="Attachment" Height="30" Style="{StaticResource ListButtonIconStle}" IsEnabled="True" Margin="-5 10 0 0"/>
-                <TextBlock Text="{Binding CautationCreated.CautationFileName}" Height="30" Margin="22 15 0 0"  HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <TextBlock Text="Subject" Margin="0 16 0 0" Height="30" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
-                <TextBox Name="Subject" Text="{Binding Subject}" Height="30" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="9 0 0 0"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 10 0 0">
-                <TextBlock Text="Body" Margin="0 68 0 0" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold"/>
-                <TextBox Name="Body" Text="{Binding Body}" HorizontalAlignment="Stretch" MinWidth="750" MaxWidth="800" Margin="22 0 0 0" MinLines="10" TextWrapping="Wrap" AcceptsReturn="True" SpellCheck.IsEnabled="True" VerticalContentAlignment="Top"/>
-            </StackPanel>
-        </StackPanel>
+        </Grid>
+
 
         <Grid Grid.Row="2" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
@@ -125,39 +128,45 @@
 
             <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button x:Name="EditButton" Content="Edit" Command="{Binding EditCommand}" TabIndex="1" Style="{StaticResource ActionButton}">
-                            <Button.InputBindings>
-                                <KeyBinding Key="Enter" Command="{Binding EditCommand}" />
-                            </Button.InputBindings>
-                        </Button>
-                        <Button x:Name="NextButton" Content="Confirm" Command="{Binding ConfirmCommand}" TabIndex="0" Style="{StaticResource ActionButton}">
-                            <Button.InputBindings>
+                    <Button x:Name="EditButton" Content="Edit" Command="{Binding EditCommand}" TabIndex="1" Style="{StaticResource ActionButton}">
+                        <Button.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding EditCommand}" />
+                        </Button.InputBindings>
+                    </Button>
+                    <Button x:Name="NextButton" Content="Confirm" Command="{Binding ConfirmCommand}" TabIndex="0" Style="{StaticResource ActionButton}">
+                        <Button.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
                         </Button.InputBindings>
                     </Button>
                 </StackPanel>
 
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding CautationConfirmed, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
-                        <Button x:Name="SaveButton" Content="Save" Command="{Binding SaveCommand}" TabIndex="1" Style="{StaticResource ActionButton}">
-                            <Button.InputBindings>
-                                <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />
-                            </Button.InputBindings>
-                        </Button>
-                        <Button x:Name="SendButton" Content="Send" Command="{Binding SendCommand}" TabIndex="0" Style="{StaticResource ActionButton}">
-                            <Button.InputBindings>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding CautationConfirmed, Converter={StaticResource CautationConfirmVisibility}, UpdateSourceTrigger=PropertyChanged}">
+                    <Button x:Name="SaveButton" Content="Save" Command="{Binding SaveCommand}" TabIndex="1" Style="{StaticResource ActionButton}">
+                        <Button.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />
+                        </Button.InputBindings>
+                    </Button>
+                    <Button x:Name="SendButton" Content="Send" Command="{Binding SendCommand}" TabIndex="0" Style="{StaticResource ActionButton}">
+                        <Button.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding SendCommand}" />
                         </Button.InputBindings>
                     </Button>
                 </StackPanel>
             </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Visibility="{Binding StatusStringFlag}" Style="{StaticResource MessageGrid}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Visibility="{Binding StatusStringFlag}">
-                <Button x:Name="OKButton" Grid.Column="1"  Content="OK" Command="{Binding OkCommand}" TabIndex="1" Style="{StaticResource MessageOk}">
-                    <Button.InputBindings>
-                        <KeyBinding Key="Enter" Command="{Binding OkCommand}" />
-                    </Button.InputBindings>
-                </Button>
-            </Grid>
+            <TextBlock Grid.Column="0" Text="{Binding StatusString}" Foreground="{Binding ForegroundColor}" Style="{StaticResource Message}"/>
+
+            <Button x:Name="OKButton" Grid.Column="1"  Content="OK" Command="{Binding OkCommand}" TabIndex="1" Style="{StaticResource MessageOk}">
+                <Button.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding OkCommand}" />
+                </Button.InputBindings>
+            </Button>
         </Grid>
     </Grid>
 </Window>

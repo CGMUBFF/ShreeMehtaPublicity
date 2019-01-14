@@ -45,7 +45,7 @@
     <!--#endregion-->
     
     <!--#region Window Close Button Style-->
-    <Style TargetType="{x:Type Button}" x:Key="CloseButton">
+    <Style TargetType="{x:Type Button}" x:Key="CloseButton" BasedOn="{StaticResource MaterialDesignRaisedButton}">
         <Setter Property="Background" Value="{x:Null}"/>
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -154,21 +154,16 @@
     <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource WindowTitleStyle}" x:Key="MainWindowTitle"/>
     
     <Style TargetType="{x:Type Button}" x:Key="MainCloseButton" BasedOn="{StaticResource CloseButton}"/>
-    
-    <Style TargetType="Button" x:Key="MenuButton">
+
+    <Style TargetType="Button" x:Key="MenuButton" BasedOn="{StaticResource MaterialDesignRaisedButton}">
         <Setter Property="Width" Value="150"/>
         <Setter Property="Height" Value="50"/>
-        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" Value="#ff2196f3"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
     <!--#endregion-->
     
@@ -323,7 +318,17 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <Style TargetType="{x:Type Grid}" x:Key="MessageGrid">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Background" Value="LightGray"/>
     </Style>
     <!--#endregion-->
+
+    <Style TargetType="ScrollBar">
+        <Setter Property="Background" Value="Red"/>
+    </Style>
 </ResourceDictionary>

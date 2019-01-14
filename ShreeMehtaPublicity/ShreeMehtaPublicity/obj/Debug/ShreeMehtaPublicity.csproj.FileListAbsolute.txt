@@ -1,67 +1,7 @@
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.exe.config
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.exe
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.pdb
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\MaterialDesignColors.pdb
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\MaterialDesignThemes.Wpf.pdb
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\MaterialDesignThemes.Wpf.xml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\System.Data.SQLite.xml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\en\System.Windows.Interactivity.resources.dll
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\es\System.Windows.Interactivity.resources.dll
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\fr\System.Windows.Interactivity.resources.dll
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\it\System.Windows.Interactivity.resources.dll
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ja\System.Windows.Interactivity.resources.dll
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ko\System.Windows.Interactivity.resources.dll
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ru\System.Windows.Interactivity.resources.dll
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.csprojResolveAssemblyReference.cache
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\TodayTomorrowSiteView.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\App.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\AddClientView.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\AddSiteView.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\ClientMgmtView.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\LoginView.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\MainWindow.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\OrderMgmtView.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\PlaceOrderView.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\SiteMgmtView.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\TodayTomorrowSiteView.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\ViewClient.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\ViewSite.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\App.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\GeneratedInternalTypeHelper.g.cs
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity_MarkupCompile.cache
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity_MarkupCompile.lref
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\Utility\Customize.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\AddClientView.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\AddSiteView.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\ClientMgmtView.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\LoginView.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\MainWindow.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\OrderMgmtView.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\PlaceOrderView.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\SiteMgmtView.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\ViewClient.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\VIEW\ViewSite.baml
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.g.resources
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.Properties.Resources.resources
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.csproj.GenerateResource.Cache
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.exe
-c:\users\mohit sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.pdb
-C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.dll
-C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\System.Data.SQLite.dll
-C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\System.Data.SQLite.EF6.dll
-C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\System.Data.SQLite.Linq.dll
-C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.xml
-C:\Users\Mohit Sanghavi\documents\visual studio 2013\Projects\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.SqlServer.xml
-<<<<<<< HEAD
-=======
-D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.dll
->>>>>>> 4300a53f3ce6ced95d10588f29718019661d7465
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.exe.config
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.exe
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.pdb
+D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.dll
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\EntityFramework.SqlServer.dll
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\itextsharp.dll
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\MaterialDesignColors.dll

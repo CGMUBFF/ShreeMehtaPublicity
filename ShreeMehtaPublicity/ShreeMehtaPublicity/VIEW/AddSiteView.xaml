@@ -99,13 +99,21 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Visibility="{Binding StatusStringFlag}">
-                <Button x:Name="OKButton" Grid.Column="1"  Content="OK" Command="{Binding OkCommand}" TabIndex="1" Style="{StaticResource MessageOk}">
-                    <Button.InputBindings>
-                        <KeyBinding Key="Enter" Command="{Binding OkCommand}" />
-                    </Button.InputBindings>
-                </Button>
-            </Grid>
+            
+        </Grid>
+        <Grid Grid.Row="2" Visibility="{Binding StatusStringFlag}" Style="{StaticResource MessageGrid}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="{Binding StatusString}" Foreground="{Binding ForegroundColor}" Style="{StaticResource Message}"/>
+            
+            <Button x:Name="OKButton" Grid.Column="1"  Content="OK" Command="{Binding OkCommand}" TabIndex="1" Style="{StaticResource MessageOk}">
+                <Button.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding OkCommand}" />
+                </Button.InputBindings>
+            </Button>
         </Grid>
     </Grid>
 </Window>

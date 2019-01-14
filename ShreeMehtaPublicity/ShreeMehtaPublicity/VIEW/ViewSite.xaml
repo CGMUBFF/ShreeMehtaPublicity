@@ -125,8 +125,10 @@
                                         <ColumnDefinition Width="AUTO"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Address : " Style="{StaticResource ListTextBlockStyle}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding Path=SiteAddress, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}"/>
+                                    <TextBlock Text="Address : " Style="{StaticResource ListTextBlockStyle}" VerticalAlignment="Top"/>
+                                    <StackPanel Grid.Column="1" Orientation="Vertical" Width="600" HorizontalAlignment="Left">
+                                        <TextBlock Grid.Column="1" Text="{Binding Path=SiteAddress, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}" HorizontalAlignment="Left"/>
+                                    </StackPanel>
                                 </Grid>
                             </StackPanel>
 
