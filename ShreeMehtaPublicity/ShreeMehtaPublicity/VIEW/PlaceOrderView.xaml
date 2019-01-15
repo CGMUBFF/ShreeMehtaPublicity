@@ -67,8 +67,8 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" x:Name="Height" Text="{Binding SelectedSite.SiteHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Height" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" IsEnabled="False"/>
-                            <TextBox Grid.Column="2" x:Name="Width" Text="{Binding SelectedSite.SiteWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Width" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" IsEnabled="False"/>
+                            <TextBox Grid.Column="0" x:Name="SiteHeight" Text="{Binding SelectedSite.SiteHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Height" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" IsEnabled="False"/>
+                            <TextBox Grid.Column="2" x:Name="SiteWidth" Text="{Binding SelectedSite.SiteWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Width" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" IsEnabled="False"/>
                         </Grid>
 
                         <ComboBox Grid.Row="2" x:Name="ClientFilter" Style="{StaticResource AddFieldComboBox}" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedClient , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsTextSearchEnabled="True" DisplayMemberPath="ClientName" IsEnabled="{Binding ClientEnable}" material:HintAssist.Hint="Client Name" material:HintAssist.IsFloating="True" TabIndex="1"/>

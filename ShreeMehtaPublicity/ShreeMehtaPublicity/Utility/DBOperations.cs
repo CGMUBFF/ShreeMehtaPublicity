@@ -17,7 +17,7 @@ namespace ShreeMehtaPublicity.Utility
         private bool isConnectionOpen = false, isTransactionStart = false;
         private static DBOperations dbOperations = new DBOperations();
 
-        public static DBOperations getInstance(Queries query)
+        public static DBOperations GetInstance(Queries query)
         {
             queries = query;
             return dbOperations;
@@ -31,7 +31,7 @@ namespace ShreeMehtaPublicity.Utility
             cmd = con.CreateCommand();
         }
 
-        private void openConnection()
+        private void OpenConnection()
         {
             if (con != null && !isConnectionOpen)
             {
@@ -41,7 +41,7 @@ namespace ShreeMehtaPublicity.Utility
             }
         }
 
-        private void closeConnection()
+        private void CloseConnection()
         {
             if (con != null && isConnectionOpen)
             {
@@ -51,45 +51,45 @@ namespace ShreeMehtaPublicity.Utility
             }
         }
 
-        private void startTransaction()
+        private void StartTransaction()
         {
             if (!isTransactionStart)
             {
-                openConnection();
+                OpenConnection();
                 transaction = con.BeginTransaction();
                 isTransactionStart = true;
             }
         }
 
-        private void commitTransaction()
+        private void CommitTransaction()
         {
             if (transaction != null)
                 transaction.Commit();
             isTransactionStart = false;
-            closeConnection();
+            CloseConnection();
         }
 
-        private void rollBackTransaction()
+        private void RollBackTransaction()
         {
             if (transaction != null)
                 transaction.Rollback();
             isTransactionStart = false;
-            closeConnection();
+            CloseConnection();
         }
 
         public DataTable SELECT(String query, params object[] parameters)
         {
-            openConnection();
+            OpenConnection();
 
             cmd.CommandText = "";
-            cmd.CommandText = queries.buildQuery(query, parameters);
+            cmd.CommandText = queries.BuildQuery(query, parameters);
 
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
             DataSet dataSet = new DataSet();
             adapter.Fill(dataSet);
             DataTable dataTable = dataSet.Tables[0];
 
-            closeConnection();
+            CloseConnection();
 
             return dataTable;
         }
@@ -98,13 +98,13 @@ namespace ShreeMehtaPublicity.Utility
         {
             int rowsUpdated = -1;
 
-            startTransaction();
+            StartTransaction();
 
             cmd.CommandText = "";
-            cmd.CommandText = queries.buildQuery(query, parameters);
+            cmd.CommandText = queries.BuildQuery(query, parameters);
             rowsUpdated = cmd.ExecuteNonQuery();
 
-            commitTransaction();
+            CommitTransaction();
 
             return rowsUpdated;
         }
@@ -113,13 +113,13 @@ namespace ShreeMehtaPublicity.Utility
         {
             int rowsInserted = -1;
 
-            startTransaction();
+            StartTransaction();
 
             cmd.CommandText = "";
-            cmd.CommandText = queries.buildQuery(query, parameters);
+            cmd.CommandText = queries.BuildQuery(query, parameters);
             rowsInserted = cmd.ExecuteNonQuery();
 
-            commitTransaction();
+            CommitTransaction();
 
             return rowsInserted;
         }
@@ -128,13 +128,13 @@ namespace ShreeMehtaPublicity.Utility
         {
             int rowsDeleted = -1;
 
-            startTransaction();
+            StartTransaction();
 
             cmd.CommandText = "";
-            cmd.CommandText = queries.buildQuery(query, parameters);
+            cmd.CommandText = queries.BuildQuery(query, parameters);
             rowsDeleted = cmd.ExecuteNonQuery();
 
-            commitTransaction();
+            CommitTransaction();
 
             return rowsDeleted;
         }

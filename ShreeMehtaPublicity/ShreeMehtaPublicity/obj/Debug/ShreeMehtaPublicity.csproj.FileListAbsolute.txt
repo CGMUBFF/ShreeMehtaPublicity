@@ -120,4 +120,5 @@ D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicit
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.csproj.CopyComplete
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.exe
 D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.pdb
-D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\obj\Debug\ShreeMehtaPublicity.csprojAssemblyReference.cache
+D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.exe.CodeAnalysisLog.xml
+D:\Mohit\Projects\Git\ShreeMehtaPublicity\ShreeMehtaPublicity\ShreeMehtaPublicity\bin\Debug\ShreeMehtaPublicity.exe.lastcodeanalysissucceeded

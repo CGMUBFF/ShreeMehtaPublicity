@@ -18,7 +18,7 @@ namespace ShreeMehtaPublicity.Utility
             }
         }
 
-        public void createCautationPDFFile(ObservableCollection<SiteCautationModel> Cautation, string FileName)
+        public void CreateCautationPDFFile(ObservableCollection<SiteCautationModel> Cautation, string FileName)
         {
             using (FileStream msReport = new FileStream(FileName, FileMode.Create))
             {
@@ -89,7 +89,7 @@ namespace ShreeMehtaPublicity.Utility
                         }
                         pdfDoc.Close();
                     
-                    } catch (Exception e) {
+                    } catch (Exception) {
 
                     } finally {
 

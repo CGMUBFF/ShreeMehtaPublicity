@@ -25,10 +25,10 @@ namespace ShreeMehtaPublicity.Utility
                 headerTemplate = cb.CreateTemplate(100, 100);
                 footerTemplate = cb.CreateTemplate(50, 50);
             }
-            catch (DocumentException de)
+            catch (DocumentException)
             {
             }
-            catch (System.IO.IOException ioe)
+            catch (System.IO.IOException)
             {
             }
         }
@@ -89,15 +89,16 @@ namespace ShreeMehtaPublicity.Utility
             pdfTab.AddCell(pdfCell3);
 
             //Row 2
-            PdfPCell pdfCell4 = new PdfPCell(new Phrase("Cautation", baseFontNormal));
+            PdfPCell pdfCell4 = new PdfPCell(new Phrase("Cautation", baseFontNormal))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
 
-            pdfCell4.HorizontalAlignment = Element.ALIGN_CENTER;
+                VerticalAlignment = Element.ALIGN_TOP,
 
-            pdfCell4.VerticalAlignment = Element.ALIGN_TOP;
+                Colspan = 3,
 
-            pdfCell4.Colspan = 3;
-
-            pdfCell4.Border = 0;
+                Border = 0
+            };
 
             pdfTab.AddCell(pdfCell4);
 

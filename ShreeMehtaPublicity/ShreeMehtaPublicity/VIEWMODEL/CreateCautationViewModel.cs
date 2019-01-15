@@ -171,7 +171,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                     draft_seq_no = Int32.Parse(output);
                     CautationConfirmed = true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     StatusString = "Failed to Create Cautation, Please create cautation again";
                     ForegroundColor = System.Windows.Media.Brushes.Red;
@@ -233,7 +233,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         private void Send()
         {
             Save("1");
-            if (validateSave())
+            if (ValidateSave())
             {
                 Mail mail = new Mail();
 
@@ -282,7 +282,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                         }*/
         }
 
-        private bool validateSave()
+        private bool ValidateSave()
         {
             if (!StatusString.Equals("Cautation Saved Successfully"))
             {
@@ -336,10 +336,10 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         {
             get
             {
-                return newClientSelectedCommand ?? (newClientSelectedCommand = new RelayCommand(param => this.newClientSelected()));
+                return newClientSelectedCommand ?? (newClientSelectedCommand = new RelayCommand(param => this.NewClientSelected()));
             }
         }
-        private void newClientSelected()
+        private void NewClientSelected()
         {
             if (ListofSelectedClients.IndexOf(SelectedClient) <= -1)
                 if(SelectedClient != null)
@@ -355,10 +355,10 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         {
             get
             {
-                return deleteCautationClientCommand ?? (deleteCautationClientCommand = new RelayCommand(param => this.deleteCautationClient()));
+                return deleteCautationClientCommand ?? (deleteCautationClientCommand = new RelayCommand(param => this.DeleteCautationClient()));
             }
         }
-        private void deleteCautationClient()
+        private void DeleteCautationClient()
         {
             if(SelectedCautationClient != null)
                 if (ListofSelectedClients.IndexOf(SelectedCautationClient) > -1)

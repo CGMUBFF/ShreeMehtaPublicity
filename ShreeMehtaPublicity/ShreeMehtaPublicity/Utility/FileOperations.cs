@@ -75,7 +75,7 @@ namespace ShreeMehtaPublicity.Utility
 
         public static void createCautationPDFFile(ObservableCollection<SiteCautationModel> ListofSelectedCautation, string FileName)
         {
-            new PDFUtil().createCautationPDFFile(ListofSelectedCautation, FileName);
+            new PDFUtil().CreateCautationPDFFile(ListofSelectedCautation, FileName);
         }
     }
 }

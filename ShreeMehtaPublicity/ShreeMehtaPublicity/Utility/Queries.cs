@@ -41,7 +41,7 @@ namespace ShreeMehtaPublicity.Utility
         public string getCautationSiteDetails = "SELECT SITE_SEQ, SITE_NAME, SITE_STATUS, SITE_ADDRESS, SITE_HEIGHT, SITE_WIDTH, CAUTATION_SITE_AMOUNT, SITE_IMAGE FROM SITE_MASTER, CAUTATION_SITE WHERE SITE_SEQ_NO = SITE_SEQ AND CAUTATION_SEQ_NO = ? ORDER BY SITE_SEQ";
         public string getCautationClientDetails = "SELECT CLIENT_SEQ, CLIENT_NAME, CLIENT_STATUS, CLIENT_LANDLINE, CLIENT_MOBILE, CLIENT_MAIL, CLIENT_GST, CLIENT_ADDRESS, CLIENT_BRANCH FROM CLIENT_MASTER, CAUTATION_CLIENT WHERE CLIENT_SEQ_NO = CLIENT_SEQ AND CAUTATION_SEQ_NO = ? ORDER BY CLIENT_NAME";
         
-        public string buildQuery(string query, params object[] parameters)
+        public string BuildQuery(string query, params object[] parameters)
         {
             if (parameters.Count() > 0)
             {

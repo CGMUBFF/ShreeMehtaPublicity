@@ -25,7 +25,7 @@ namespace ShreeMehtaPublicity.Utility
         private Database()
         {
             queries = new Queries();
-            dBOpertions = DBOperations.getInstance(queries);
+            dBOpertions = DBOperations.GetInstance(queries);
         }
  
         private int db_GetSeqNo(string seq_id)

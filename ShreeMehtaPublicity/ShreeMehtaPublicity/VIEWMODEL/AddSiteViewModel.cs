@@ -165,20 +165,20 @@ namespace ShreeMehtaPublicity.VIEWMODEL
         {
             get
             {
-                return saveSiteCommand ?? (saveSiteCommand = new RelayCommand(param => this.saveSite()));
+                return saveSiteCommand ?? (saveSiteCommand = new RelayCommand(param => this.SaveSite()));
             }
         }
-        private void saveSite()
+        private void SaveSite()
         {
             switch (action)
             {
-                case "ADD": { addSite(); break; }
-                case "MDFY": { mdfySite(); break; }
+                case "ADD": { AddSite(); break; }
+                case "MDFY": { MdfySite(); break; }
             }
         }
-        private void addSite()
+        private void AddSite()
         {
-            if (validation())
+            if (Validation())
             {
                 string output = db.db_AddNewSite(_siteName, _siteAddress, _siteHeight, _siteWidth, _siteAmount, _siteImage);
                 if (output.Equals(Status.SUCC))
@@ -200,9 +200,9 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             }
         }
 
-        private void mdfySite()
+        private void MdfySite()
         {
-            if (validation())
+            if (Validation())
             {
                 string output = db.db_MdfySite(siteModel, _siteName, _siteAddress, _siteHeight, _siteWidth, _siteAmount, _siteImage);
                 if (output.Equals(Status.SUCC))
@@ -224,7 +224,7 @@ namespace ShreeMehtaPublicity.VIEWMODEL
             }
         }
 
-        private bool validation()
+        private bool Validation()
         {
             if (CustomValidation.validateString(_siteName))
             {
