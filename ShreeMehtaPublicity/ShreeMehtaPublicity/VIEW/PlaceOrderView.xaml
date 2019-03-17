@@ -7,10 +7,10 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         SizeToContent="WidthAndHeight"
         Name="PlaceOrderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" ShowInTaskbar="False"
-             FocusManager.FocusedElement="{Binding ElementName=CloseButton}"
-             TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
-             TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}" BorderBrush="{x:Null}" BorderThickness="0">
+        FocusManager.FocusedElement="{Binding ElementName=CloseButton}"
+        TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
+        TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" BorderBrush="{x:Null}" BorderThickness="0">
 
     <Window.Resources>
         <utility:AmountValidator x:Key="AmountValidator"/>
@@ -20,9 +20,9 @@
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
     </Window.InputBindings>
 
-    <StackPanel Orientation="Horizontal" Background="Transparent">
+    <StackPanel Orientation="Horizontal" Background="Transparent"  MinHeight="200" MaxHeight="500">
         <Border BorderBrush="{StaticResource WindowTitleColorBrush}" BorderThickness="3" Name="AddOrderForm">
-            <Grid MinHeight="200" MaxHeight="500" MinWidth="750" MaxWidth="800">
+            <Grid MinWidth="750" MaxWidth="800">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
@@ -93,13 +93,13 @@
                         </Grid>
 
                         <GroupBox Grid.Row="4" Header="Costing :" Margin="0 10 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{StaticResource AddFieldGroupBox}" HeaderTemplate="{StaticResource AddFieldGroupHeader}">
-                            <Grid Margin="0,10,0,5">
+                            <Grid Margin="10,10,0,5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="Charges" Grid.Column="0" Text="{Binding Charges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Costing (Rs.)" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" IsEnabled="{Binding AmountEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TabIndex="4" Margin="10,0"/>
+                                <TextBox x:Name="Charges" Grid.Column="0" Text="{Binding Charges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Costing (Rs.)" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" IsEnabled="{Binding AmountEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TabIndex="4"/>
                                 <TextBox x:Name="Printing" Grid.Column="1" Text="{Binding Printing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Printing Charges (Rs.)" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" IsEnabled="{Binding AmountEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TabIndex="5"/>
                                 <TextBox x:Name="Mounting" Grid.Column="2" Text="{Binding Mounting, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Mounting (Rs.)" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" IsEnabled="{Binding AmountEnable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TabIndex="6"/>
                             </Grid>

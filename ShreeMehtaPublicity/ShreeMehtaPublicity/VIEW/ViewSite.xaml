@@ -107,7 +107,7 @@
                             <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
                                 <TextBlock Text="{Binding Path=SiteSeqNum, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}" VerticalAlignment="Center"/>
                                 <TextBlock Text=":" Margin="5 0 5 0" Style="{StaticResource ListTextBlockStyle}" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding Path=SiteName, Mode=OneWay}" Style="{StaticResource ListTextBlockStyle}" Foreground="{StaticResource WindowTitleColorBrush}" FontWeight="Bold" FontSize="15"/>
+                                <TextBlock Text="{Binding Path=SiteName, Mode=OneWay}" Style="{StaticResource BoldListTextBlockStyle}"/>
                             </StackPanel>
                             
                             <StackPanel Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal">

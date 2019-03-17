@@ -255,31 +255,6 @@ namespace ShreeMehtaPublicity.VIEWMODEL
                 }
                 StatusStringFlag = Visibility.Visible;
             }
-            /*
-                        if (output.Equals(Status.SUCC))
-                        {
-                            var messageBoxResult = CustomMessageBox.Show(output, "Order Canceled Successfully", MessageBoxButton.OK);
-                            if (messageBoxResult == MessageBoxResult.OK)
-                            {
-                                parent.Close();
-                            }
-                        }
-                        else if (output.Equals(Status.ERR))
-                        {
-                            var messageBoxResult = CustomMessageBox.Show(output, "Failed to Cancel Order", MessageBoxButton.OK);
-                            if (messageBoxResult == MessageBoxResult.OK)
-                            {
-                                //parent.Close();
-                            }
-                        }
-                        else
-                        {
-                            var messageBoxResult = CustomMessageBox.Show(Status.ERR, output, MessageBoxButton.OK);
-                            if (messageBoxResult == MessageBoxResult.OK)
-                            {
-                                //parent.Close();
-                            }
-                        }*/
         }
 
         private bool ValidateSave()

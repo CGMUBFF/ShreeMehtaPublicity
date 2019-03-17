@@ -1,13 +1,12 @@
 ﻿<UserControl x:Class="ShreeMehtaPublicity.VIEW.SiteCautationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768"
-	         xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
              Focusable="False" IsTabStop="False" Background="Transparent"
              TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal" TextElement.FontSize="13" TextElement.FontWeight="Regular" 
              FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
@@ -20,7 +19,7 @@
         <utility:CautationVisibilityConvertor x:Key="CautationVisible"/>
     </UserControl.Resources>
 
-    <Grid Margin="0 10 0 0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="AUTO"/>
@@ -111,14 +110,14 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <!--<Button x:Name="ResetCautation" Grid.Row="1" Content="Reset Selection" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsTabStop="False" Command="{Binding ResetCautationCommand}" Visibility="{Binding ElementName=CautationFlag, Path=IsChecked, Converter={StaticResource CautationVisible}}"/>-->
-                                <Button x:Name="Cautation" Grid.Row="0" Content="Create Cautation" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsTabStop="False" IsEnabled="{Binding ListofSelectedCautationSites.Count, Converter={StaticResource NoListEnable}}" Visibility="{Binding ListofCautationSites.Count, Converter={StaticResource CautationVisible}, UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 0" Click="createCautation_Click"/>
+                                <Button x:Name="History" Grid.Row="0" Content="History" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsTabStop="False" Click="CautationHistory"/>
+                                <Button x:Name="Cautation" Grid.Row="1" Content="Create Cautation" HorizontalAlignment="Stretch" VerticalAlignment="Center" IsTabStop="False" IsEnabled="{Binding ListofSelectedCautationSites.Count, Converter={StaticResource NoListEnable}}" Visibility="{Binding ListofCautationSites.Count, Converter={StaticResource CautationVisible}, UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 0" Click="CreateCautation_Click"/>
                             </Grid>
                         </Border>
                     </Grid>
                 </Border>
 
-                <ListView Name="CautationList" Grid.Column="1" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding ListofCautationSites, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCautationSite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ListViewItemStyle}" Background="White">
+                <ListView Name="CautationList" Grid.Column="1" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding ListofCautationSites, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCautationSite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn>

@@ -68,11 +68,16 @@ namespace ShreeMehtaPublicity.VIEW
             siteCautationViewModel.allCautationSiteChecked((bool)((CheckBox)sender).IsChecked);
         }
 
-        private void createCautation_Click(object sender, RoutedEventArgs e)
+        private void CreateCautation_Click(object sender, RoutedEventArgs e)
         {
             createCautationView = new CreateCautationView(this, siteCautationViewModel.ListofSelectedCautationSites);
             createCautationView.Owner = parent;
             createCautationView.Show();
+        }
+
+        private void CautationHistory(object sender, RoutedEventArgs e)
+        {
+            parent.menuItem_grid.Children.Add(new CautationHistory());
         }
     }
 }

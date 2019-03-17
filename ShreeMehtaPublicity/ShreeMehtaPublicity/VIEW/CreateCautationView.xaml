@@ -6,9 +6,9 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         SizeToContent="WidthAndHeight" WindowStyle="None"
         Name="CreateCautationWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Closing="CreateCautationView_Closing"
-             FocusManager.FocusedElement="{Binding ElementName=CloseButton}" TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
-             TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="White" BorderBrush="{StaticResource WindowTitleColorBrush}" BorderThickness="3">
+        FocusManager.FocusedElement="{Binding ElementName=CloseButton}" TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
+        TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="White" BorderBrush="{StaticResource WindowTitleColorBrush}" BorderThickness="3">
 
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
@@ -94,7 +94,7 @@
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding ClientName}" MaxWidth="200" Margin="5 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                         <Button x:Name="delete" VerticalContentAlignment="Center" Margin="8 0 5 0" Style="{StaticResource ListButtonStyle}" IsTabStop="False" Width="20" Height="20" Command="{Binding Path=DataContext.DeleteCautationClientCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}">
-                                            <material:PackIcon Kind="DeleteCircle" Foreground="LightGray" Style="{StaticResource ListButtonIconStle}" IsEnabled="True" Width="20" Height="20"/>
+                                            <material:PackIcon Kind="DeleteCircle" Style="{StaticResource ListButtonIconStle}" IsEnabled="True" Width="20" Height="20"/>
                                         </Button>
                                     </StackPanel>
                                 </material:Card>

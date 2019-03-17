@@ -21,6 +21,7 @@
         <SolidColorBrush x:Key="AccentColorBrush3" Color="{DynamicResource Primary300}"/>
         <SolidColorBrush x:Key="AccentColorBrush4" Color="{DynamicResource Primary200}"/>
         <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{DynamicResource Primary700}"/>
+        <SolidColorBrush x:Key="WindowTitleColorBrushDark" Color="{DynamicResource Primary800}"/>
         <SolidColorBrush x:Key="AccentSelectedColorBrush" Color="{DynamicResource Primary500Foreground}"/>
         <LinearGradientBrush x:Key="ProgressBrush" EndPoint="0.001,0.5" StartPoint="1.002,0.5">
             <GradientStop Color="{DynamicResource Primary700}" Offset="0"/>
@@ -62,7 +63,7 @@
         <Setter Property="Background" Value="{x:Null}"/>
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Margin" Value="0 0 10 0"/>
+        <Setter Property="Margin" Value="0 10 10 0"/>
     </Style>
 
     <Style TargetType="{x:Type ListViewItem}" x:Key="ListViewItemStyle">
@@ -79,8 +80,13 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Padding" Value="5,8,0,8"/>
         <Setter Property="FontSize" Value="13"/>
-        <Setter Property="TextTrimming" Value="WordEllipsis"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="BoldListTextBlockStyle" BasedOn="{StaticResource ListTextBlockStyle}">
+        <Setter Property="Foreground" Value="{StaticResource WindowTitleColorBrush}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="15"/>
     </Style>
     
     <Style TargetType="{x:Type Button}" x:Key="ListButtonStyle">
@@ -138,7 +144,7 @@
         <Setter Property="BorderBrush" Value="LightGray"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
-    
+
     <DataTemplate x:Key="ListViewItemData">
         <TextBlock Text="{Binding}" Style="{StaticResource ListTextBlockStyle}"/>
     </DataTemplate>
@@ -196,6 +202,7 @@
     <Style TargetType="{x:Type Border}" x:Key="FilterBorder">
         <Setter Property="BorderThickness" Value="0 0 2 0"/>
         <Setter Property="BorderBrush" Value="{StaticResource WindowTitleColorBrush}"/>
+        <Setter Property="Background" Value="{x:Null}"/>
     </Style>
     
     <Style TargetType="{x:Type GroupBox}" x:Key="FilterAvailSite">
@@ -264,8 +271,9 @@
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FontSize" Value="11"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Margin" Value="0 3 0 0"/>
     </Style>
     
     <Style TargetType="{x:Type Button}" x:Key="ContactPersonButton">
@@ -285,6 +293,34 @@
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Margin" Value="10 0 10 0"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="ContactPersonListButtonStyle">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style TargetType="material:PackIcon" x:Key="ContactPersonListButtonIconStle">
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="true">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{StaticResource RightArrowFill}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter Property="Background" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <!--#endregion-->
     
@@ -312,6 +348,32 @@
         <Setter Property="Foreground" Value="Black"/>
     </Style>
 
+    <Style TargetType="{x:Type Button}" x:Key="MessageYes" BasedOn="{StaticResource MessageBoxButton}" >
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="#FF009688"/>
+        <Setter Property="material:ShadowAssist.ShadowDepth" Value="Depth0"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#FF009688"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="MessageNo" BasedOn="{StaticResource MessageBoxButton}" >
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="material:ShadowAssist.ShadowDepth" Value="Depth0"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#FF009688"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
     <Style TargetType="{x:Type TextBlock}" x:Key="Message">
         <Setter Property="Margin" Value="20,0,0,0"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -323,12 +385,12 @@
     <Style TargetType="{x:Type Grid}" x:Key="MessageGrid">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
-        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Background" Value="{StaticResource WindowTitleColorBrushDark}"/>
+        <Setter Property="Margin" Value="0 5 0 0"/>
     </Style>
     <!--#endregion-->
 
     <!-- Fill Brushes -->
-
     <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientBrush.GradientStops>
             <GradientStopCollection>

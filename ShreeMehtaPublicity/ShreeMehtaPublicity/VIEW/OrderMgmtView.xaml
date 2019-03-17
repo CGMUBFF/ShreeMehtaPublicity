@@ -1,13 +1,12 @@
 ﻿<UserControl x:Class="ShreeMehtaPublicity.VIEW.OrderMgmtView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768"
-	     xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
              Name="OrderMgmtWindow" Focusable="False" IsTabStop="False" Background="Transparent"
              TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal" TextElement.FontSize="13" TextElement.FontWeight="Regular" 
              FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}" >
@@ -19,8 +18,7 @@
         <utility:AmountValidator x:Key="AmountValidator"/>
     </UserControl.Resources>
 
-    
-    <Grid Margin="0 10 0 0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="AUTO"/>
@@ -52,7 +50,7 @@
                                 <RowDefinition Height="AUTO"/>
                             </Grid.RowDefinitions>
 
-                            <ComboBox Grid.Row="0" x:Name="SiteList" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding Sites, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedSite , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="SiteName" IsTextSearchEnabled="True"  material:HintAssist.Hint="Site Name" material:HintAssist.IsFloating="True" Margin="7,0,8,2" TabIndex="0"/>
+                            <ComboBox Grid.Row="0" x:Name="SiteList" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding Sites, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedSite , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="SiteName" IsTextSearchEnabled="True"  material:HintAssist.Hint="Site Name" material:HintAssist.IsFloating="True" TabIndex="0"/>
 
                             <ComboBox Grid.Row="1" x:Name="ClientList" Style="{StaticResource FilterComboBox}" ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedClient , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="ClientName" IsTextSearchEnabled="True"  material:HintAssist.Hint="Client Name" material:HintAssist.IsFloating="True" TabIndex="1"/>
 
@@ -113,8 +111,8 @@
                             <GridViewColumn Width="150" Header="Start Date" DisplayMemberBinding="{Binding Path=OrderStartDate, Mode=OneWay, StringFormat=dd - MMM - yyyy}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
                             <GridViewColumn Width="150" Header="End Date" DisplayMemberBinding="{Binding Path=OrderEndDate, Mode=OneWay, StringFormat=dd - MMM - yyyy}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
                             <GridViewColumn Width="150" Header="Status" DisplayMemberBinding="{Binding Path=OrderStatus, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
-                            <GridViewColumn Width="150" Header="Site Height" DisplayMemberBinding="{Binding Path=OrderSite.SiteHeight, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
-                            <GridViewColumn Width="150" Header="Site Width" DisplayMemberBinding="{Binding Path=OrderSite.SiteWidth, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                            <!--<GridViewColumn Width="150" Header="Site Height" DisplayMemberBinding="{Binding Path=OrderSite.SiteHeight, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>
+                            <GridViewColumn Width="150" Header="Site Width" DisplayMemberBinding="{Binding Path=OrderSite.SiteWidth, Mode=OneWay}" CellTemplate="{StaticResource ListViewItemData}" HeaderTemplate="{StaticResource ListViewColumnHeader}"/>-->
                             <GridViewColumn Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -136,7 +134,7 @@
                             <GridViewColumn Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="View" Style="{StaticResource ListButtonStyle}" ToolTip="View" ToolTipService.ShowDuration="1500" IsTabStop="False">
+                                        <Button x:Name="View" Click="View_Order" Style="{StaticResource ListButtonStyle}" ToolTip="View" ToolTipService.ShowDuration="1500" IsTabStop="False">
                                             <material:PackIcon Kind="Eye" Style="{StaticResource ListButtonIconStle}" IsEnabled="True"/>
                                         </Button>
                                     </DataTemplate>

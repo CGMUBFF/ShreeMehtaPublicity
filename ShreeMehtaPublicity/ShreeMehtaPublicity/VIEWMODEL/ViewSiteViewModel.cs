@@ -346,6 +346,8 @@ namespace ShreeMehtaPublicity.VIEWMODEL
 
         #region StartDateChanged Command
         private RelayCommand startDateChangedCommand;
+        private OrderModel selectedOrder;
+
         public ICommand StartDateChangedCommand
         {
             get

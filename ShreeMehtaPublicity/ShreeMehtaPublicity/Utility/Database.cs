@@ -200,7 +200,7 @@ namespace ShreeMehtaPublicity.Utility
                                                 SiteAmount = Convert.ToString(dr["SITE_AMOUNT"]),
                                                 SiteHeight = Convert.ToString(dr["SITE_HEIGHT"]),
                                                 SiteWidth = Convert.ToString(dr["SITE_WIDTH"]),
-                                                SiteStatus = Convert.ToString(dr["SITE_STATUS"]),
+                                                SiteStatus = StaticMaster.convertSiteStatusToString(Convert.ToString(dr["SITE_STATUS"])),
                                                 SiteImage = Convert.ToString(dr["SITE_IMAGE"])},
                     OrderClient = new ClientModel { ClientSeqNum = Convert.ToInt32(dr["CLIENT_SEQ_NO"]), 
                                                     ClientName = Convert.ToString(dr["CLIENT_NAME"]),
@@ -210,7 +210,7 @@ namespace ShreeMehtaPublicity.Utility
                                                     ClientLandline = Convert.ToString(dr["CLIENT_LANDLINE"]),
                                                     ClientMail = Convert.ToString(dr["CLIENT_MAIL"]),
                                                     ClientMobile = Convert.ToString(dr["CLIENT_MOBILE"]),
-                                                    ClientStatus = Convert.ToString(dr["CLIENT_STATUS"])},
+                                                    ClientStatus = StaticMaster.convertClientStatusToString(Convert.ToString(dr["CLIENT_STATUS"]))},
                     OrderStatus = StaticMaster.convertOrderStatusToString(Convert.ToString(dr["STATUS"]))
                 }
             ));

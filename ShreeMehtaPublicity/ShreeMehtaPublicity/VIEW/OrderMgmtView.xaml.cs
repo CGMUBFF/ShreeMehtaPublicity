@@ -52,6 +52,11 @@ namespace ShreeMehtaPublicity.VIEW
         {
             cncl();
         }
+        
+        private void View_Order(object sender, RoutedEventArgs e)
+        {
+            view();
+        }
 
         private void OrderMgmtWindow_Closing(object sender, RoutedEventArgs e)
         {
@@ -77,6 +82,11 @@ namespace ShreeMehtaPublicity.VIEW
             cnclOrderView = new PlaceOrderView("CNCL", orderMgmtViewModel.SelectedOrder, this);
             cnclOrderView.Owner = parent;
             cnclOrderView.Show();
+        }
+
+        private void view()
+        {
+            parent.menuItem_grid.Children.Add(new ViewOrder(parent,orderMgmtViewModel.SelectedOrder));
         }
 
         private void clos()

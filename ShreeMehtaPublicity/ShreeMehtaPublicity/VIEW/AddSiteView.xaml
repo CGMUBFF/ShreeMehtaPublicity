@@ -5,9 +5,9 @@
         xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
         SizeToContent="WidthAndHeight" WindowStyle="None"
         Name="AddSiteWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Closing="AddSiteWindow_Closing"
-             FocusManager.FocusedElement="{Binding ElementName=CloseButton}" TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
-             TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="White" BorderBrush="{StaticResource WindowTitleColorBrush}" BorderThickness="3">
+        FocusManager.FocusedElement="{Binding ElementName=CloseButton}" TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal"
+        TextElement.FontSize="13" TextElement.FontWeight="Regular" FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="White" BorderBrush="{StaticResource WindowTitleColorBrush}" BorderThickness="3">
 
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
@@ -71,7 +71,7 @@
 
                     <TextBox x:Name="SiteAmount" Grid.Row="2" Text="{Binding SiteAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource AmountValidator}}" material:HintAssist.Hint="Site Amount(Rs)" material:HintAssist.IsFloating="True" Style="{StaticResource AddFieldTextBox}" TabIndex="3"/>
 
-                    <TextBox x:Name="SiteAddress" Grid.Row="3" VerticalAlignment="Top" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Address" material:HintAssist.IsFloating="True"  MinLines="2" MaxLines="2" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource AddFieldTextBox}" TabIndex="4"/>
+                    <TextBox x:Name="SiteAddress" Grid.Row="3" VerticalAlignment="Top" VerticalContentAlignment="Top" Text="{Binding SiteAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" material:HintAssist.Hint="Site Address" material:HintAssist.IsFloating="True"  MinLines="2" MaxLines="2" TextWrapping="Wrap" AcceptsReturn="True" Style="{StaticResource AddFieldTextBox}" TabIndex="4"/>
                 </Grid>
             </Grid>
         </StackPanel>

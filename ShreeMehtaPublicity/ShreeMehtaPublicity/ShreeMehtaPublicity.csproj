@@ -209,12 +209,16 @@
     <Compile Include="VIEWMODEL\TodayTomorrowSiteViewModel.cs" />
     <Compile Include="VIEWMODEL\ViewClientViewModel.cs" />
     <Compile Include="VIEWMODEL\ViewModelBase.cs" />
+    <Compile Include="VIEWMODEL\ViewOrderViewModel.cs" />
     <Compile Include="VIEWMODEL\ViewSiteViewModel.cs" />
     <Compile Include="VIEW\AddClientView.xaml.cs">
       <DependentUpon>AddClientView.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEW\AddSiteView.xaml.cs">
       <DependentUpon>AddSiteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEW\CautationHistory.xaml.cs">
+      <DependentUpon>CautationHistory.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEW\ClientMgmtView.xaml.cs">
       <DependentUpon>ClientMgmtView.xaml</DependentUpon>
@@ -248,6 +252,9 @@
     </Compile>
     <Compile Include="VIEW\ViewClient.xaml.cs">
       <DependentUpon>ViewClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEW\ViewOrder.xaml.cs">
+      <DependentUpon>ViewOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEW\ViewSite.xaml.cs">
       <DependentUpon>ViewSite.xaml</DependentUpon>
@@ -299,6 +306,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="VIEW\CautationHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEW\ClientMgmtView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -342,6 +353,10 @@
     <Page Include="VIEW\ViewClient.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VIEW\ViewOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VIEW\ViewSite.xaml">
       <Generator>MSBuild:Compile</Generator>

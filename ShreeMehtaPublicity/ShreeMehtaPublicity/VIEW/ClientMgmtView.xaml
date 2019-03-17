@@ -1,13 +1,11 @@
 ﻿<UserControl x:Class="ShreeMehtaPublicity.VIEW.ClientMgmtView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-	     xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:utility="clr-namespace:ShreeMehtaPublicity.Utility"
+             mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768"
              Name="ClientMgmtWindow" Focusable="False" IsTabStop="False" Background="Transparent"
              TextOptions.TextRenderingMode="Auto" TextOptions.TextFormattingMode="Ideal" TextElement.FontSize="13" TextElement.FontWeight="Regular" 
              FontFamily="{DynamicResource MaterialDesignFont}" TextElement.Foreground="{DynamicResource MaterialDesignBody}">
@@ -17,7 +15,7 @@
         <utility:NoListVisibilityConvertor x:Key="NoListVisible"/>
     </UserControl.Resources>
 
-    <Grid Margin="0 10 0 0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="AUTO"/>
